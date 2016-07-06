@@ -25,16 +25,16 @@ Send email across all platforms using one interface.
   - [Postmark](#postmark)
   - [Sendgrid](#sendgrid)
   - [SendinBlue](#sendinblue)
-4. Email
-  - To
-  - From
-  - CC
-  - BCC
-  - Reply to
-  - Subject
-  - Text Body
-  - HTML Body
-  - Attachements
+4. [Email](#email)
+  - [To](#email-to)
+  - [From](#email-from)
+  - [CC](#email-cc)
+  - [BCC](#email-bcc)
+  - [Reply to](#email-reply-to)
+  - [Subject](#email-subject)
+  - [Text Body](#email-text-body)
+  - [HTML Body](#email-html-body)
+  - [Attachments](#email-attachments)
 5. Exceptions
 6. Logging
 7. [License](#license-section)
@@ -251,6 +251,128 @@ $email = (new Email())
     ->setTextBody('Hello World!\n\nHow are you?');
 
 $sender->send($email);
+```
+
+<a name="email"></a>
+## Email
+
+An `Email` object implements the `EmailInterface`  inteface. You can create your own `Email` class and send it to any
+sender if it implements the `EmailInterface` inteface.
+
+<a name="email-to"></a>
+### To
+
+The `To` property of the email is for defining the recipients of the email. You can set multiple recipients.
+
+```php
+$email = new Email();
+$email->addTo('recipent1@email.com', 'Recipient1 Name');
+$email->addTo('recipent2@email.com', 'Recipient2 Name');
+```
+
+<a name="email-from"></a>
+### From
+
+The `From` property of the email is for defining the sender of the email.
+
+```php
+$email = new Email();
+$email->setFrom('sender@email.com', 'Sender Name');
+```
+
+<a name="email-cc"></a>
+### CC
+
+Like the `To` property, the `CC` property can have multiple recipients.
+
+```php
+$email = new Email();
+$email->addCc('recipent1@email.com', 'Recipient1 Name');
+$email->addCc('recipent2@email.com', 'Recipient2 Name');
+```
+
+<a name="email-bcc"></a>
+### BCC
+
+Like the `To` property, the `BCC` property can have multiple recipients.
+
+```php
+$email = new Email();
+$email->addBcc('recipent1@email.com', 'Recipient1 Name');
+$email->addBcc('recipent2@email.com', 'Recipient2 Name');
+```
+
+<a name="email-reply-to"></a>
+### Reply To
+
+The `Reply To` property of the email is for defining the email that should receive responses.
+
+```php
+$email = new Email();
+$email->setReplyTo('sender@email.com', 'Sender Name');
+```
+
+<a name="email-subject"></a>
+### Subject
+
+The `Subject` property of the email is for defining the subject of the email.
+
+```php
+$email = new Email();
+$email->setSubject('Hello, World!');
+```
+
+<a name="email-text-body"></a>
+### Text Body
+
+The `Text Body` property of the email is for defining the text body of the email.
+
+```php
+$email = new Email();
+$email->setTextBody('This is plain text.');
+```
+<a name="email-html-body"></a>
+### HTML Body
+
+The `HTML Body` property of the email is for defining the HTML body of the email.
+
+```php
+$email = new Email();
+$email->setHtmlBody('<h1>Hi!</h1><p>This is HTML!</p>');
+```
+
+<a name="email-attachments"></a>
+### Attachments
+
+The `Attachments` property of the email is for joining attachments to the email.
+
+#### Example using string as content
+
+```php
+use Omnimail\Email;
+use Omnimail\Attachment;
+
+$attachment = new Attachment();
+$attachment->setName('my_file.txt');
+$attachment->setMimeType('text/plain');
+$attachment->setContent('This is plain text');
+
+$email = new Email();
+$email->addAttachement($attachment);
+```
+
+#### Example using file path as content
+
+```php
+use Omnimail\Email;
+use Omnimail\Attachment;
+
+$attachment = new Attachment();
+$attachment->setMimeType('text/plain');
+$attachment->setPath(__DIR__ . '/my_file.txt');
+
+$email = new Email();
+$email->addAttachement($attachment);
 ```
 
 <a name="license-section"></a>

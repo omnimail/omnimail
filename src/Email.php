@@ -22,17 +22,17 @@ class Email implements EmailInterface
     /**
      * @var array
      */
+    protected $replyTo = [];
+
+    /**
+     * @var array
+     */
     protected $attachements = [];
 
     /**
-     * @var string
+     * @var array
      */
-    protected $fromName;
-
-    /**
-     * @var string
-     */
-    protected $fromEmail;
+    protected $from;
 
     /**
      * @var string
@@ -42,59 +42,65 @@ class Email implements EmailInterface
     /**
      * @var string
      */
-    protected $body;
+    protected $textBody;
+
+    /**
+     * @var string
+     */
+    protected $htmlBody;
 
     /**
      * @return string
      */
-    public function getBody()
+    public function getTextBody()
     {
-        return $this->body;
+        return $this->textBody;
     }
 
     /**
-     * @param string $body
+     * @param string $textBody
      * @return $this
      */
-    public function setBody($body)
+    public function setTextBody($textBody)
     {
-        $this->body = $body;
+        $this->textBody = $textBody;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getFromEmail()
+    public function getHtmlBody()
     {
-        return $this->fromEmail;
+        return $this->textBody;
     }
 
     /**
-     * @param string $fromEmail
+     * @param string $htmlBody
      * @return $this
      */
-    public function setFromEmail($fromEmail)
+    public function setHtmlBody($htmlBody)
     {
-        $this->fromEmail = $fromEmail;
+        $this->htmlBody = $htmlBody;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getFromName()
+    public function getFrom()
     {
-        return $this->fromName;
+        return $this->from;
     }
 
     /**
-     * @param string $fromName
+     * @param string $email
+     * @param string|null $name
      * @return $this
      */
-    public function setFromName($fromName)
+    public function setFrom($email, $name = null)
     {
-        $this->fromName = $fromName;
+        $this->from = ['email' => $email, 'name' => $name];
         return $this;
     }
 
@@ -119,17 +125,17 @@ class Email implements EmailInterface
     /**
      * @return array
      */
-    public function getTo()
+    public function getTos()
     {
         return $this->to;
     }
 
     /**
      * @param string $email
-     * @param string $name
+     * @param string|null $name
      * @return $this
      */
-    public function addTo($email, $name)
+    public function addTo($email, $name = null)
     {
         $this->to[] = [
             'email' => $email,
@@ -141,17 +147,17 @@ class Email implements EmailInterface
     /**
      * @return array
      */
-    public function getCc()
+    public function getCcs()
     {
         return $this->cc;
     }
 
     /**
      * @param string $email
-     * @param string $name
+     * @param string|null $name
      * @return $this
      */
-    public function addCc($email, $name)
+    public function addCc($email, $name = null)
     {
         $this->cc[] = [
             'email' => $email,
@@ -163,22 +169,66 @@ class Email implements EmailInterface
     /**
      * @return array
      */
-    public function getBcc()
+    public function getBccs()
     {
         return $this->bcc;
     }
 
     /**
      * @param string $email
-     * @param string $name
+     * @param string|null $name
      * @return $this
      */
-    public function addBcc($email, $name)
+    public function addBcc($email, $name = null)
     {
         $this->bcc[] = [
             'email' => $email,
             'name' => $name
         ];
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getReplyTos()
+    {
+        return $this->replyTo;
+    }
+
+    /**
+     * @return array
+     */
+    public function getReplyTo()
+    {
+        return count($this->replyTo) > 0 ? $this->replyTo[0] : [];
+    }
+
+    /**
+     * @param string $email
+     * @param string|null $name
+     * @return $this
+     */
+    public function addReplyTo($email, $name = null)
+    {
+        $this->replyTo[] = [
+            'email' => $email,
+            'name' => $name
+        ];
+        return $this;
+    }
+
+    /**
+     * @param string $email
+     * @param string|null $name
+     * @return $this
+     */
+    public function setReplyTo($email, $name = null)
+    {
+        $this->replyTo = [[
+            'email' => $email,
+            'name' => $name
+        ]];
         return $this;
     }
 
@@ -191,68 +241,12 @@ class Email implements EmailInterface
     }
 
     /**
-     * @param string $name
-     * @param string $content
-     * @param string $mimeType
+     * @param AttachmentInterface $attachment
      * @return $this
      */
-    public function addAttachement($name, $content, $mimeType)
+    public function addAttachement(AttachmentInterface $attachment)
     {
-        $this->attachements[] = [
-            'name' => $name,
-            'content' => $content,
-            'mimeType' => $mimeType
-        ];
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getToEmail()
-    {
-        if (isset($this->to[0]['email'])) {
-            return $this->to[0]['email'];
-        }
-        return null;
-    }
-
-    /**
-     * @param string $toEmail
-     * @return $this
-     */
-    public function setToEmail($toEmail)
-    {
-        $this->to = array_slice($this->to, 0, 1);
-        if (!isset($this->to[0])) {
-            $this->to[0] = [];
-        }
-        $this->to[0]['email'] = $toEmail;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getToName()
-    {
-        if (isset($this->to[0]['name'])) {
-            return $this->to[0]['name'];
-        }
-        return null;
-    }
-
-    /**
-     * @param string $toName
-     * @return $this
-     */
-    public function setToName($toName)
-    {
-        $this->to = array_slice($this->to, 0, 1);
-        if (!isset($this->to[0])) {
-            $this->to[0] = [];
-        }
-        $this->to[0]['name'] = $toName;
+        $this->attachements[] = $attachment;
         return $this;
     }
 }

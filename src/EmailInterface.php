@@ -63,7 +63,7 @@ interface EmailInterface
     /**
      * @return array
      */
-    public function getTo();
+    public function getTos();
 
     /**
      * @param string $email
@@ -78,6 +78,11 @@ interface EmailInterface
     public function getReplyTo();
 
     /**
+     * @return array
+     */
+    public function getReplyTos();
+
+    /**
      * @param string $email
      * @param string|null $name
      * @return $this
@@ -85,9 +90,16 @@ interface EmailInterface
     public function addReplyTo($email, $name = null);
 
     /**
+     * @param string $email
+     * @param string|null $name
+     * @return $this
+     */
+    public function setReplyTo($email, $name = null);
+
+    /**
      * @return array
      */
-    public function getCc();
+    public function getCcs();
 
     /**
      * @param string $email
@@ -99,7 +111,7 @@ interface EmailInterface
     /**
      * @return array
      */
-    public function getBcc();
+    public function getBccs();
 
     /**
      * @param string $email
