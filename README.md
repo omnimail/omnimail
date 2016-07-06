@@ -35,8 +35,8 @@ Send email across all platforms using one interface.
   - [Text Body](#email-text-body)
   - [HTML Body](#email-html-body)
   - [Attachments](#email-attachments)
-5. Exceptions
-6. Logging
+5. [Exceptions](#exceptions)
+6. [Logging](#logging)
 7. [License](#license-section)
 
 <a name="requirements"></a>
@@ -373,6 +373,63 @@ $attachment->setPath(__DIR__ . '/my_file.txt');
 
 $email = new Email();
 $email->addAttachement($attachment);
+```
+
+<a name="exceptions"></a>
+## Exceptions
+
+Failures to send emails will throw exceptions. 
+
+__Exceptions__
+
+ * Omnimail\Exception\Exception
+ * Omnimail\Exception\EmailDeliveryException
+ * Omnimail\Exception\InvalidRequestException
+ * Omnimail\Exception\UnauthorizedException
+
+To catch all exception, consider the following.
+
+```php
+try {
+    $sender->send($email);
+} catch (\Omnimail\Exception\Exception $e) {
+    echo 'Something went wrong: ' . $e->getMessage();
+}
+```
+
+To catch specific exceptions, consider the following. 
+
+```php
+try {
+    $sender->send($email);
+} catch (\Omnimail\Exception\UnauthorizedException $e) {
+    echo 'Your credentials must be incorrect';
+} catch (\Omnimail\Exception\InvalidRequestException $e) {
+    echo 'The request is badly formatted, check that all required fields are filled.';
+} catch (\Omnimail\Exception\EmailDeliveryException $e) {
+    echo 'The email did not go out.';
+}
+```
+
+<a name="logging"></a>
+## Logging
+
+All sender constructors take a PSR-3 compatible logger.
+
+Email sent (including the email) are logged at INFO level. Errors (including the email) are reported at the ERROR level.
+
+### Example using Monolog
+
+```php
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Omnimail\Mailgun;
+
+$logger = new Logger('name');
+$logger->pushHandler(new StreamHandler('path/to/your.log', Logger::INFO));
+
+$sender = new Mailgun($apiKey, $domain, $logger);
+$sender->send($email);
 ```
 
 <a name="license-section"></a>
