@@ -24,6 +24,7 @@ Send email across all platforms using one interface.
   - [Mandrill](#mandrill)
   - [Postmark](#postmark)
   - [Sendgrid](#sendgrid)
+  - [SendinBlue](#sendinblue)
 4. Email
   - To
   - From
@@ -214,6 +215,34 @@ use Omnimail\Email;
 use Omnimail\Sendgrid;
 
 $sender = new Sendgrid($apiKey);
+
+$email = (new Email())
+    ->addTo('example@email.com')
+    ->setFrom('example@email.com')
+    ->setSubject('Hello, world!')
+    ->setTextBody('Hello World!\n\nHow are you?');
+
+$sender->send($email);
+```
+
+<a name="sendinblue"></a>
+### SendinBlue
+
+#### Installation
+
+To use the SendinBlue sender class, you will need to install the `mailin-api/mailin-api-php` library using composer.
+
+```
+composer require mailin-api/mailin-api-php
+```
+
+#### Usage
+
+```php
+use Omnimail\Email;
+use Omnimail\SendinBlue;
+
+$sender = new SendinBlue($accessKey);
 
 $email = (new Email())
     ->addTo('example@email.com')
