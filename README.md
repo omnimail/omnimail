@@ -23,6 +23,7 @@ Send email across all platforms using one interface.
   - [Mailjet](#mailjet)
   - [Mandrill](#mandrill)
   - [Postmark](#postmark)
+  - [Sendgrid](#sendgrid)
 4. Email
   - To
   - From
@@ -185,6 +186,34 @@ use Omnimail\Email;
 use Omnimail\Postmark;
 
 $sender = new Postmark($serverApiToken);
+
+$email = (new Email())
+    ->addTo('example@email.com')
+    ->setFrom('example@email.com')
+    ->setSubject('Hello, world!')
+    ->setTextBody('Hello World!\n\nHow are you?');
+
+$sender->send($email);
+```
+
+<a name="sendgrid"></a>
+### Sendgrid
+
+#### Installation
+
+To use the Sendgrid sender class, you will need to install the `sendgrid/sendgrid` library using composer.
+
+```
+composer require sendgrid/sendgrid
+```
+
+#### Usage
+
+```php
+use Omnimail\Email;
+use Omnimail\Sendgrid;
+
+$sender = new Sendgrid($apiKey);
 
 $email = (new Email())
     ->addTo('example@email.com')
