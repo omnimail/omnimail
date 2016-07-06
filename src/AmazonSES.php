@@ -35,19 +35,19 @@ class AmazonSES implements EmailSenderInterface
     public function send(EmailInterface $email)
     {
         $m = new SimpleEmailServiceMessage();
-        $m->addTo($this->mapEmails($email->getTo()));
+        $m->addTo($this->mapEmails($email->getTos()));
         $m->setFrom($this->mapEmail($email->getFrom()));
 
-        if ($email->getReplyTo()) {
-            $m->addReplyTo($this->mapEmails($email->getReplyTo()));
+        if ($email->getReplyTos()) {
+            $m->addReplyTo($this->mapEmails($email->getReplyTos()));
         }
 
-        if ($email->getCc()) {
-            $m->addCC($this->mapEmails($email->getCc()));
+        if ($email->getCcs()) {
+            $m->addCC($this->mapEmails($email->getCcs()));
         }
 
-        if ($email->getBcc()) {
-            $m->addBCC($this->mapEmails($email->getBcc()));
+        if ($email->getBccs()) {
+            $m->addBCC($this->mapEmails($email->getBccs()));
         }
 
         $m->setSubject($email->getSubject());

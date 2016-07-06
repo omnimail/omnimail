@@ -27,11 +27,11 @@ class SendinBlue implements EmailSenderInterface
         $mailin = new Mailin('https://api.sendinblue.com/v2.0', $this->accessKey);
 
         $data = [
-            'to' => $this->mapEmails($email->getTo()),
-            'cc' => $this->mapEmails($email->getCc()),
-            'bcc' => $this->mapEmails($email->getBcc()),
+            'to' => $this->mapEmails($email->getTos()),
+            'cc' => $this->mapEmails($email->getCcs()),
+            'bcc' => $this->mapEmails($email->getBccs()),
             'from' => $this->mapEmail($email->getFrom()),
-            'replyto' => $this->mapEmails($email->getReplyTo()),
+            'replyto' => $this->mapEmails($email->getReplyTos()),
             'subject' => $email->getSubject(),
             'text' => $email->getTextBody(),
             'html' => $email->getHtmlBody(),

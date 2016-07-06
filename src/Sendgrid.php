@@ -46,25 +46,25 @@ class Sendgrid implements EmailSenderInterface
         /** @var Personalization $personalization */
         $personalization = $mail->personalization;
 
-        foreach ($email->getTo() as $recipient) {
+        foreach ($email->getTos() as $recipient) {
             $personalization->addTo($this->mapEmail($recipient));
         }
 
-        if ($email->getReplyTo()) {
-            foreach ($email->getReplyTo() as $recipient) {
+        if ($email->getReplyTos()) {
+            foreach ($email->getReplyTos() as $recipient) {
                 $mail->setReplyTo($this->mapEmail($recipient));
                 break; // only one reply to
             }
         }
 
-        if ($email->getCc()) {
-            foreach ($email->getCc() as $recipient) {
+        if ($email->getCcs()) {
+            foreach ($email->getCcs() as $recipient) {
                 $personalization->addCc($this->mapEmail($recipient));
             }
         }
 
-        if ($email->getBcc()) {
-            foreach ($email->getBcc() as $recipient) {
+        if ($email->getBccs()) {
+            foreach ($email->getBccs() as $recipient) {
                 $personalization->addBcc($this->mapEmail($recipient));
             }
         }

@@ -31,15 +31,15 @@ class Postmark implements EmailSenderInterface
             $client = new PostmarkClient($this->serverApiToken);
             $sendResult = $client->sendEmail(
                 $this->mapEmail($email->getFrom()),
-                $this->mapEmails($email->getTo()),
+                $this->mapEmails($email->getTos()),
                 $email->getSubject(),
                 $email->getHtmlBody(),
                 $email->getTextBody(),
                 null,
                 true,
-                $this->mapEmails($email->getReplyTo()),
-                $this->mapEmails($email->getCc()),
-                $this->mapEmails($email->getBcc()),
+                $this->mapEmails($email->getReplyTos()),
+                $this->mapEmails($email->getCcs()),
+                $this->mapEmails($email->getBccs()),
                 null,
                 $this->mapAttachments($email->getAttachements())
             );

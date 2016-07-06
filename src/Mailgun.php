@@ -37,18 +37,18 @@ class Mailgun implements EmailSenderInterface
             $builder = $this->mailgun->MessageBuilder();
             $builder->setFromAddress($this->mapEmail($email->getFrom()));
 
-            if ($email->getReplyTo()) {
-                $builder->setReplyToAddress($this->mapEmails($email->getReplyTo()));
+            if ($email->getReplyTos()) {
+                $builder->setReplyToAddress($this->mapEmails($email->getReplyTos()));
             }
 
-            if ($email->getCc()) {
-                foreach ($email->getCc() as $recipient) {
+            if ($email->getCcs()) {
+                foreach ($email->getCcs() as $recipient) {
                     $builder->addCcRecipient($this->mapEmail($recipient));
                 }
             }
 
-            if ($email->getBcc()) {
-                foreach ($email->getBcc() as $recipient) {
+            if ($email->getBccs()) {
+                foreach ($email->getBccs() as $recipient) {
                     $builder->addBccRecipient($this->mapEmail($recipient));
                 }
             }

@@ -34,25 +34,25 @@ class Mailjet implements EmailSenderInterface
         $body = [
             'FromEmail' => $from['email'],
             'Subject' => $email->getSubject(),
-            'To' => $this->mapEmails($email->getTo())
+            'To' => $this->mapEmails($email->getTos())
         ];
 
         if (!empty($from['name'])) {
             $body['FromName'] = $from['name'];
         }
 
-        if ($email->getReplyTo()) {
+        if ($email->getReplyTos()) {
             $body['Headers'] = [
-                'Reply-To' => $this->mapEmailsString($email->getReplyTo())
+                'Reply-To' => $this->mapEmailsString($email->getReplyTos())
             ];
         }
 
-        if ($email->getCc()) {
-            $body['Cc'] = $this->mapEmails($email->getCc());
+        if ($email->getCcs()) {
+            $body['Cc'] = $this->mapEmails($email->getCcs());
         }
 
-        if ($email->getBcc()) {
-            $body['Bcc'] = $this->mapEmails($email->getBcc());
+        if ($email->getBccs()) {
+            $body['Bcc'] = $this->mapEmails($email->getBccs());
         }
 
         if ($email->getTextBody()) {

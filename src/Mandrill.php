@@ -35,30 +35,30 @@ class Mandrill implements EmailSenderInterface
             $message = [
                 'subject' => 'example subject',
                 'from_email' => $from['email'],
-                'to' => $this->mapEmails($email->getTo())
+                'to' => $this->mapEmails($email->getTos())
             ];
 
             if (!empty($from['name'])) {
                 $message['from_name'] = $from['name'];
             }
 
-            if ($email->getReplyTo()) {
+            if ($email->getReplyTos()) {
                 $message['headers'] = [
-                    'Reply-To' => $this->mapEmailsString($email->getReplyTo())
+                    'Reply-To' => $this->mapEmailsString($email->getReplyTos())
                 ];
             }
 
-            if ($email->getCc()) {
+            if ($email->getCcs()) {
                 $message['to'] = array_merge(
                     $message['to'],
-                    $this->mapEmails($email->getCc(), 'cc')
+                    $this->mapEmails($email->getCcs(), 'cc')
                 );
             }
 
-            if ($email->getBcc()) {
+            if ($email->getBccs()) {
                 $message['to'] = array_merge(
                     $message['to'],
-                    $this->mapEmails($email->getBcc(), 'bcc')
+                    $this->mapEmails($email->getBccs(), 'bcc')
                 );
             }
 
