@@ -20,7 +20,7 @@ Send email across all platforms using one interface.
 3. [Providers](#providers)
   - [AmazonSES](#amazon-ses)
   - [Mailgun](#mailgun)
-
+  - [Mailjet](#mailjet)
 4. Email
   - To
   - From
@@ -31,8 +31,8 @@ Send email across all platforms using one interface.
   - Text Body
   - HTML Body
   - Attachements
-  
-3. [License](#license-section)
+5. Logging
+6. [License](#license-section)
 
 <a name="requirements"></a>
 ## Requirements
@@ -98,6 +98,34 @@ use Omnimail\Email;
 use Omnimail\Mailgun;
 
 $sender = new Mailgun($apiKey, $domain);
+
+$email = (new Email())
+    ->addTo('example@email.com')
+    ->setFrom('example@email.com')
+    ->setSubject('Hello, world!')
+    ->setTextBody('Hello World!\n\nHow are you?');
+
+$sender->send($email);
+```
+
+<a name="mailjet"></a>
+### Mailjet
+
+#### Installation
+
+To use the Mailjet sender class, you will need to install the `mailjet/mailjet-apiv3-php` library using composer.
+
+```
+composer require mailjet/mailjet-apiv3-php
+```
+
+#### Usage
+
+```php
+use Omnimail\Email;
+use Omnimail\Mailjet;
+
+$sender = new Mailjet($apikey, $apisecret);
 
 $email = (new Email())
     ->addTo('example@email.com')
