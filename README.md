@@ -8,8 +8,8 @@
 [![Latest Stable Version](http://img.shields.io/packagist/v/omnimail/omnimail.svg?style=flat)](https://packagist.org/packages/omnimail/omnimail)
 [![Total Downloads](https://img.shields.io/packagist/dt/omnimail/omnimail.svg?style=flat)](https://packagist.org/packages/omnimail/omnimail)
 [![License](https://img.shields.io/packagist/l/omnimail/omnimail.svg?style=flat)](https://packagist.org/packages/omnimail/omnimail)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/4a9cc9ed-22da-4f03-aa18-9c0c2430c7b6/mini.png)](https://insight.sensiolabs.com/projects/4a9cc9ed-22da-4f03-aa18-9c0c2430c7b6)
-[![Join the chat at https://gitter.im/omnimail/omnimail](https://badges.gitter.im/omnimail/omnimail.svg)](https://gitter.im/omnimail/omnimail?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/3d56cb99-e407-42d6-8245-6ad3b94374ce/mini.png)](https://insight.sensiolabs.com/projects/3d56cb99-e407-42d6-8245-6ad3b94374ce)
+[![Join the chat at https://gitter.im/gabrielbull/omnimail](https://badges.gitter.im/gabrielbull/omnimail.svg)](https://gitter.im/gabrielbull/omnimail?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Send email across all platforms using one interface.
 
