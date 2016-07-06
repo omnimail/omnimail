@@ -109,8 +109,14 @@ class Mandrill implements EmailSenderInterface
                 }
             }
         } catch (Exception $e) {
+            if ($this->logger) {
+                $this->logger->info("Email error: '{$e->getMessage()}'", $email);
+            }
             throw $e;
         } catch (\Mandrill_Error $e) {
+            if ($this->logger) {
+                $this->logger->info("Email error: '{$e->getMessage()}'", $email);
+            }
             throw new InvalidRequestException($e->getMessage(), 601, $e);
         }
     }

@@ -22,6 +22,7 @@ Send email across all platforms using one interface.
   - [Mailgun](#mailgun)
   - [Mailjet](#mailjet)
   - [Mandrill](#mandrill)
+  - [Postmark](#postmark)
 4. Email
   - To
   - From
@@ -32,8 +33,9 @@ Send email across all platforms using one interface.
   - Text Body
   - HTML Body
   - Attachements
-5. Logging
-6. [License](#license-section)
+5. Exceptions
+6. Logging
+7. [License](#license-section)
 
 <a name="requirements"></a>
 ## Requirements
@@ -155,6 +157,34 @@ use Omnimail\Email;
 use Omnimail\Mandrill;
 
 $sender = new Mandrill($apiKey);
+
+$email = (new Email())
+    ->addTo('example@email.com')
+    ->setFrom('example@email.com')
+    ->setSubject('Hello, world!')
+    ->setTextBody('Hello World!\n\nHow are you?');
+
+$sender->send($email);
+```
+
+<a name="postmark"></a>
+### Postmark
+
+#### Installation
+
+To use the Postmark sender class, you will need to install the `wildbit/postmark-php` library using composer.
+
+```
+composer require wildbit/postmark-php
+```
+
+#### Usage
+
+```php
+use Omnimail\Email;
+use Omnimail\Postmark;
+
+$sender = new Postmark($serverApiToken);
 
 $email = (new Email())
     ->addTo('example@email.com')
