@@ -21,6 +21,7 @@ Send email across all platforms using one interface.
   - [AmazonSES](#amazon-ses)
   - [Mailgun](#mailgun)
   - [Mailjet](#mailjet)
+  - [Mandrill](#mandrill)
 4. Email
   - To
   - From
@@ -126,6 +127,34 @@ use Omnimail\Email;
 use Omnimail\Mailjet;
 
 $sender = new Mailjet($apikey, $apisecret);
+
+$email = (new Email())
+    ->addTo('example@email.com')
+    ->setFrom('example@email.com')
+    ->setSubject('Hello, world!')
+    ->setTextBody('Hello World!\n\nHow are you?');
+
+$sender->send($email);
+```
+
+<a name="mandrill"></a>
+### Mandrill
+
+#### Installation
+
+To use the Mandrill sender class, you will need to install the `mandrill/mandrill` library using composer.
+
+```
+composer require mandrill/mandrill
+```
+
+#### Usage
+
+```php
+use Omnimail\Email;
+use Omnimail\Mandrill;
+
+$sender = new Mandrill($apiKey);
 
 $email = (new Email())
     ->addTo('example@email.com')
