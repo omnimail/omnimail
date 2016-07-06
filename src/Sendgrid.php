@@ -5,10 +5,10 @@ namespace Omnimail;
 use Omnimail\Exception\InvalidRequestException;
 use Omnimail\Exception\UnauthorizedException;
 use Psr\Log\LoggerInterface;
-use SendGrid\Email;
+use SendGrid\Email as SendGridEmail;
 use SendGrid\Content;
 use SendGrid\Mail;
-use SendGrid\Attachment;
+use SendGrid\Attachment as SendGridAttachment;
 use SendGrid\Personalization;
 use SendGrid\Response;
 
@@ -71,7 +71,7 @@ class Sendgrid implements EmailSenderInterface
 
         if ($email->getAttachements()) {
             foreach ($email->getAttachements() as $attachement) {
-                $finalAttachment = new Attachment();
+                $finalAttachment = new SendGridAttachment();
                 $finalAttachment->setType($attachement->getMimeType());
                 $finalAttachment->setFilename($attachement->getName());
                 if (!$attachement->getPath() && $attachement->getContent()) {
@@ -113,6 +113,6 @@ class Sendgrid implements EmailSenderInterface
      */
     private function mapEmail($email)
     {
-        return new Email(isset($email['name']) ? $email['name'] : null, $email['email']);
+        return new SendGridEmail(isset($email['name']) ? $email['name'] : null, $email['email']);
     }
 }
