@@ -1,5 +1,7 @@
 # ![Omnimail](https://cdn.rawgit.com/gabrielbull/omnimail/master/omnimail-logo.svg "Omnimail")
 
+[![Join the chat at https://gitter.im/gabrielbull/omnimail](https://badges.gitter.im/gabrielbull/omnimail.svg)](https://gitter.im/gabrielbull/omnimail?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/gabrielbull/omnimail.svg?branch=master)](https://travis-ci.org/gabrielbull/omnimail)
 [![StyleCI](https://styleci.io/repos/12901491/shield)](https://styleci.io/repos/12901491)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gabrielbull/omnimail/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gabrielbull/omnimail/?branch=master)
