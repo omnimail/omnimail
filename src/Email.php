@@ -72,7 +72,7 @@ class Email implements EmailInterface
      */
     public function getHtmlBody()
     {
-        return $this->textBody;
+        return $this->htmlBody;
     }
 
     /**

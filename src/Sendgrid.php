@@ -36,15 +36,12 @@ class Sendgrid implements EmailSenderInterface
             $content = new Content("text/plain", $email->getTextBody());
         }
 
-        $mail = new Mail(
-            $this->mapEmail($email->getFrom()),
-            $email->getSubject(),
-            null,
-            $content
-        );
+        $mail = new Mail();
+        $mail->setFrom($this->mapEmail($email->getFrom()));
+        $mail->setSubject($email->getSubject());
+        $mail->addContent($content);
 
-        /** @var Personalization $personalization */
-        $personalization = $mail->personalization;
+        $personalization = new Personalization();
 
         foreach ($email->getTos() as $recipient) {
             $personalization->addTo($this->mapEmail($recipient));
@@ -83,6 +80,7 @@ class Sendgrid implements EmailSenderInterface
             }
         }
 
+        $mail->addPersonalization($personalization);
         $sg = new \SendGrid($this->apiKey);
         /** @var Response $response */
         $response = $sg->client->mail()->send()->post($mail);
@@ -92,17 +90,22 @@ class Sendgrid implements EmailSenderInterface
                 $this->logger->info("Email sent: '{$email->getSubject()}'", $email);
             }
         } else {
+            $content = json_decode($response->body(), true);
+            $error = null;
+            if (isset($content['errors']) && is_array($content['errors']) && isset($content['errors'][0])) {
+                $error = $content['errors'][0]['message'];
+            }
             switch ($response->statusCode()) {
                 case 401:
                     if ($this->logger) {
                         $this->logger->info("Email error: 'unauthorized'", $email);
                     }
-                    throw new UnauthorizedException;
+                    throw new UnauthorizedException($error);
                 default:
                     if ($this->logger) {
                         $this->logger->info("Email error: 'invalid request'", $email);
                     }
-                    throw new InvalidRequestException;
+                    throw new InvalidRequestException($error);
             }
         }
     }

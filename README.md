@@ -80,7 +80,7 @@ $email = (new Email())
     ->addTo('example@email.com')
     ->setFrom('example@email.com')
     ->setSubject('Hello, world!')
-    ->setTextBody('Hello World!\n\nHow are you?');
+    ->setTextBody('Hello World! How are you?');
 
 $sender->send($email);
 ```
@@ -108,7 +108,7 @@ $email = (new Email())
     ->addTo('example@email.com')
     ->setFrom('example@email.com')
     ->setSubject('Hello, world!')
-    ->setTextBody('Hello World!\n\nHow are you?');
+    ->setTextBody('Hello World! How are you?');
 
 $sender->send($email);
 ```
@@ -136,7 +136,7 @@ $email = (new Email())
     ->addTo('example@email.com')
     ->setFrom('example@email.com')
     ->setSubject('Hello, world!')
-    ->setTextBody('Hello World!\n\nHow are you?');
+    ->setTextBody('Hello World! How are you?');
 
 $sender->send($email);
 ```
@@ -164,7 +164,7 @@ $email = (new Email())
     ->addTo('example@email.com')
     ->setFrom('example@email.com')
     ->setSubject('Hello, world!')
-    ->setTextBody('Hello World!\n\nHow are you?');
+    ->setTextBody('Hello World! How are you?');
 
 $sender->send($email);
 ```
@@ -192,7 +192,7 @@ $email = (new Email())
     ->addTo('example@email.com')
     ->setFrom('example@email.com')
     ->setSubject('Hello, world!')
-    ->setTextBody('Hello World!\n\nHow are you?');
+    ->setTextBody('Hello World! How are you?');
 
 $sender->send($email);
 ```
@@ -220,7 +220,7 @@ $email = (new Email())
     ->addTo('example@email.com')
     ->setFrom('example@email.com')
     ->setSubject('Hello, world!')
-    ->setTextBody('Hello World!\n\nHow are you?');
+    ->setTextBody('Hello World! How are you?');
 
 $sender->send($email);
 ```
@@ -248,7 +248,7 @@ $email = (new Email())
     ->addTo('example@email.com')
     ->setFrom('example@email.com')
     ->setSubject('Hello, world!')
-    ->setTextBody('Hello World!\n\nHow are you?');
+    ->setTextBody('Hello World! How are you?');
 
 $sender->send($email);
 ```
