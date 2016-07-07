@@ -2,12 +2,16 @@
 
 namespace Omnimail;
 
+use Omnimail\Utils\Token;
+
 class Attachment implements AttachmentInterface
 {
     protected $path;
     protected $name;
     protected $content;
     protected $mimeType;
+    protected $contentId;
+    protected $disposition;
 
     /**
      * @param string|null $path
@@ -83,5 +87,57 @@ class Attachment implements AttachmentInterface
     public function getMimeType()
     {
         return $this->mimeType;
+    }
+
+    /**
+     * @return AttachmentInterface
+     */
+    public function generateContentId()
+    {
+        if ($this->path) {
+            $this->setContentId(Token::generate(4) . '_' . basename($this->path));
+            return $this;
+        }
+        $this->setContentId(Token::generate(8));
+        return $this;
+    }
+
+    /**
+     * @param string|null $contentId
+     * @return AttachmentInterface
+     */
+    public function setContentId($contentId)
+    {
+        if (null === $this->disposition) {
+            $this->setDisposition();
+        }
+        $this->contentId = $contentId;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getContentId()
+    {
+        return $this->contentId;
+    }
+
+    /**
+     * @param string|null $disposition
+     * @return AttachmentInterface
+     */
+    public function setDisposition($disposition = AttachmentInterface::DISPOSITION_INLINE)
+    {
+        $this->disposition = $disposition;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDisposition()
+    {
+        return $this->disposition;
     }
 }

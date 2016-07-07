@@ -66,15 +66,19 @@ class Sendgrid implements EmailSenderInterface
             }
         }
 
-        if ($email->getAttachements()) {
-            foreach ($email->getAttachements() as $attachement) {
+        if ($email->getAttachments()) {
+            foreach ($email->getAttachments() as $attachment) {
                 $finalAttachment = new SendGridAttachment();
-                $finalAttachment->setType($attachement->getMimeType());
-                $finalAttachment->setFilename($attachement->getName());
-                if (!$attachement->getPath() && $attachement->getContent()) {
-                    $finalAttachment->setContent(base64_encode($attachement->getContent()));
-                } elseif ($attachement->getPath()) {
-                    $finalAttachment->setContent(base64_encode(file_get_contents($attachement->getPath())));
+                $finalAttachment->setType($attachment->getMimeType());
+                $finalAttachment->setFilename($attachment->getName());
+                if (!$attachment->getPath() && $attachment->getContent()) {
+                    $finalAttachment->setContent(base64_encode($attachment->getContent()));
+                } elseif ($attachment->getPath()) {
+                    $finalAttachment->setContent(base64_encode(file_get_contents($attachment->getPath())));
+                }
+                if ($attachment->getContentId()) {
+                    $finalAttachment->setContentID($attachment->getContentId());
+                    $finalAttachment->setDisposition($attachment->getDisposition());
                 }
                 $mail->addAttachment($finalAttachment);
             }

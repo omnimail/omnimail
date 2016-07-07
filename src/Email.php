@@ -27,7 +27,7 @@ class Email implements EmailInterface
     /**
      * @var array
      */
-    protected $attachements = [];
+    protected $attachments = [];
 
     /**
      * @var array
@@ -235,18 +235,18 @@ class Email implements EmailInterface
     /**
      * @return array
      */
-    public function getAttachements()
+    public function getAttachments()
     {
-        return $this->attachements;
+        return $this->attachments;
     }
 
     /**
      * @param AttachmentInterface $attachment
      * @return $this
      */
-    public function addAttachement(AttachmentInterface $attachment)
+    public function addAttachment(AttachmentInterface $attachment)
     {
-        $this->attachements[] = $attachment;
+        $this->attachments[] = $attachment;
         return $this;
     }
 }

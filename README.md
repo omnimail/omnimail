@@ -375,6 +375,21 @@ $email = new Email();
 $email->addAttachement($attachment);
 ```
 
+### Inline attachments
+
+```php
+use Omnimail\Email;
+use Omnimail\Attachment;
+
+$attachment = new Attachment();
+$attachment->setPath(__DIR__ . '/image.png');
+$attachment->setContentId('image.png');
+
+$email = new Email();
+$email->setHtmlBody('<p>Hello!</p><img src="cid:image.png">');
+$email->addAttachement($attachment);
+```
+
 <a name="exceptions"></a>
 ## Exceptions
 

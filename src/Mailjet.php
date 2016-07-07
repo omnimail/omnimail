@@ -63,21 +63,9 @@ class Mailjet implements EmailSenderInterface
             $body['Html-part'] = $email->getHtmlBody();
         }
 
-        if ($email->getAttachements()) {
-            $attachements = [];
-            foreach ($email->getAttachements() as $attachement) {
-                $item = [
-                    'Content-type' => $attachement->getMimeType(),
-                    'Filename' => $attachement->getName()
-                ];
-                if (!$attachement->getPath() && $attachement->getContent()) {
-                    $item['content'] = base64_encode($attachement->getContent());
-                } elseif ($attachement->getPath()) {
-                    $item['content'] = base64_encode(file_get_contents($attachement->getPath()));
-                }
-                $attachements[] = $item;
-            }
-            $body['Attachments'] = $attachements;
+        if ($email->getAttachments()) {
+            $body['Attachments'] = $this->mapAttachments($email->getAttachments());
+            $body['Inline_attachments'] = $this->mapInlineAttachments($email->getAttachments());
         }
 
         $response = $this->mailjet->post(Resources::$Email, ['body' => $body]);
@@ -92,6 +80,73 @@ class Mailjet implements EmailSenderInterface
             }
             throw new InvalidRequestException($response->getReasonPhrase());
         }
+    }
+
+    /**
+     * @param array|null $attachments
+     * @return array|null
+     */
+    private function mapAttachments(array $attachments)
+    {
+        if (null === $attachments || !is_array($attachments) || !count($attachments)) {
+            return null;
+        }
+
+        $finalAttachments = [];
+        /** @var AttachmentInterface $attachment */
+        foreach ($attachments as $attachment) {
+            if ($attachment->getContentId()) {
+                continue;
+            }
+            $finalAttachment = $this->mapAttachment($attachment);
+            if ($finalAttachment) {
+                $finalAttachments[] = $finalAttachment;
+            }
+        }
+        return $finalAttachments;
+    }
+
+    /**
+     * @param array|null $attachments
+     * @return array|null
+     */
+    private function mapInlineAttachments(array $attachments)
+    {
+        if (null === $attachments || !is_array($attachments) || !count($attachments)) {
+            return null;
+        }
+
+        $finalAttachments = [];
+        /** @var AttachmentInterface $attachment */
+        foreach ($attachments as $attachment) {
+            if (!$attachment->getContentId()) {
+                continue;
+            }
+            $finalAttachment = $this->mapAttachment($attachment);
+            if ($finalAttachment) {
+                $finalAttachments[] = $finalAttachment;
+            }
+        }
+        return $finalAttachments;
+    }
+
+    private function mapAttachment(AttachmentInterface $attachment)
+    {
+        $finalAttachment = [
+            'Content-type' => $attachment->getMimeType(),
+            'Filename' => $attachment->getName()
+        ];
+        if ($attachment->getPath()) {
+            $finalAttachment['content'] = base64_encode(file_get_contents($attachment->getPath()));
+        } elseif ($attachment->getContent()) {
+            $finalAttachment['content'] = base64_encode($attachment->getContent());
+        }
+
+        if ($attachment->getContentId()) {
+            $finalAttachment['Filename'] = $attachment->getContentId();
+        }
+
+        return $finalAttachment;
     }
 
     /**

@@ -52,13 +52,13 @@ interface EmailInterface
     /**
      * @return AttachmentInterface[]
      */
-    public function getAttachements();
+    public function getAttachments();
 
     /**
-     * @param AttachmentInterface $attachement
+     * @param AttachmentInterface $attachment
      * @return $this
      */
-    public function addAttachement(AttachmentInterface $attachement);
+    public function addAttachment(AttachmentInterface $attachment);
 
     /**
      * @return array

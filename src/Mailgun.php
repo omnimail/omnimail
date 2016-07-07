@@ -2,6 +2,7 @@
 
 namespace Omnimail;
 
+use Mailgun\Messages\MessageBuilder;
 use Omnimail\Exception\EmailDeliveryException;
 use Omnimail\Exception\Exception;
 use Omnimail\Exception\InvalidRequestException;
@@ -61,16 +62,9 @@ class Mailgun implements EmailSenderInterface
                 $builder->setHtmlBody($email->getHtmlBody());
             }
 
-            if ($email->getAttachements()) {
-                foreach ($email->getAttachements() as $attachement) {
-                    if (!$attachement->getPath() && $attachement->getContent()) {
-                        $this->addTmpfile($file = tmpfile());
-                        fwrite($file, $attachement->getContent());
-                    } else {
-                        $file = $attachement->getPath();
-                    }
-                    $builder->addAttachment($file, $attachement->getName());
-                }
+            if ($email->getAttachments()) {
+                $this->mapAttachments($email->getAttachments(), $builder);
+                $this->mapInlineAttachments($email->getAttachments(), $builder);
             }
 
             $result = $this->mailgun->post(
@@ -119,6 +113,54 @@ class Mailgun implements EmailSenderInterface
     {
         foreach ($this->tmpfiles as $file) {
             fclose($file);
+        }
+    }
+
+    /**
+     * @param AttachmentInterface[]|array|null $attachments
+     * @param MessageBuilder $builder
+     * @return array|null
+     */
+    private function mapAttachments(array $attachments, MessageBuilder $builder)
+    {
+        foreach ($attachments as $attachment) {
+            if ($attachment->getContentId()) {
+                continue;
+            }
+
+            if ($attachment->getPath()) {
+                $file = $attachment->getPath();
+            } elseif ($attachment->getContent()) {
+                $this->addTmpfile($file = tmpfile());
+                fwrite($file, $attachment->getContent());
+            } else {
+                continue;
+            }
+            $builder->addAttachment($file, $attachment->getName());
+        }
+    }
+
+    /**
+     * @param AttachmentInterface[]|array|null $attachments
+     * @param MessageBuilder $builder
+     * @return array|null
+     */
+    private function mapInlineAttachments(array $attachments, MessageBuilder $builder)
+    {
+        foreach ($attachments as $attachment) {
+            if (!$attachment->getContentId()) {
+                continue;
+            }
+
+            if ($attachment->getPath()) {
+                $file = $attachment->getPath();
+            } elseif ($attachment->getContent()) {
+                $this->addTmpfile($file = tmpfile());
+                fwrite($file, $attachment->getContent());
+            } else {
+                continue;
+            }
+            $builder->addInlineImage($file, $attachment->getContentId());
         }
     }
 

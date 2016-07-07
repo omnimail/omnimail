@@ -53,19 +53,23 @@ class AmazonSES implements EmailSenderInterface
         $m->setSubject($email->getSubject());
         $m->setMessageFromString($email->getTextBody(), $email->getHtmlBody());
 
-        if ($email->getAttachements()) {
-            foreach ($email->getAttachements() as $attachement) {
-                if (!$attachement->getPath() && $attachement->getContent()) {
+        if ($email->getAttachments()) {
+            foreach ($email->getAttachments() as $attachment) {
+                if (!$attachment->getPath() && $attachment->getContent()) {
                     $m->addAttachmentFromData(
-                        $attachement->getName(),
-                        $attachement->getContent(),
-                        $attachement->getMimeType()
+                        $attachment->getName(),
+                        $attachment->getContent(),
+                        $attachment->getMimeType(),
+                        $attachment->getContentId(),
+                        $attachment->getContentId() ? 'inline' : 'attachment'
                     );
-                } elseif ($attachement->getPath()) {
+                } elseif ($attachment->getPath()) {
                     $m->addAttachmentFromFile(
-                        $attachement->getName(),
-                        $attachement->getPath(),
-                        $attachement->getMimeType()
+                        $attachment->getName(),
+                        $attachment->getPath(),
+                        $attachment->getMimeType(),
+                        $attachment->getContentId(),
+                        $attachment->getContentId() ? 'inline' : 'attachment'
                     );
                 }
             }

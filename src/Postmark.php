@@ -41,7 +41,7 @@ class Postmark implements EmailSenderInterface
                 $this->mapEmails($email->getCcs()),
                 $this->mapEmails($email->getBccs()),
                 null,
-                $this->mapAttachments($email->getAttachements())
+                $this->mapAttachments($email->getAttachments())
             );
 
             if (!isset($sendResult) || (!isset($sendResult[0]) && !isset($sendResult['ErrorCode']))) {
@@ -95,29 +95,35 @@ class Postmark implements EmailSenderInterface
     }
 
     /**
-     * @param array|null $attachements
+     * @param array|null $attachments
      * @return array|null
      */
-    private function mapAttachments(array $attachements = null)
+    private function mapAttachments(array $attachments = null)
     {
-        if (null === $attachements || !is_array($attachements) || !count($attachements)) {
+        if (null === $attachments || !is_array($attachments) || !count($attachments)) {
             return null;
         }
 
-        $finalAttachements = [];
-        foreach ($attachements as $attachement) {
-            $finalAttachement = [
-                'ContentType' => $attachement->getMimeType(),
-                'Name' => $attachement->getName()
+        $finalAttachments = [];
+        /** @var AttachmentInterface $attachment */
+        foreach ($attachments as $attachment) {
+            $finalAttachment = [
+                'ContentType' => $attachment->getMimeType(),
+                'Name' => $attachment->getName()
             ];
-            if (!$attachement->getPath() && $attachement->getContent()) {
-                $finalAttachement['Content'] = base64_encode($attachement->getContent());
-            } elseif ($attachement->getPath()) {
-                $finalAttachement['Content'] = base64_encode(file_get_contents($attachement->getPath()));
+            if (!$attachment->getPath() && $attachment->getContent()) {
+                $finalAttachment['Content'] = base64_encode($attachment->getContent());
+            } elseif ($attachment->getPath()) {
+                $finalAttachment['Content'] = base64_encode(file_get_contents($attachment->getPath()));
             }
-            $finalAttachements[] = $finalAttachement;
+
+            if ($attachment->getContentId()) {
+                $finalAttachment['ContentId'] = $attachment->getContentId();
+            }
+
+            $finalAttachments[] = $finalAttachment;
         }
-        return $finalAttachements;
+        return $finalAttachments;
     }
 
     /**

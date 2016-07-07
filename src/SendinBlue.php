@@ -35,7 +35,8 @@ class SendinBlue implements EmailSenderInterface
             'subject' => $email->getSubject(),
             'text' => $email->getTextBody(),
             'html' => $email->getHtmlBody(),
-            'attachment' => $this->mapAttachments($email->getAttachements())
+            'attachment' => $this->mapAttachments($email->getAttachments()),
+            'inline_image' => $this->mapInlineImages($email->getAttachments())
         ];
 
         $response = $mailin->send_email($data);
@@ -64,27 +65,61 @@ class SendinBlue implements EmailSenderInterface
     }
 
     /**
-     * @param array|null $attachements
+     * @param array|null $attachments
      * @return array|null
      */
-    private function mapAttachments(array $attachements = null)
+    private function mapAttachments(array $attachments = null)
     {
-        if (null === $attachements || !is_array($attachements) || !count($attachements)) {
+        if (null === $attachments || !is_array($attachments) || !count($attachments)) {
             return null;
         }
-        $finalAttachements = [];
-        foreach ($attachements as $attachement) {
+        $finalAttachments = [];
+        /** @var AttachmentInterface $attachment */
+        foreach ($attachments as $attachment) {
+            if ($attachment->getContentId()) {
+                continue;
+            }
+            
             $content = null;
-            if (!$attachement->getPath() && $attachement->getContent()) {
-                $content = base64_encode($attachement->getContent());
-            } elseif ($attachement->getPath()) {
-                $content = base64_encode(file_get_contents($attachement->getPath()));
+            if (!$attachment->getPath() && $attachment->getContent()) {
+                $content = base64_encode($attachment->getContent());
+            } elseif ($attachment->getPath()) {
+                $content = base64_encode(file_get_contents($attachment->getPath()));
             }
             if ($content) {
-                $finalAttachements[$attachement->getName()] = $content;
+                $finalAttachments[$attachment->getName()] = $content;
             }
         }
-        return $finalAttachements;
+        return $finalAttachments;
+    }
+
+    /**
+     * @param array|null $attachments
+     * @return array|null
+     */
+    private function mapInlineImages(array $attachments = null)
+    {
+        if (null === $attachments || !is_array($attachments) || !count($attachments)) {
+            return null;
+        }
+        $finalAttachments = [];
+        /** @var AttachmentInterface $attachment */
+        foreach ($attachments as $attachment) {
+            if (!$attachment->getContentId()) {
+                continue;
+            }
+
+            $content = null;
+            if (!$attachment->getPath() && $attachment->getContent()) {
+                $content = base64_encode($attachment->getContent());
+            } elseif ($attachment->getPath()) {
+                $content = base64_encode(file_get_contents($attachment->getPath()));
+            }
+            if ($content) {
+                $finalAttachments[$attachment->getContentId()] = $content;
+            }
+        }
+        return $finalAttachments;
     }
 
     /**

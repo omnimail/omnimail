@@ -70,21 +70,9 @@ class Mandrill implements EmailSenderInterface
                 $message['html'] = $email->getHtmlBody();
             }
 
-            if ($email->getAttachements()) {
-                $attachements = [];
-                foreach ($email->getAttachements() as $attachement) {
-                    $item = [
-                        'type' => $attachement->getMimeType(),
-                        'name' => $attachement->getName()
-                    ];
-                    if (!$attachement->getPath() && $attachement->getContent()) {
-                        $item['content'] = base64_encode($attachement->getContent());
-                    } elseif ($attachement->getPath()) {
-                        $item['content'] = base64_encode(file_get_contents($attachement->getPath()));
-                    }
-                    $attachements[] = $item;
-                }
-                $message['attachments'] = $attachements;
+            if ($email->getAttachments()) {
+                $message['attachments'] = $this->mapAttachments($email->getAttachments());
+                $message['images'] = $this->mapInlineAttachments($email->getAttachments());
             }
 
             $result = $this->mandrill->messages->send($message, false, $this->ipPool);
@@ -119,6 +107,75 @@ class Mandrill implements EmailSenderInterface
             }
             throw new InvalidRequestException($e->getMessage(), 601, $e);
         }
+    }
+
+    /**
+     * @param array|null $attachments
+     * @return array|null
+     */
+    private function mapAttachments(array $attachments)
+    {
+        if (null === $attachments || !is_array($attachments) || !count($attachments)) {
+            return null;
+        }
+
+        $finalAttachments = [];
+        /** @var AttachmentInterface $attachment */
+        foreach ($attachments as $attachment) {
+            if ($attachment->getContentId()) {
+                continue;
+            }
+            $finalAttachment = $this->mapAttachment($attachment);
+            if ($finalAttachment) {
+                $finalAttachments[] = $finalAttachment;
+            }
+        }
+        return $finalAttachments;
+    }
+
+    /**
+     * @param array|null $attachments
+     * @return array|null
+     */
+    private function mapInlineAttachments(array $attachments)
+    {
+        if (null === $attachments || !is_array($attachments) || !count($attachments)) {
+            return null;
+        }
+
+        $finalAttachments = [];
+        /** @var AttachmentInterface $attachment */
+        foreach ($attachments as $attachment) {
+            if (!$attachment->getContentId()) {
+                continue;
+            }
+            $finalAttachment = $this->mapAttachment($attachment);
+            if ($finalAttachment) {
+                $finalAttachments[] = $finalAttachment;
+            }
+        }
+        return $finalAttachments;
+    }
+
+    private function mapAttachment(AttachmentInterface $attachment)
+    {
+        $finalAttachment = [
+            'type' => $attachment->getMimeType(),
+            'name' => $attachment->getName()
+        ];
+        if ($attachment->getPath()) {
+            $finalAttachment['content'] = base64_encode(file_get_contents($attachment->getPath()));
+        } elseif ($attachment->getContent()) {
+            $finalAttachment['content'] = base64_encode($attachment->getContent());
+        } else {
+            return null;
+        }
+
+        if ($attachment->getContentId()) {
+            $finalAttachment['name'] = $attachment->getContentId();
+        }
+
+        return $finalAttachment;
     }
 
     /**
