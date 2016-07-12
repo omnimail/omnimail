@@ -358,7 +358,7 @@ $attachment->setMimeType('text/plain');
 $attachment->setContent('This is plain text');
 
 $email = new Email();
-$email->addAttachement($attachment);
+$email->addAttachment($attachment);
 ```
 
 #### Example using file path as content
@@ -372,7 +372,7 @@ $attachment->setMimeType('text/plain');
 $attachment->setPath(__DIR__ . '/my_file.txt');
 
 $email = new Email();
-$email->addAttachement($attachment);
+$email->addAttachment($attachment);
 ```
 
 ### Inline attachments
@@ -387,7 +387,7 @@ $attachment->setContentId('image.png');
 
 $email = new Email();
 $email->setHtmlBody('<p>Hello!</p><img src="cid:image.png">');
-$email->addAttachement($attachment);
+$email->addAttachment($attachment);
 ```
 
 <a name="exceptions"></a>
