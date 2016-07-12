@@ -4,7 +4,13 @@ namespace Omnimail\Tests;
 
 use PHPUnit_Framework_TestCase;
 use Omnimail\Email;
-use Omnimail\AmazonSES;
+use Omnimail\Tests\Mock\AmazonSES;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Exception\RequestException;
 
 class AmazonSESTest extends PHPUnit_Framework_TestCase
 {

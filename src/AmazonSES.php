@@ -13,10 +13,10 @@ class AmazonSES implements EmailSenderInterface
     const AWS_US_WEST_2 = 'email.us-west-2.amazonaws.com';
     const AWS_EU_WEST1 = 'email.eu-west-1.amazonaws.com';
 
-    private $accessKey;
-    private $secretKey;
-    private $host;
-    private $logger;
+    protected $accessKey;
+    protected $secretKey;
+    protected $host;
+    protected $logger;
 
     /**
      * @param string $accessKey
