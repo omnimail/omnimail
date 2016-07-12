@@ -78,7 +78,14 @@ class AmazonSES implements EmailSenderInterface
         $ses = new SimpleEmailService($this->accessKey, $this->secretKey, $this->host, false);
         $response = $ses->sendEmail($m, false, false);
 
-        if (empty($response['MessageId'])) {
+        if (is_object($response) && isset($response->error)) {
+            $message = isset($response->error['Error']['Message']) ? $response->error['Error']['Message'] : $response->error['message'];
+
+            if ($this->logger) {
+                $this->logger->error("Error: ", $message);
+            }
+            throw new Exception("Error: " . $message, 603);
+        } else if (empty($response['MessageId'])) {
             if ($this->logger) {
                 $this->logger->error("Email error: Unknown error", $email);
             }
