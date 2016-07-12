@@ -8,8 +8,10 @@ use Omnimail\SendinBlue;
 
 class SendinBlueTest extends PHPUnit_Framework_TestCase
 {
-    public function test_email_is_sent()
+    public function test_error_message_is_thrown_with_incorrect_details()
     {
+        $this->setExpectedException('Omnimail\Exception\Exception');
+
         $accessKey = 'apikey';
 
         $sender = new SendinBlue($accessKey);

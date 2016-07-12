@@ -17,7 +17,7 @@ class Mailgun implements EmailSenderInterface
     private $domain;
     private $mailgun;
     private $logger;
-    private $tmpfiles;
+    private $tmpfiles = [];
 
     /**
      * @param string $apiKey

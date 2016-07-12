@@ -8,8 +8,10 @@ use Omnimail\AmazonSES;
 
 class AmazonSESTest extends PHPUnit_Framework_TestCase
 {
-    public function test_email_is_sent()
+    public function test_error_message_is_thrown_with_incorrect_details()
     {
+        $this->setExpectedException('Omnimail\Exception\Exception');
+
         $accessKey = 'ACCESSKEY';
         $secretKey = 'SECRETKEY';
 
