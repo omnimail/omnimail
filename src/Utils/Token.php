@@ -58,8 +58,7 @@ class Token
         $token = '';
 
         do {
-            $token .=
-                $characters[(int)floor(hexdec(bin2hex(openssl_random_pseudo_bytes(1, $strong))) % count($characters))];
+            $token .= $characters[(int)floor(hexdec(bin2hex(openssl_random_pseudo_bytes(1))) % count($characters))];
         } while (strlen($token) < $length);
 
         return $token;
