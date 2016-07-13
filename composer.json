@@ -1,60 +1,56 @@
 {
-  "name": "omnimail/omnimail",
-  "type": "library",
-  "description": "PHP Omnimail",
-  "keywords": [
-    "email",
-    "mail",
-    "delivery",
-    "amazon ses",
-    "mailgun",
-    "mailjet",
-    "mandrill",
-    "postmark",
-    "sendgrid",
-    "sendinblue"
-  ],
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Gabriel Bull",
-      "email": "me@gabrielbull.com"
-    }
-  ],
-  "require": {
-    "php": "^5.5 || ^7.0",
-    "psr/log": "^1.0",
-    "php-http/guzzle6-adapter": "^1.1",
-    "daniel-zahariev/php-aws-ses": "^0.8.8",
-    "mailgun/mailgun-php": "^2.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^4.8 || ^5.0",
-    "wildbit/postmark-php": "^2.2",
-    "sendgrid/sendgrid": "^5.0",
-    "mailin-api/mailin-api-php": "^1.0",
-    "mandrill/mandrill": "^1.0",
-    "mailjet/mailjet-apiv3-php": "^1.1"
-  },
-  "autoload": {
-    "psr-4": {
-      "Omnimail\\": "src"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Omnimail\\Tests\\": "test/tests"
-    }
-  },
-  "suggest": {
-    "daniel-zahariev/php-aws-ses": "Required if you use the AmazonSES sending system",
-    "mailgun/mailgun-php": "Required if you use the Mailgun sending system",
-    "mailjet/mailjet-apiv3-php": "Required if you use the Mailjet sending system",
-    "mandrill/mandrill": "Required if you use the Mandrill sending system",
-    "wildbit/postmark-php": "Required if you use the Postmark sending system",
-    "sendgrid/sendgrid": "Required if you use the Sendgrid sending system",
-    "mailin-api/mailin-api-php": "Required if you use the SendinBlue sending system"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+	"name" : "omnimail/omnimail",
+	"type" : "library",
+	"description" : "PHP Omnimail",
+	"keywords" : [
+		"email",
+		"mail",
+		"delivery",
+		"amazon ses",
+		"mailgun",
+		"mailjet",
+		"mandrill",
+		"postmark",
+		"sendgrid",
+		"sendinblue"
+	],
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Gabriel Bull",
+			"email" : "me@gabrielbull.com"
+		}
+	],
+	"require" : {
+		"php" : "^5.5 || ^7.0",
+		"psr/log" : "^1.0",
+		"php-http/guzzle6-adapter" : "^1.1"
+	},
+	"require-dev" : {
+		"phpunit/phpunit" : "^4.8 || ^5.0",
+		"wildbit/postmark-php" : "^2.2",
+		"sendgrid/sendgrid" : "^5.0",
+		"mailin-api/mailin-api-php" : "^1.0",
+		"mandrill/mandrill" : "^1.0"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Omnimail\\" : "src"
+		}
+	},
+	"autoload-dev" : {
+		"psr-4" : {
+			"Omnimail\\Tests\\" : "test/tests"
+		}
+	},
+	"suggest" : {
+		"daniel-zahariev/php-aws-ses" : "Required if you use the AmazonSES sending system",
+		"mailgun/mailgun-php" : "Required if you use the Mailgun sending system",
+		"mailjet/mailjet-apiv3-php" : "Required if you use the Mailjet sending system",
+		"mandrill/mandrill" : "Required if you use the Mandrill sending system",
+		"wildbit/postmark-php" : "Required if you use the Postmark sending system",
+		"sendgrid/sendgrid" : "Required if you use the Sendgrid sending system",
+		"mailin-api/mailin-api-php" : "Required if you use the SendinBlue sending system"
+	},
+	"minimum-stability" : "dev",
+	"prefer-stable" : true
 }
