@@ -13,11 +13,11 @@ use Http\Adapter\Guzzle6\Client;
 
 class Mailgun implements EmailSenderInterface
 {
-    private $apiKey;
-    private $domain;
-    private $mailgun;
-    private $logger;
-    private $tmpfiles;
+    protected $apiKey;
+    protected $domain;
+    protected $mailgun;
+    protected $logger;
+    protected $tmpfiles = [];
 
     /**
      * @param string $apiKey
@@ -36,6 +36,13 @@ class Mailgun implements EmailSenderInterface
     {
         try {
             $builder = $this->mailgun->MessageBuilder();
+
+            if ($email->getTos()) {
+                foreach ($email->getTos() as $recipient) {
+                    $builder->addToRecipient($this->mapEmails($email->getTos()));
+                }
+            }
+
             $builder->setFromAddress($this->mapEmail($email->getFrom()));
 
             if ($email->getReplyTos()) {
@@ -52,6 +59,10 @@ class Mailgun implements EmailSenderInterface
                 foreach ($email->getBccs() as $recipient) {
                     $builder->addBccRecipient($this->mapEmail($recipient));
                 }
+            }
+
+            if ($email->getSubject()) {
+                $builder->setSubject($email->getSubject());
             }
 
             if ($email->getTextBody()) {

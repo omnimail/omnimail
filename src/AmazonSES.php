@@ -13,10 +13,10 @@ class AmazonSES implements EmailSenderInterface
     const AWS_US_WEST_2 = 'email.us-west-2.amazonaws.com';
     const AWS_EU_WEST1 = 'email.eu-west-1.amazonaws.com';
 
-    private $accessKey;
-    private $secretKey;
-    private $host;
-    private $logger;
+    protected $accessKey;
+    protected $secretKey;
+    protected $host;
+    protected $logger;
 
     /**
      * @param string $accessKey
@@ -78,7 +78,14 @@ class AmazonSES implements EmailSenderInterface
         $ses = new SimpleEmailService($this->accessKey, $this->secretKey, $this->host, false);
         $response = $ses->sendEmail($m, false, false);
 
-        if (empty($response['MessageId'])) {
+        if (is_object($response) && isset($response->error)) {
+            $message = isset($response->error['Error']['Message']) ? $response->error['Error']['Message'] : $response->error['message'];
+
+            if ($this->logger) {
+                $this->logger->error("Error: ", $message);
+            }
+            throw new Exception("Error: " . $message, 603);
+        } elseif (empty($response['MessageId'])) {
             if ($this->logger) {
                 $this->logger->error("Email error: Unknown error", $email);
             }
