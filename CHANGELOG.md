@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.3 (upcoming)
+
+- Started making unit tests
+
 ## 0.1.2 (2016-07-07)
 
 - Added support for inline attachments
