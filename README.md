@@ -90,10 +90,12 @@ $sender->send($email);
 
 #### Installation
 
-To use the Mailgun sender class, you will need to install the `mailgun/mailgun-php` library using composer.
+To use the Mailgun sender class, you will need to install the `mailgun/mailgun-php` library using composer. You do also 
+need to install a HTTP client that sends messages. You can use any client that provided the virtual package
+[php-http/client-implementation](https://packagist.org/providers/php-http/client-implementation)
 
 ```
-composer require mailgun/mailgun-php
+composer require mailgun/mailgun-php php-http/guzzle6-adapter
 ```
 
 #### Usage

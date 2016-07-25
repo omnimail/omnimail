@@ -2,6 +2,7 @@
 
 namespace Omnimail;
 
+use Http\Client\HttpClient;
 use Mailgun\Messages\MessageBuilder;
 use Omnimail\Exception\EmailDeliveryException;
 use Omnimail\Exception\Exception;
@@ -9,7 +10,6 @@ use Omnimail\Exception\InvalidRequestException;
 use Omnimail\Exception\UnauthorizedException;
 use Psr\Log\LoggerInterface;
 use Mailgun\Mailgun as MailgunAPI;
-use Http\Adapter\Guzzle6\Client;
 
 class Mailgun implements EmailSenderInterface
 {
@@ -23,13 +23,14 @@ class Mailgun implements EmailSenderInterface
      * @param string $apiKey
      * @param string $domain
      * @param LoggerInterface|null $logger
+     * @param HttpClient $httpClient
      */
-    public function __construct($apiKey, $domain, LoggerInterface $logger = null)
+    public function __construct($apiKey, $domain, LoggerInterface $logger = null, HttpClient $httpClient = null)
     {
         $this->apiKey = $apiKey;
         $this->domain = $domain;
         $this->logger = $logger;
-        $this->mailgun = new MailgunAPI($this->apiKey, new Client());
+        $this->mailgun = new MailgunAPI($this->apiKey, $httpClient);
     }
 
     public function send(EmailInterface $email)
