@@ -34,6 +34,5 @@ class EmailTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test11', $array['ccs'][0]['name']);
         $this->assertEquals('test12', $array['bccs'][0]['email']);
         $this->assertEquals('test13', $array['bccs'][0]['name']);
-
     }
 }
