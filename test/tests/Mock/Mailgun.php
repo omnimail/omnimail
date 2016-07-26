@@ -2,11 +2,12 @@
 
 namespace Omnimail\Tests\Mock;
 
+use GuzzleHttp\Handler\MockHandler;
 use Omnimail\Mailgun as Base;
 use Http\Adapter\Guzzle6\Client as AdapterClient;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\HandlerStack;
-use Mailgun\Mailgun as MailgunAPI;
+use Psr\Log\LoggerInterface;
 
 class Mailgun extends Base
 {
@@ -24,9 +25,6 @@ class Mailgun extends Base
             $client = new AdapterClient(new GuzzleClient(['handler' => $handler]));
         }
 
-        $this->apiKey = $apiKey;
-        $this->domain = $domain;
-        $this->logger = $logger;
-        $this->mailgun = new MailgunAPI($this->apiKey, $client);
+        parent::__construct($apiKey, $domain, $logger, $client);
     }
 }

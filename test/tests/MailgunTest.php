@@ -14,7 +14,7 @@ use GuzzleHttp\Exception\RequestException;
 
 class MailgunTest extends PHPUnit_Framework_TestCase
 {
-    public function test_request_is_generated_correctly()
+    public function testRequestIsGeneratedCorrectly()
     {
         $apiKey = 'apikey';
         $domain = 'domain';
@@ -31,10 +31,10 @@ class MailgunTest extends PHPUnit_Framework_TestCase
         $sender = new Mailgun($apiKey, $domain, null, $stack);
 
         $email = (new Email())
-        ->addTo('your@email.com')
-        ->setFrom('from@email.com')
-        ->setSubject('Hello, world!')
-        ->setTextBody('Hello World! How are you?');
+            ->addTo('your@email.com')
+            ->setFrom('from@email.com')
+            ->setSubject('Hello, world!')
+            ->setTextBody('Hello World! How are you?');
 
         $sender->send($email);
 
@@ -55,7 +55,7 @@ class MailgunTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function test_error_message_is_thrown_with_incorrect_details()
+    public function testErrorMessageIsThrownWithIncorrectDetails()
     {
         $this->setExpectedException('Omnimail\Exception\Exception');
 
@@ -65,10 +65,10 @@ class MailgunTest extends PHPUnit_Framework_TestCase
         $sender = new Mailgun($apiKey, $domain);
 
         $email = (new Email())
-        ->addTo('your@email.com')
-        ->setFrom('from@email.com')
-        ->setSubject('Hello, world!')
-        ->setTextBody('Hello World! How are you?');
+            ->addTo('your@email.com')
+            ->setFrom('from@email.com')
+            ->setSubject('Hello, world!')
+            ->setTextBody('Hello World! How are you?');
 
         $sender->send($email);
     }

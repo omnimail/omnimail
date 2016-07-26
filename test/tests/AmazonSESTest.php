@@ -14,7 +14,7 @@ use GuzzleHttp\Exception\RequestException;
 
 class AmazonSESTest extends PHPUnit_Framework_TestCase
 {
-    public function test_error_message_is_thrown_with_incorrect_details()
+    public function testErrorMessageIsThrownWithIncorrectDetails()
     {
         $this->setExpectedException('Omnimail\Exception\Exception');
 
@@ -32,7 +32,7 @@ class AmazonSESTest extends PHPUnit_Framework_TestCase
         $sender->send($email);
     }
     /*
-    public function test_request_is_generated_correctly()
+    public function testRequestIsGeneratedCorrectly()
     {
         $apiKey = 'apikey';
         $domain = 'domain';

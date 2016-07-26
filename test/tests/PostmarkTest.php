@@ -8,7 +8,7 @@ use Omnimail\Postmark;
 
 class PostmarkTest extends PHPUnit_Framework_TestCase
 {
-    public function test_error_message_is_thrown_with_incorrect_details()
+    public function testErrorMessageIsThrownWithIncorrectDetails()
     {
         $this->setExpectedException('Omnimail\Exception\Exception');
 
