@@ -91,4 +91,9 @@ interface AttachmentInterface
      * @return string|null
      */
     public function getDisposition();
+
+    /**
+     * @return array
+     */
+    public function toArray();
 }

@@ -59,16 +59,16 @@ class Postmark implements EmailSenderInterface
             }
 
             if ($this->logger) {
-                $this->logger->info("Email sent: '{$email->getSubject()}'", $email);
+                $this->logger->info("Email sent: '{$email->getSubject()}'", $email->toArray());
             }
         } catch (Exception $e) {
             if ($this->logger) {
-                $this->logger->info("Email error: '{$e->getMessage()}'", $email);
+                $this->logger->info("Email error: '{$e->getMessage()}'", $email->toArray());
             }
             throw $e;
         } catch (PostmarkException $e) {
             if ($this->logger) {
-                $this->logger->info("Email error: '{$e->getMessage()}'", $email);
+                $this->logger->info("Email error: '{$e->getMessage()}'", $email->toArray());
             }
             switch ($e->postmarkApiErrorCode) {
                 case 10:
@@ -88,7 +88,7 @@ class Postmark implements EmailSenderInterface
             }
         } catch (\Exception $e) {
             if ($this->logger) {
-                $this->logger->info("Email error: '{$e->getMessage()}'", $email);
+                $this->logger->info("Email error: '{$e->getMessage()}'", $email->toArray());
             }
             throw new Exception($e->getMessage(), $e->getCode(), $e);
         }

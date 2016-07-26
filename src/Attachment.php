@@ -140,4 +140,19 @@ class Attachment implements AttachmentInterface
     {
         return $this->disposition;
     }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'path' => $this->getPath(),
+            'content' => $this->getContent(),
+            'name' => $this->getName(),
+            'mimeType' => $this->getMimeType(),
+            'contentId' => $this->getContentId(),
+            'disposition' => $this->getDisposition()
+        ];
+    }
 }

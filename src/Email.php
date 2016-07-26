@@ -249,4 +249,33 @@ class Email implements EmailInterface
         $this->attachments[] = $attachment;
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        $attachments = $this->getAttachments();
+        if (count($attachments)) {
+            /**
+             * @var int $key
+             * @var AttachmentInterface $attachment
+             */
+            foreach ($attachments as $key => $attachment) {
+                $attachments[$key] = $attachment->toArray();
+            }
+        }
+
+        return [
+            'textBody' => $this->getTextBody(),
+            'htmlBody' => $this->getHtmlBody(),
+            'from' => $this->getFrom(),
+            'subject' => $this->getSubject(),
+            'attachments' => $attachments,
+            'tos' => $this->getTos(),
+            'replyTos' => $this->getReplyTos(),
+            'ccs' => $this->getCcs(),
+            'bccs' => $this->getBccs()
+        ];
+    }
 }

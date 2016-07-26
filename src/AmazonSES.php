@@ -79,7 +79,8 @@ class AmazonSES implements EmailSenderInterface
         $response = $ses->sendEmail($m, false, false);
 
         if (is_object($response) && isset($response->error)) {
-            $message = isset($response->error['Error']['Message']) ? $response->error['Error']['Message'] : $response->error['message'];
+            $message = isset($response->error['Error']['Message']) ?
+                $response->error['Error']['Message'] : $response->error['message'];
 
             if ($this->logger) {
                 $this->logger->error("Error: ", $message);
@@ -87,12 +88,12 @@ class AmazonSES implements EmailSenderInterface
             throw new Exception("Error: " . $message, 603);
         } elseif (empty($response['MessageId'])) {
             if ($this->logger) {
-                $this->logger->error("Email error: Unknown error", $email);
+                $this->logger->error("Email error: Unknown error", $email->toArray());
             }
             throw new Exception('Unknown error', 603);
         } else {
             if ($this->logger) {
-                $this->logger->info("Email sent: '{$email->getSubject()}'", $email);
+                $this->logger->info("Email sent: '{$email->getSubject()}'", $email->toArray());
             }
         }
     }

@@ -72,11 +72,11 @@ class Mailjet implements EmailSenderInterface
 
         if ($response->success()) {
             if ($this->logger) {
-                $this->logger->info("Email sent: '{$email->getSubject()}'", $email);
+                $this->logger->info("Email sent: '{$email->getSubject()}'", $email->toArray());
             }
         } else {
             if ($this->logger) {
-                $this->logger->error("Email error: '{$response->getReasonPhrase()}'", $email);
+                $this->logger->error("Email error: '{$response->getReasonPhrase()}'", $email->toArray());
             }
             throw new InvalidRequestException($response->getReasonPhrase());
         }

@@ -119,4 +119,9 @@ interface EmailInterface
      * @return $this
      */
     public function addBcc($email, $name = null);
+
+    /**
+     * @return array
+     */
+    public function toArray();
 }

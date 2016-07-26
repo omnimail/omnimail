@@ -99,16 +99,16 @@ class Mailgun implements EmailSenderInterface
             }
 
             if ($this->logger) {
-                $this->logger->info("Email sent: '{$email->getSubject()}'", $email);
+                $this->logger->info("Email sent: '{$email->getSubject()}'", $email->toArray());
             }
         } catch (Exception $e) {
             if ($this->logger) {
-                $this->logger->error("Email error: '{$e->getMessage()}'", $email);
+                $this->logger->error("Email error: '{$e->getMessage()}'", $email->toArray());
             }
             throw $e;
         } catch (\Exception $e) {
             if ($this->logger) {
-                $this->logger->error("Email error: '{$e->getMessage()}'", $email);
+                $this->logger->error("Email error: '{$e->getMessage()}'", $email->toArray());
             }
             throw new Exception($e->getMessage(), $e->getCode(), $e);
         } finally {

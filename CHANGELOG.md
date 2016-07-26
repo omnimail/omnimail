@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.1.4 (2016-07-26)
+
+- Added toArray to attachment and email classes and interfaces
+- Fixed issue with PSR logger and emails not being arrays
+
 ## 0.1.3 (2016-07-26)
 
 - Started making unit tests
