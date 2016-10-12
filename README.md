@@ -453,3 +453,8 @@ $sender->send($email);
 ## License
 
 Omnimail is licensed under [The MIT License (MIT)](LICENSE).
+
+<a name="donate-section"></a>
+## Donate
+
+Add a donate link here. This is a great package that I would love to donate to for your efforts. I am sure others would too.  You saved me hours worth of time.
