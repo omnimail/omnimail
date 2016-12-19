@@ -17,18 +17,21 @@ class AmazonSES implements EmailSenderInterface
     protected $secretKey;
     protected $host;
     protected $logger;
-
-    public $verifyPeer = true;
-	public $verifyHost = true;
+	protected $verifyPeer;
+	protected $verifyHost;
 
     /**
      * @param string $accessKey
      * @param string $secretKey
      * @param string $host
+     * @param bool $verifyPeer
+     * @param bool $verifyHost
      * @param LoggerInterface|null $logger
      */
-    public function __construct($accessKey, $secretKey, $host = self::AWS_US_EAST_1, LoggerInterface $logger = null)
+    public function __construct($accessKey, $secretKey, $host = self::AWS_US_EAST_1, $verifyPeer = true, $verifyHost = true, LoggerInterface $logger = null)
     {
+    	$this->verifyPeer = $verifyPeer;
+        $this->verifyHost = $verifyHost;
         $this->accessKey = $accessKey;
         $this->secretKey = $secretKey;
         $this->host = $host;
