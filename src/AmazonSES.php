@@ -18,6 +18,9 @@ class AmazonSES implements EmailSenderInterface
     protected $host;
     protected $logger;
 
+    public $verifyPeer = true;
+	public $verifyHost = true;
+
     /**
      * @param string $accessKey
      * @param string $secretKey
@@ -76,6 +79,8 @@ class AmazonSES implements EmailSenderInterface
         }
 
         $ses = new SimpleEmailService($this->accessKey, $this->secretKey, $this->host, false);
+        $ses->setVerifyPeer($this->verifyPeer);
+        $ses->setVerifyHost($this->verifyHost);
         $response = $ses->sendEmail($m, false, false);
 
         if (is_object($response) && isset($response->error)) {
