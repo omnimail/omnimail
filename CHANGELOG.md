@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.5 (2017-01-08)
+
+- Added flag to disable verify peer and verify host to Amazon SES constructor
+
 ## 0.1.4 (2016-07-26)
 
 - Added toArray to attachment and email classes and interfaces
