@@ -74,7 +74,7 @@ composer require daniel-zahariev/php-aws-ses
 use Omnimail\Email;
 use Omnimail\AmazonSES;
 
-$sender = new AmazonSES($accessKey, $secretKey, $region);
+$sender = new AmazonSES($accessKey, $secretKey);
 
 $email = (new Email())
     ->addTo('example@email.com')
