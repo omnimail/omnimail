@@ -34,7 +34,7 @@ class Mailjet implements EmailSenderInterface
         $body = [
             'FromEmail' => $from['email'],
             'Subject' => $email->getSubject(),
-            'To' => $this->mapEmails($email->getTos())
+            'Recipients' => $this->mapEmails($email->getTos())
         ];
 
         if (!empty($from['name'])) {
