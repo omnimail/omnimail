@@ -50,7 +50,7 @@ class Postmark implements EmailSenderInterface
                 $sendResult = $sendResult[0];
             }
 
-            if ((int) $sendResult['ErrorCode'] !== 0) {
+            if ((int)$sendResult['ErrorCode'] !== 0) {
                 $e = new PostmarkException();
                 $e->httpStatusCode = $sendResult['ErrorCode'];
                 $e->message = $sendResult['Message'];
@@ -95,7 +95,7 @@ class Postmark implements EmailSenderInterface
     }
 
     /**
-     * @param array|null $attachments
+     * @param AttachmentInterface[] $attachments
      * @return array|null
      */
     private function mapAttachments(array $attachments = null)
@@ -134,7 +134,7 @@ class Postmark implements EmailSenderInterface
     {
         $returnValue = '';
         foreach ($emails as $email) {
-            $returnValue .= $this->mapEmail($email) . ', ';
+            $returnValue .= $this->mapEmail($email).', ';
         }
         return $returnValue ? substr($returnValue, 0, -2) : '';
     }

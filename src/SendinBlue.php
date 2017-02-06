@@ -65,7 +65,7 @@ class SendinBlue implements EmailSenderInterface
     }
 
     /**
-     * @param array|null $attachments
+     * @param AttachmentInterface[] $attachments
      * @return array|null
      */
     private function mapAttachments(array $attachments = null)
@@ -94,7 +94,7 @@ class SendinBlue implements EmailSenderInterface
     }
 
     /**
-     * @param array|null $attachments
+     * @param AttachmentInterface[] $attachments
      * @return array|null
      */
     private function mapInlineImages(array $attachments = null)

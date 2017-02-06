@@ -110,7 +110,7 @@ class Mandrill implements EmailSenderInterface
     }
 
     /**
-     * @param array|null $attachments
+     * @param AttachmentInterface[] $attachments
      * @return array|null
      */
     private function mapAttachments(array $attachments)
@@ -134,7 +134,7 @@ class Mandrill implements EmailSenderInterface
     }
 
     /**
-     * @param array|null $attachments
+     * @param AttachmentInterface[] $attachments
      * @return array|null
      */
     private function mapInlineAttachments(array $attachments)
@@ -214,7 +214,7 @@ class Mandrill implements EmailSenderInterface
     {
         $returnValue = '';
         foreach ($emails as $email) {
-            $returnValue .= $this->mapEmailString($email) . ', ';
+            $returnValue .= $this->mapEmailString($email).', ';
         }
         return $returnValue ? substr($returnValue, 0, -2) : '';
     }

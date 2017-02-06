@@ -95,7 +95,7 @@ class Attachment implements AttachmentInterface
     public function generateContentId()
     {
         if ($this->path) {
-            $this->setContentId(Token::generate(4) . '_' . basename($this->path));
+            $this->setContentId(Token::generate(4).'_'.basename($this->path));
             return $this;
         }
         $this->setContentId(Token::generate(8));

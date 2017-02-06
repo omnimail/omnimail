@@ -184,7 +184,7 @@ class Mailgun implements EmailSenderInterface
     {
         $returnValue = '';
         foreach ($emails as $email) {
-            $returnValue .= $this->mapEmail($email) . ', ';
+            $returnValue .= $this->mapEmail($email).', ';
         }
         return $returnValue ? substr($returnValue, 0, -2) : '';
     }

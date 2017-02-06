@@ -83,7 +83,7 @@ class Mailjet implements EmailSenderInterface
     }
 
     /**
-     * @param array|null $attachments
+     * @param AttachmentInterface[] $attachments
      * @return array|null
      */
     private function mapAttachments(array $attachments)
@@ -107,7 +107,7 @@ class Mailjet implements EmailSenderInterface
     }
 
     /**
-     * @param array|null $attachments
+     * @param AttachmentInterface[] $attachments
      * @return array|null
      */
     private function mapInlineAttachments(array $attachments)

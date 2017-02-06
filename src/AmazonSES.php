@@ -93,7 +93,7 @@ class AmazonSES implements EmailSenderInterface
             if ($this->logger) {
                 $this->logger->error("Error: ", $message);
             }
-            throw new Exception("Error: " . $message, 603);
+            throw new Exception("Error: ".$message, 603);
         } elseif (empty($response['MessageId'])) {
             if ($this->logger) {
                 $this->logger->error("Email error: Unknown error", $email->toArray());
