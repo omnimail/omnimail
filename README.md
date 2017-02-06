@@ -1,12 +1,12 @@
 <p align="center"><img width="320"src="https://cdn.rawgit.com/gabrielbull/omnimail/master/omnimail-logo.svg"></p>
 
 <p align="center">
-<a href="https://travis-ci.org/gabrielbull/omnimail"><img src="https://img.shields.io/travis/gabrielbull/omnimail.svg?style=flat-square" alt="Build Status"></a>
-<a href="https://styleci.io/repos/12901491"><img src="https://styleci.io/repos/12901491/shield" alt="StyleCI"></a>
-<a href="https://scrutinizer-ci.com/g/gabrielbull/omnimail/?branch=master"><img src="https://img.shields.io/scrutinizer/g/gabrielbull/omnimail.svg?style=flat-square" alt="Scrutinizer Code Quality"></a>
-<a href="https://scrutinizer-ci.com/g/gabrielbull/omnimail/?branch=master"><img src="https://img.shields.io/scrutinizer/coverage/g/gabrielbull/omnimail.svg?style=flat-square" alt="Code Coverage"></a>
-<a href="https://codeclimate.com/github/gabrielbull/omnimail"><img src="https://img.shields.io/codeclimate/github/gabrielbull/omnimail.svg?style=flat-square" alt="Code Climate"></a>
-<a href="https://packagist.org/packages/omnimail/omnimail"><img src="https://img.shields.io/packagist/v/omnimail/omnimail.svg?style=flat-square" alt="Latest Stable Version"></a>
+  <a href="https://travis-ci.org/gabrielbull/omnimail"><img src="https://img.shields.io/travis/gabrielbull/omnimail.svg?style=flat-square" alt="Build Status"></a>
+  <a href="https://styleci.io/repos/12901491"><img src="https://styleci.io/repos/12901491/shield" alt="StyleCI"></a>
+  <a href="https://scrutinizer-ci.com/g/gabrielbull/omnimail/?branch=master"><img src="https://img.shields.io/scrutinizer/g/gabrielbull/omnimail.svg?style=flat-square" alt="Scrutinizer Code Quality"></a>
+  <a href="https://scrutinizer-ci.com/g/gabrielbull/omnimail/?branch=master"><img src="https://img.shields.io/scrutinizer/coverage/g/gabrielbull/omnimail.svg?style=flat-square" alt="Code Coverage"></a>
+  <a href="https://codeclimate.com/github/gabrielbull/omnimail"><img src="https://img.shields.io/codeclimate/github/gabrielbull/omnimail.svg?style=flat-square" alt="Code Climate"></a>
+  <a href="https://packagist.org/packages/omnimail/omnimail"><img src="https://img.shields.io/packagist/v/omnimail/omnimail.svg?style=flat-square" alt="Latest Stable Version"></a>
 </p>
 
 ## Send email across all platforms using one interface.
