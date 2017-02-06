@@ -2,10 +2,10 @@
 
 namespace Omnimail\Tests\Utils;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Omnimail\Utils\Token;
 
-class TokenTest extends PHPUnit_Framework_TestCase
+class TokenTest extends TestCase
 {
     public function testTokenGeneration()
     {

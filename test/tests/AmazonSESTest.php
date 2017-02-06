@@ -2,21 +2,17 @@
 
 namespace Omnimail\Tests;
 
+use Omnimail\Exception\Exception;
 use PHPUnit_Framework_TestCase;
 use Omnimail\Email;
 use Omnimail\AmazonSES;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Middleware;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Exception\RequestException;
+use PHPUnit\Framework\TestCase;
 
-class AmazonSESTest extends PHPUnit_Framework_TestCase
+class AmazonSESTest extends TestCase
 {
     public function testErrorMessageIsThrownWithIncorrectDetails()
     {
-        $this->setExpectedException('Omnimail\Exception\Exception');
+        $this->expectException(Exception::class);
 
         $accessKey = 'ACCESSKEY';
         $secretKey = 'SECRETKEY';

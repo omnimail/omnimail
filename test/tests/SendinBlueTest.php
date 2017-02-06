@@ -2,15 +2,16 @@
 
 namespace Omnimail\Tests;
 
-use PHPUnit_Framework_TestCase;
+use Omnimail\Exception\Exception;
+use PHPUnit\Framework\TestCase;
 use Omnimail\Email;
 use Omnimail\SendinBlue;
 
-class SendinBlueTest extends PHPUnit_Framework_TestCase
+class SendinBlueTest extends TestCase
 {
     public function testErrorMessageIsThrownWithIncorrectDetails()
     {
-        $this->setExpectedException('Omnimail\Exception\Exception');
+        $this->expectException(Exception::class);
 
         $accessKey = 'apikey';
 
