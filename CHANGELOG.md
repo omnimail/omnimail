@@ -1,8 +1,9 @@
 # CHANGELOG
 
-## 0.1.5 (2017-01-08)
+## 0.2.0 (2017-02-06)
 
 - Added flag to disable verify peer and verify host to Amazon SES constructor
+- Fixed bug with Mailjet provider
 
 ## 0.1.4 (2016-07-26)
 
