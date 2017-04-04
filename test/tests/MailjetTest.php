@@ -3,11 +3,10 @@
 namespace Omnimail\Tests;
 
 use Omnimail\Exception\Exception;
-use PHPUnit\Framework\TestCase;
 use Omnimail\Email;
 use Omnimail\Mailjet;
 
-class MailjetTest extends TestCase
+class MailjetTest extends BaseTestClass
 {
     public function testErrorMessageIsThrownWithIncorrectDetails()
     {

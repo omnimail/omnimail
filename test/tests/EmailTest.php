@@ -3,9 +3,8 @@
 namespace Omnimail\Tests;
 
 use Omnimail\Email;
-use PHPUnit\Framework\TestCase;
 
-class EmailTest extends TestCase
+class EmailTest extends BaseTestClass
 {
     public function testToArray()
     {

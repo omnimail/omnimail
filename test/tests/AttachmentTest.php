@@ -4,9 +4,8 @@ namespace Omnimail\Tests;
 
 use Omnimail\Attachment;
 use Omnimail\AttachmentInterface;
-use PHPUnit\Framework\TestCase;
 
-class AttachmentTest extends TestCase
+class AttachmentTest extends BaseTestClass
 {
     public function testToArray()
     {

@@ -3,12 +3,10 @@
 namespace Omnimail\Tests;
 
 use Omnimail\Exception\Exception;
-use PHPUnit_Framework_TestCase;
 use Omnimail\Email;
 use Omnimail\AmazonSES;
-use PHPUnit\Framework\TestCase;
 
-class AmazonSESTest extends TestCase
+class AmazonSESTest extends BaseTestClass
 {
     public function testErrorMessageIsThrownWithIncorrectDetails()
     {

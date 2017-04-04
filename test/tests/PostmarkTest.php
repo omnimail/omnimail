@@ -3,11 +3,10 @@
 namespace Omnimail\Tests;
 
 use Omnimail\Exception\Exception;
-use PHPUnit\Framework\TestCase;
 use Omnimail\Email;
 use Omnimail\Postmark;
 
-class PostmarkTest extends TestCase
+class PostmarkTest extends BaseTestClass
 {
     public function testErrorMessageIsThrownWithIncorrectDetails()
     {

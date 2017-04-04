@@ -2,12 +2,11 @@
 
 namespace Omnimail\Tests;
 
-use Omnimail\Exception\Exception;
-use PHPUnit\Framework\TestCase;
 use Omnimail\Email;
 use Omnimail\Sendgrid;
+use Omnimail\Exception\Exception;
 
-class SendgridTest extends TestCase
+class SendgridTest extends BaseTestClass
 {
     public function testErrorMessageIsThrownWithIncorrectDetails()
     {

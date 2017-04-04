@@ -3,14 +3,13 @@
 namespace Omnimail\Tests;
 
 use Omnimail\Exception\Exception;
-use PHPUnit\Framework\TestCase;
 use Omnimail\Email;
 use Omnimail\Tests\Mock\Mailgun;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
-class MailgunTest extends TestCase
+class MailgunTest extends BaseTestClass
 {
     public function testRequestIsGeneratedCorrectly()
     {
