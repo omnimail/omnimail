@@ -10,7 +10,7 @@ if (class_exists('\PHPUnit\Framework\TestCase')) {
     class BaseTestClass extends TestCase
     {
     }
-} else if (class_exists('\PHPUnit_Framework_TestCase')) {
+} elseif (class_exists('\PHPUnit_Framework_TestCase')) {
     class BaseTestClass extends PHPUnit_Framework_TestCase
     {
         public function expectException($exception)
