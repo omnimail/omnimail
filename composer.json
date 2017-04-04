@@ -16,9 +16,9 @@
     ],
     "license" : "MIT",
     "authors" : [{
-            "name" : "Gabriel Bull",
-            "email" : "me@gabrielbull.com"
-        }
+        "name" : "Gabriel Bull",
+        "email" : "me@gabrielbull.com"
+    }
     ],
     "require" : {
         "php" : "^5.5 || ^7.0",
@@ -27,7 +27,7 @@
         "paragonie/random_compat": "^2.0"
     },
     "require-dev" : {
-        "phpunit/phpunit": "^6.0",
+        "phpunit/phpunit": "^5.0 || ^6.0",
         "wildbit/postmark-php": "^2.3",
         "sendgrid/sendgrid": "^5.1",
         "mailin-api/mailin-api-php": "^1.0",
