@@ -5,6 +5,7 @@ namespace Omnimail\Tests;
 use Omnimail\Exception\Exception;
 use Omnimail\Email;
 use Omnimail\AmazonSES;
+use Omnimail\Omnimail;
 
 class AmazonSESTest extends BaseTestClass
 {
@@ -12,10 +13,11 @@ class AmazonSESTest extends BaseTestClass
     {
         $this->expectException(Exception::class);
 
-        $accessKey = 'ACCESSKEY';
-        $secretKey = 'SECRETKEY';
-
-        $sender = new AmazonSES($accessKey, $secretKey);
+        $sender = Omnimail::create('AmazonSES');
+        $sender->initialize(array(
+          'AccessKey' => 'ACCESSKEY',
+          'SecretKey' => 'SECRETKEY',
+        ));
 
         $email = (new Email())
             ->addTo('your@email.com')

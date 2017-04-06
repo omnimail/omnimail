@@ -2,18 +2,115 @@
 
 namespace Omnimail;
 
+use Omnimail\Common\AbstractMailer;
 use Omnimail\Exception\Exception;
 use Psr\Log\LoggerInterface;
 use SimpleEmailServiceMessage;
 use SimpleEmailService;
 
-class AmazonSES implements EmailSenderInterface
+class AmazonSES extends AbstractMailer implements EmailSenderInterface
 {
     const AWS_US_EAST_1 = 'email.us-east-1.amazonaws.com';
     const AWS_US_WEST_2 = 'email.us-west-2.amazonaws.com';
     const AWS_EU_WEST1 = 'email.eu-west-1.amazonaws.com';
 
     protected $accessKey;
+
+  /**
+   * @return null|string
+   */
+  public function getAccessKey()
+  {
+      return $this->accessKey;
+  }
+
+  /**
+   * @param null|string $accessKey
+   */
+  public function setAccessKey($accessKey)
+  {
+      $this->accessKey = $accessKey;
+  }
+
+  /**
+   * @return null|string
+   */
+  public function getSecretKey()
+  {
+      return $this->secretKey;
+  }
+
+  /**
+   * @param null|string $secretKey
+   */
+  public function setSecretKey($secretKey)
+  {
+      $this->secretKey = $secretKey;
+  }
+
+  /**
+   * @return string
+   */
+  public function getHost()
+  {
+      return $this->host;
+  }
+
+  /**
+   * @param string $host
+   */
+  public function setHost($host)
+  {
+      $this->host = $host;
+  }
+
+  /**
+   * @return null|\Psr\Log\LoggerInterface
+   */
+  public function getLogger()
+  {
+      return $this->logger;
+  }
+
+  /**
+   * @param null|\Psr\Log\LoggerInterface $logger
+   */
+  public function setLogger($logger)
+  {
+      $this->logger = $logger;
+  }
+
+  /**
+   * @return boolean
+   */
+  public function isVerifyPeer()
+  {
+      return $this->verifyPeer;
+  }
+
+  /**
+   * @param boolean $verifyPeer
+   */
+  public function setVerifyPeer($verifyPeer)
+  {
+      $this->verifyPeer = $verifyPeer;
+  }
+
+  /**
+   * @return boolean
+   */
+  public function isVerifyHost()
+  {
+      return $this->verifyHost;
+  }
+
+  /**
+   * @param boolean $verifyHost
+   */
+  public function setVerifyHost($verifyHost)
+  {
+      $this->verifyHost = $verifyHost;
+  }
     protected $secretKey;
     protected $host;
     protected $logger;
@@ -28,7 +125,7 @@ class AmazonSES implements EmailSenderInterface
      * @param bool $verifyHost
      * @param LoggerInterface|null $logger
      */
-    public function __construct($accessKey, $secretKey, $host = self::AWS_US_EAST_1, $verifyPeer = true, $verifyHost = true, LoggerInterface $logger = null)
+    public function __construct($accessKey = null, $secretKey = null, $host = self::AWS_US_EAST_1, $verifyPeer = true, $verifyHost = true, LoggerInterface $logger = null)
     {
         $this->verifyPeer = $verifyPeer;
         $this->verifyHost = $verifyHost;
