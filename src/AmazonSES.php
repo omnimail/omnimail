@@ -16,101 +16,101 @@ class AmazonSES extends AbstractMailer implements EmailSenderInterface
 
     protected $accessKey;
 
-  /**
-   * @return null|string
-   */
-  public function getAccessKey()
-  {
-      return $this->accessKey;
-  }
+    /**
+     * @return null|string
+     */
+    public function getAccessKey()
+    {
+        return $this->accessKey;
+    }
 
-  /**
-   * @param null|string $accessKey
-   */
-  public function setAccessKey($accessKey)
-  {
-      $this->accessKey = $accessKey;
-  }
+    /**
+     * @param null|string $accessKey
+     */
+    public function setAccessKey($accessKey)
+    {
+        $this->accessKey = $accessKey;
+    }
 
-  /**
-   * @return null|string
-   */
-  public function getSecretKey()
-  {
-      return $this->secretKey;
-  }
+    /**
+     * @return null|string
+     */
+    public function getSecretKey()
+    {
+        return $this->secretKey;
+    }
 
-  /**
-   * @param null|string $secretKey
-   */
-  public function setSecretKey($secretKey)
-  {
-      $this->secretKey = $secretKey;
-  }
+    /**
+     * @param null|string $secretKey
+     */
+    public function setSecretKey($secretKey)
+    {
+        $this->secretKey = $secretKey;
+    }
 
-  /**
-   * @return string
-   */
-  public function getHost()
-  {
-      return $this->host;
-  }
+    /**
+     * @return string
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
 
-  /**
-   * @param string $host
-   */
-  public function setHost($host)
-  {
-      $this->host = $host;
-  }
+    /**
+     * @param string $host
+     */
+    public function setHost($host)
+    {
+        $this->host = $host;
+    }
 
-  /**
-   * @return null|\Psr\Log\LoggerInterface
-   */
-  public function getLogger()
-  {
-      return $this->logger;
-  }
+    /**
+     * @return null|\Psr\Log\LoggerInterface
+     */
+    public function getLogger()
+    {
+        return $this->logger;
+    }
 
-  /**
-   * @param null|\Psr\Log\LoggerInterface $logger
-   */
-  public function setLogger($logger)
-  {
-      $this->logger = $logger;
-  }
+    /**
+     * @param null|\Psr\Log\LoggerInterface $logger
+     */
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
+    }
 
-  /**
-   * @return boolean
-   */
-  public function isVerifyPeer()
-  {
-      return $this->verifyPeer;
-  }
+    /**
+     * @return boolean
+     */
+    public function isVerifyPeer()
+    {
+        return $this->verifyPeer;
+    }
 
-  /**
-   * @param boolean $verifyPeer
-   */
-  public function setVerifyPeer($verifyPeer)
-  {
-      $this->verifyPeer = $verifyPeer;
-  }
+    /**
+     * @param boolean $verifyPeer
+     */
+    public function setVerifyPeer($verifyPeer)
+    {
+        $this->verifyPeer = $verifyPeer;
+    }
 
-  /**
-   * @return boolean
-   */
-  public function isVerifyHost()
-  {
-      return $this->verifyHost;
-  }
+    /**
+     * @return boolean
+     */
+    public function isVerifyHost()
+    {
+        return $this->verifyHost;
+    }
 
-  /**
-   * @param boolean $verifyHost
-   */
-  public function setVerifyHost($verifyHost)
-  {
-      $this->verifyHost = $verifyHost;
-  }
+    /**
+     * @param boolean $verifyHost
+     */
+    public function setVerifyHost($verifyHost)
+    {
+        $this->verifyHost = $verifyHost;
+    }
     protected $secretKey;
     protected $host;
     protected $logger;

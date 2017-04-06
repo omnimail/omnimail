@@ -1,18 +1,15 @@
 <?php
-/**
- * Omnimail Factory class
- */
 
 namespace Omnimail\Common;
+
+use Omnimail\EmailSenderInterface;
+use Omnimail\Exception\MailerNotFoundException;
 
 /**
  * Omnimail Mailer Factory class
  *
  * This class abstracts a set of mailers that can be independently
  * registered, accessed, and used.
- *
- * Note that static calls to the Omnipay class are routed to this class by
- * the static call router (__callStatic) in Omnipay.
  *
  * Example:
  *
@@ -21,8 +18,6 @@ namespace Omnimail\Common;
  *   // (routes to Factory::create)
  *   $mailer = Omnimail::create('EMailgun');
  * </code>
- *
- * @see Omnimail/Omnimail
  */
 class Factory
 {
@@ -85,35 +80,34 @@ class Factory
     }
 
     /**
-     * Create a new mailer instance
-     *
-     * @param string               $class       Mailer name
-     * @param ClientInterface|null $httpClient  A Guzzle HTTP Client implementation
-     * @param HttpRequest|null     $httpRequest A Symfony HTTP Request implementation
-     *
-     * @throws \Exception                 If no such mailer is found
-     * @return object An object of class $class is created and returned
+     * @param string $class
+     * @param array $parameters
+     * @throws MailerNotFoundException
+     * @return EmailSenderInterface
      */
-    public function create($class, ClientInterface $httpClient = null, HttpRequest $httpRequest = null)
+    public function create($class, array $parameters = [])
     {
         $class = Helper::getMailerClassName($class);
 
         if (!class_exists($class)) {
-            throw new \Exception("Class '$class' not found");
+            throw new MailerNotFoundException($class);
         }
 
-        return new $class($httpClient, $httpRequest);
+        $instance = new $class();
+        Helper::initialize($instance, $parameters);
+        return $instance;
     }
 
     /**
      * Get a list of supported mailers which may be available
-     *
      * @return array
      */
     public function getSupportedMailers()
     {
-        $package = json_decode(file_get_contents(__DIR__.'/../../../composer.json'), true);
-
-        return $package['extra']['mailers'];
+        // todo: this would require to read a file and should be considered too slow, it would be
+        // better to detect the available classes instead (class_exists('...'))
+        //
+        //$package = json_decode(file_get_contents(__DIR__.'/../../../composer.json'), true);
+        //return $package['extra']['mailers'];
     }
 }

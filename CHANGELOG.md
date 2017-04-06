@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.0 (2017-xx-xx)
+
+ - ...
+
 ## 0.2.0 (2017-02-06)
 
 - Added flag to disable verify peer and verify host to Amazon SES constructor

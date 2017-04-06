@@ -401,6 +401,7 @@ __Exceptions__
  * Omnimail\Exception\EmailDeliveryException
  * Omnimail\Exception\InvalidRequestException
  * Omnimail\Exception\UnauthorizedException
+ * Omnimail\Exception\MailerNotFoundException
 
 To catch all exception, consider the following.
 

@@ -1,14 +1,10 @@
 <?php
-/**
- * Helper class
- *
- * Inspired by / copied from Omnipay library.
- */
 
 namespace Omnimail\Common;
 
 /**
  * Helper class
+ * Inspired by / copied from Omnipay library.
  *
  * This class defines various static utility functions that are in use
  * throughout the Omnimail system.
@@ -54,56 +50,26 @@ class Helper
     }
 
     /**
-     * Resolve a Mailer class to a short name.
-     *
-     * The short name can be used with Factory as an alias of the mailer class,
-     * to create new instances of a mailer.
+     * Resolve a short Mailer name to a full namespaced Mailer class.
+     * @param  string $className
+     * @return string
+     * @throws \Exception
      */
-    public static function getMailerShortName($className)
+    public static function getMailerClassName($className)
     {
-        if (0 === strpos($className, '\\')) {
-            $className = substr($className, 1);
-        }
-
-        if (0 === strpos($className, 'Omnimail\\')) {
-            return trim(str_replace('\\', '_', substr($className, 8, -7)), '_');
-        }
-
-        return '\\'.$className;
-    }
-
-  /**
-   * Resolve a short Mailer name to a full namespaced Mailer class.
-   *
-   * Class names beginning with a namespace marker (\) are left intact.
-   * Non-namespaced classes are expected to be in the \Omnipay namespace, e.g.:
-   *
-   *      \Custom\Mailer     => \Custom\Mailer
-   *      \Custom_Mailer     => \Custom_Mailer
-   *      Stripe              => \Omnipay\Stripe\Mailer
-   *      PayPal\Express      => \Omnipay\PayPal\ExpressMailer
-   *      PayPal_Express      => \Omnipay\PayPal\ExpressMailer
-   *
-   * @param  string $shortName The short Mailer name
-   * @return string The fully namespaced Mailer class name
-   *
-   * @throws \Exception
-   */
-    public static function getMailerClassName($shortName)
-    {
-        if (0 === strpos($shortName, '\\')) {
-            return $shortName;
+        if (class_exists($className)) {
+            return $className;
         }
 
         // replace underscores with namespace marker, PSR-0 style
-        $shortName = '\\Omnimail\\' . str_replace('_', '\\', $shortName);
-        if (!class_exists($shortName)) {
-            $shortName = $shortName .= '\\Mailer';
-            if (!class_exists($shortName)) {
-                throw new \Exception("Class '$shortName' not found");
+        $fullyQualified = '\\Omnimail\\' . str_replace('_', '\\', $className);
+        if (!class_exists($fullyQualified)) {
+            $fullyQualified = $fullyQualified . '\\Mailer';
+            if (!class_exists($fullyQualified)) {
+                throw new \Exception("Class '${className}' not found");
             }
         }
 
-        return $shortName;
+        return $fullyQualified;
     }
 }

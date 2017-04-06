@@ -1,8 +1,9 @@
 <?php
 
-namespace Omnimail\Tests;
+namespace Omnimail\Tests\Common;
 
 use Omnimail\Omnimail;
+use Omnimail\Tests\BaseTestClass;
 
 class FactoryTest extends BaseTestClass
 {
