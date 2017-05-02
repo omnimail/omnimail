@@ -19,7 +19,7 @@ class Mandrill implements EmailSenderInterface
      * @param string $ipPool
      * @param LoggerInterface|null $logger
      */
-    public function __construct($apiKey, $ipPool = null, LoggerInterface $logger = null)
+    public function __construct($apiKey = null, $ipPool = null, LoggerInterface $logger = null)
     {
         $this->apiKey = $apiKey;
         $this->ipPool = $ipPool;

@@ -19,7 +19,7 @@ class Mailjet implements EmailSenderInterface
      * @param string $apisecret
      * @param LoggerInterface|null $logger
      */
-    public function __construct($apikey, $apisecret, LoggerInterface $logger = null)
+    public function __construct($apikey = null, $apisecret = null, LoggerInterface $logger = null)
     {
         $this->apikey = $apikey;
         $this->apisecret = $apisecret;

@@ -16,7 +16,7 @@ class SendinBlue implements EmailSenderInterface
      * @param string $accessKey
      * @param LoggerInterface|null $logger
      */
-    public function __construct($accessKey, LoggerInterface $logger = null)
+    public function __construct($accessKey = null, LoggerInterface $logger = null)
     {
         $this->accessKey = $accessKey;
         $this->logger = $logger;
@@ -79,7 +79,7 @@ class SendinBlue implements EmailSenderInterface
             if ($attachment->getContentId()) {
                 continue;
             }
-            
+
             $content = null;
             if (!$attachment->getPath() && $attachment->getContent()) {
                 $content = base64_encode($attachment->getContent());

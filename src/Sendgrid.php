@@ -21,7 +21,7 @@ class Sendgrid implements EmailSenderInterface
      * @param string $apiKey
      * @param LoggerInterface|null $logger
      */
-    public function __construct($apiKey, LoggerInterface $logger = null)
+    public function __construct($apiKey = null, LoggerInterface $logger = null)
     {
         $this->apiKey = $apiKey;
         $this->logger = $logger;
