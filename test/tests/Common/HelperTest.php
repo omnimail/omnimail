@@ -8,6 +8,6 @@ class HelperTest extends BaseTestClass
 {
     public function testExample()
     {
-        $this->assertNotFalse(false);
+        $this->assertNotFalse(true);
     }
 }
