@@ -33,6 +33,12 @@ use Omnimail\Common\Factory;
 class Omnimail
 {
     const AMAZON_SES = '\Omnimail\AmazonSES';
+    const MAILGUN = '\Omnimail\Mailgun';
+    const MAILJET = '\Omnimail\Mailjet';
+    const MANDRILL = '\Omnimail\Mandrill';
+    const POSTMARK = '\Omnimail\Postmark';
+    const SENDGRID = '\Omnimail\Sendgrid';
+    const SENDINBLUE = '\Omnimail\SendinBlue';
 
     private static $factory;
 

@@ -15,6 +15,11 @@ class AmazonSES extends AbstractMailer implements EmailSenderInterface
     const AWS_EU_WEST1 = 'email.eu-west-1.amazonaws.com';
 
     protected $accessKey;
+    protected $secretKey;
+    protected $host;
+    protected $logger;
+    protected $verifyPeer;
+    protected $verifyHost;
 
     /**
      * @return null|string
@@ -111,11 +116,6 @@ class AmazonSES extends AbstractMailer implements EmailSenderInterface
     {
         $this->verifyHost = $verifyHost;
     }
-    protected $secretKey;
-    protected $host;
-    protected $logger;
-    protected $verifyPeer;
-    protected $verifyHost;
 
     /**
      * @param string $accessKey

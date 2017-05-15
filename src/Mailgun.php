@@ -17,7 +17,50 @@ class Mailgun implements EmailSenderInterface
     protected $domain;
     protected $mailgun;
     protected $logger;
+    protected $httpClient;
     protected $tmpfiles = [];
+
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+        $this->mailgun = new MailgunAPI($this->apiKey, $this->httpClient);
+    }
+
+    public function getDomain()
+    {
+        return $this->domain;
+    }
+
+    public function setDomain($domain)
+    {
+        $this->domain = $domain;
+    }
+
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
+    }
+
+    public function getHttpClient()
+    {
+        return $this->httpClient;
+    }
+
+    public function setHttpClient($httpClient)
+    {
+        $this->httpClient = $httpClient;
+        $this->mailgun = new MailgunAPI($this->apiKey, $this->httpClient);
+    }
 
     /**
      * @param string $apiKey
@@ -30,7 +73,8 @@ class Mailgun implements EmailSenderInterface
         $this->apiKey = $apiKey;
         $this->domain = $domain;
         $this->logger = $logger;
-        $this->mailgun = new MailgunAPI($this->apiKey, $httpClient);
+        $this->httpClient = $httpClient;
+        $this->mailgun = new MailgunAPI($this->apiKey, $this->httpClient);
     }
 
     public function send(EmailInterface $email)

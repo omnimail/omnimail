@@ -15,6 +15,26 @@ class Postmark implements EmailSenderInterface
     private $serverApiToken;
     private $logger;
 
+    public function getServerApiToken()
+    {
+        return $this->serverApiToken;
+    }
+
+    public function setServerApiToken($serverApiToken)
+    {
+        $this->serverApiToken = $serverApiToken;
+    }
+
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
+    }
+
     /**
      * @param string $serverApiToken
      * @param LoggerInterface|null $logger

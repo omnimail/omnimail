@@ -14,6 +14,38 @@ class Mailjet implements EmailSenderInterface
     private $logger;
     private $mailjet;
 
+    public function getApiKey()
+    {
+        return $this->apikey;
+    }
+
+    public function setApiKey($apikey)
+    {
+        $this->apikey = $apikey;
+        $this->mailjet = new Client($apikey, $this->apisecret);
+    }
+
+    public function getApiSecret()
+    {
+        return $this->apisecret;
+    }
+
+    public function setApiSecret($apisecret)
+    {
+        $this->apisecret = $apisecret;
+        $this->mailjet = new Client($this->apikey, $apisecret);
+    }
+
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
+    }
+
     /**
      * @param string $apikey
      * @param string $apisecret

@@ -14,6 +14,37 @@ class Mandrill implements EmailSenderInterface
     private $logger;
     private $mandrill;
 
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+        $this->mandrill = new \Mandrill($apiKey);
+    }
+
+    public function getIpPool()
+    {
+        return $this->ipPool;
+    }
+
+    public function setIpPool($ipPool)
+    {
+        $this->ipPool = $ipPool;
+    }
+
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
+    }
+
     /**
      * @param string $apiKey
      * @param string $ipPool

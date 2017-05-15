@@ -12,6 +12,26 @@ class SendinBlue implements EmailSenderInterface
     private $accessKey;
     private $logger;
 
+    public function getAccessKey()
+    {
+        return $this->accessKey;
+    }
+
+    public function setAccessKey($accessKey)
+    {
+        $this->accessKey = $accessKey;
+    }
+
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
+    }
+
     /**
      * @param string $accessKey
      * @param LoggerInterface|null $logger

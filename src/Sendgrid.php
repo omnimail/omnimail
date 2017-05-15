@@ -17,6 +17,26 @@ class Sendgrid implements EmailSenderInterface
     private $apiKey;
     private $logger;
 
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+    }
+
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
+    }
+
     /**
      * @param string $apiKey
      * @param LoggerInterface|null $logger
