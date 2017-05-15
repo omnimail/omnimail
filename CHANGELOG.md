@@ -1,8 +1,10 @@
 # CHANGELOG
 
-## 0.3.0 (2017-xx-xx)
+## 0.3.0 (2017-05-15)
 
- - ...
+ - Added factory methods to create mailer
+ - Renamed EmailSenderInterface to MailerInterface 
+ - Added setters and getters for Mailers configs
 
 ## 0.2.0 (2017-02-06)
 

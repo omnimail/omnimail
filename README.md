@@ -33,9 +33,10 @@
    - [Text Body](#email-text-body)
    - [HTML Body](#email-html-body)
    - [Attachments](#email-attachments)
-5. [Exceptions](#exceptions)
-6. [Logging](#logging)
-7. [License](#license-section)
+5. [Factory](#factory)
+6. [Exceptions](#exceptions)
+7. [Logging](#logging)
+8. [License](#license-section)
 
 <a name="requirements"></a>
 ## Requirements
@@ -60,7 +61,7 @@ composer require omnimail/omnimail
 
 #### Installation
 
-To use the AmazonSES sender class, you will need to install the `daniel-zahariev/php-aws-ses` library using composer.
+To use the AmazonSES mailer class, you will need to install the `daniel-zahariev/php-aws-ses` library using composer.
 
 ```
 composer require daniel-zahariev/php-aws-ses
@@ -72,7 +73,7 @@ composer require daniel-zahariev/php-aws-ses
 use Omnimail\Email;
 use Omnimail\AmazonSES;
 
-$sender = new AmazonSES($accessKey, $secretKey, $region, $verifyPeer, $verifyHost);
+$mailer = new AmazonSES($accessKey, $secretKey, $region, $verifyPeer, $verifyHost);
 
 $email = (new Email())
     ->addTo('example@email.com')
@@ -80,7 +81,7 @@ $email = (new Email())
     ->setSubject('Hello, world!')
     ->setTextBody('Hello World! How are you?');
 
-$sender->send($email);
+$mailer->send($email);
 ```
 
 <a name="mailgun"></a>
@@ -88,7 +89,7 @@ $sender->send($email);
 
 #### Installation
 
-To use the Mailgun sender class, you will need to install the `mailgun/mailgun-php` library using composer. You do also 
+To use the Mailgun mailer class, you will need to install the `mailgun/mailgun-php` library using composer. You do also 
 need to install a HTTP client that sends messages. You can use any client that provided the virtual package
 [php-http/client-implementation](https://packagist.org/providers/php-http/client-implementation)
 
@@ -102,7 +103,7 @@ composer require mailgun/mailgun-php php-http/guzzle6-adapter
 use Omnimail\Email;
 use Omnimail\Mailgun;
 
-$sender = new Mailgun($apiKey, $domain);
+$mailer = new Mailgun($apiKey, $domain);
 
 $email = (new Email())
     ->addTo('example@email.com')
@@ -110,7 +111,7 @@ $email = (new Email())
     ->setSubject('Hello, world!')
     ->setTextBody('Hello World! How are you?');
 
-$sender->send($email);
+$mailer->send($email);
 ```
 
 <a name="mailjet"></a>
@@ -118,7 +119,7 @@ $sender->send($email);
 
 #### Installation
 
-To use the Mailjet sender class, you will need to install the `mailjet/mailjet-apiv3-php` library using composer.
+To use the Mailjet mailer class, you will need to install the `mailjet/mailjet-apiv3-php` library using composer.
 
 ```
 composer require mailjet/mailjet-apiv3-php
@@ -130,7 +131,7 @@ composer require mailjet/mailjet-apiv3-php
 use Omnimail\Email;
 use Omnimail\Mailjet;
 
-$sender = new Mailjet($apikey, $apisecret);
+$mailer = new Mailjet($apikey, $apisecret);
 
 $email = (new Email())
     ->addTo('example@email.com')
@@ -138,7 +139,7 @@ $email = (new Email())
     ->setSubject('Hello, world!')
     ->setTextBody('Hello World! How are you?');
 
-$sender->send($email);
+$mailer->send($email);
 ```
 
 <a name="mandrill"></a>
@@ -146,7 +147,7 @@ $sender->send($email);
 
 #### Installation
 
-To use the Mandrill sender class, you will need to install the `mandrill/mandrill` library using composer.
+To use the Mandrill mailer class, you will need to install the `mandrill/mandrill` library using composer.
 
 ```
 composer require mandrill/mandrill
@@ -158,7 +159,7 @@ composer require mandrill/mandrill
 use Omnimail\Email;
 use Omnimail\Mandrill;
 
-$sender = new Mandrill($apiKey);
+$mailer = new Mandrill($apiKey);
 
 $email = (new Email())
     ->addTo('example@email.com')
@@ -166,7 +167,7 @@ $email = (new Email())
     ->setSubject('Hello, world!')
     ->setTextBody('Hello World! How are you?');
 
-$sender->send($email);
+$mailer->send($email);
 ```
 
 <a name="postmark"></a>
@@ -174,7 +175,7 @@ $sender->send($email);
 
 #### Installation
 
-To use the Postmark sender class, you will need to install the `wildbit/postmark-php` library using composer.
+To use the Postmark mailer class, you will need to install the `wildbit/postmark-php` library using composer.
 
 ```
 composer require wildbit/postmark-php
@@ -186,7 +187,7 @@ composer require wildbit/postmark-php
 use Omnimail\Email;
 use Omnimail\Postmark;
 
-$sender = new Postmark($serverApiToken);
+$mailer = new Postmark($serverApiToken);
 
 $email = (new Email())
     ->addTo('example@email.com')
@@ -194,7 +195,7 @@ $email = (new Email())
     ->setSubject('Hello, world!')
     ->setTextBody('Hello World! How are you?');
 
-$sender->send($email);
+$mailer->send($email);
 ```
 
 <a name="sendgrid"></a>
@@ -202,7 +203,7 @@ $sender->send($email);
 
 #### Installation
 
-To use the Sendgrid sender class, you will need to install the `sendgrid/sendgrid` library using composer.
+To use the Sendgrid mailer class, you will need to install the `sendgrid/sendgrid` library using composer.
 
 ```
 composer require sendgrid/sendgrid
@@ -214,7 +215,7 @@ composer require sendgrid/sendgrid
 use Omnimail\Email;
 use Omnimail\Sendgrid;
 
-$sender = new Sendgrid($apiKey);
+$mailer = new Sendgrid($apiKey);
 
 $email = (new Email())
     ->addTo('example@email.com')
@@ -222,7 +223,7 @@ $email = (new Email())
     ->setSubject('Hello, world!')
     ->setTextBody('Hello World! How are you?');
 
-$sender->send($email);
+$mailer->send($email);
 ```
 
 <a name="sendinblue"></a>
@@ -230,7 +231,7 @@ $sender->send($email);
 
 #### Installation
 
-To use the SendinBlue sender class, you will need to install the `mailin-api/mailin-api-php` library using composer.
+To use the SendinBlue mailer class, you will need to install the `mailin-api/mailin-api-php` library using composer.
 
 ```
 composer require mailin-api/mailin-api-php
@@ -242,7 +243,7 @@ composer require mailin-api/mailin-api-php
 use Omnimail\Email;
 use Omnimail\SendinBlue;
 
-$sender = new SendinBlue($accessKey);
+$mailer = new SendinBlue($accessKey);
 
 $email = (new Email())
     ->addTo('example@email.com')
@@ -250,14 +251,14 @@ $email = (new Email())
     ->setSubject('Hello, world!')
     ->setTextBody('Hello World! How are you?');
 
-$sender->send($email);
+$mailer->send($email);
 ```
 
 <a name="email"></a>
 ## Email
 
 An `Email` object implements the `EmailInterface`  inteface. You can create your own `Email` class and send it to any
-sender if it implements the `EmailInterface` inteface.
+mailer if it implements the `EmailInterface` inteface.
 
 <a name="email-to"></a>
 ### To
@@ -273,7 +274,7 @@ $email->addTo('recipent2@email.com', 'Recipient2 Name');
 <a name="email-from"></a>
 ### From
 
-The `From` property of the email is for defining the sender of the email.
+The `From` property of the email is for defining the mailer of the email.
 
 ```php
 $email = new Email();
@@ -390,6 +391,18 @@ $email->setHtmlBody('<p>Hello!</p><img src="cid:image.png">');
 $email->addAttachment($attachment);
 ```
 
+<a name="factory"></a>
+## Factory
+
+Alternatively, you can use the factory method to create a mailer. Consider the following example to create a AmazonSES 
+mailer:
+
+```php
+use Omnimail\Omnimail;
+
+$mailer = Omnimail::create(Omnimail::AMAZONSES, ['accessKey' => $accessKey, 'secretKey' => $secretKey]);
+```
+
 <a name="exceptions"></a>
 ## Exceptions
 
@@ -407,7 +420,7 @@ To catch all exception, consider the following.
 
 ```php
 try {
-    $sender->send($email);
+    $mailer->send($email);
 } catch (\Omnimail\Exception\Exception $e) {
     echo 'Something went wrong: ' . $e->getMessage();
 }
@@ -417,7 +430,7 @@ To catch specific exceptions, consider the following.
 
 ```php
 try {
-    $sender->send($email);
+    $mailer->send($email);
 } catch (\Omnimail\Exception\UnauthorizedException $e) {
     echo 'Your credentials must be incorrect';
 } catch (\Omnimail\Exception\InvalidRequestException $e) {
@@ -430,7 +443,7 @@ try {
 <a name="logging"></a>
 ## Logging
 
-All sender constructors take a PSR-3 compatible logger.
+All mailers constructors take a PSR-3 compatible logger.
 
 Email sent (including the email) are logged at INFO level. Errors (including the email) are reported at the ERROR level.
 
@@ -444,8 +457,8 @@ use Omnimail\Mailgun;
 $logger = new Logger('name');
 $logger->pushHandler(new StreamHandler('path/to/your.log', Logger::INFO));
 
-$sender = new Mailgun($apiKey, $domain, $logger);
-$sender->send($email);
+$mailer = new Mailgun($apiKey, $domain, $logger);
+$mailer->send($email);
 ```
 
 <a name="license-section"></a>
