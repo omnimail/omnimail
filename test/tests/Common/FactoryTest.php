@@ -15,7 +15,7 @@ class FactoryTest extends BaseTestClass
 
     public function testFactoryLoadOther()
     {
-        require_once __DIR__.'/../includes/Swiftmailer.php';
+        require_once __DIR__ . '/../includes/Swiftmailer/Mailer.php';
         $mail = Omnimail::create('Swiftmailer');
         $this->assertInstanceOf('Omnimail\Swiftmailer\Mailer', $mail);
     }
