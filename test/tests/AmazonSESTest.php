@@ -12,7 +12,7 @@ class AmazonSESTest extends BaseTestClass
     {
         $this->expectException(Exception::class);
 
-        $sender = Omnimail::create(Omnimail::AMAZON_SES, [
+        $sender = Omnimail::create(Omnimail::AMAZONSES, [
             'accessKey' => 'ACCESSKEY',
             'secretKey' => 'SECRETKEY',
         ]);

@@ -32,7 +32,7 @@ use Omnimail\Common\Factory;
  */
 class Omnimail
 {
-    const AMAZON_SES = '\Omnimail\AmazonSES';
+    const AMAZONSES = '\Omnimail\AmazonSES';
     const MAILGUN = '\Omnimail\Mailgun';
     const MAILJET = '\Omnimail\Mailjet';
     const MANDRILL = '\Omnimail\Mandrill';
