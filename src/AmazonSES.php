@@ -8,7 +8,7 @@ use Psr\Log\LoggerInterface;
 use SimpleEmailServiceMessage;
 use SimpleEmailService;
 
-class AmazonSES extends AbstractMailer implements EmailSenderInterface
+class AmazonSES extends AbstractMailer implements MailerInterface
 {
     const AWS_US_EAST_1 = 'email.us-east-1.amazonaws.com';
     const AWS_US_WEST_2 = 'email.us-west-2.amazonaws.com';

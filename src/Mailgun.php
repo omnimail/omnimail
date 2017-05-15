@@ -11,7 +11,7 @@ use Omnimail\Exception\UnauthorizedException;
 use Psr\Log\LoggerInterface;
 use Mailgun\Mailgun as MailgunAPI;
 
-class Mailgun implements EmailSenderInterface
+class Mailgun implements MailerInterface
 {
     protected $apiKey;
     protected $domain;

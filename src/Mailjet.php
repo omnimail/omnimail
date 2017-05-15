@@ -7,7 +7,7 @@ use Psr\Log\LoggerInterface;
 use Mailjet\Resources;
 use Mailjet\Client;
 
-class Mailjet implements EmailSenderInterface
+class Mailjet implements MailerInterface
 {
     private $apikey;
     private $apisecret;

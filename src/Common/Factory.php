@@ -2,7 +2,7 @@
 
 namespace Omnimail\Common;
 
-use Omnimail\EmailSenderInterface;
+use Omnimail\MailerInterface;
 use Omnimail\Exception\MailerNotFoundException;
 
 /**
@@ -83,7 +83,7 @@ class Factory
      * @param string $class
      * @param array $parameters
      * @throws MailerNotFoundException
-     * @return EmailSenderInterface
+     * @return MailerInterface
      */
     public function create($class, array $parameters = [])
     {

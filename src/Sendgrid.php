@@ -12,7 +12,7 @@ use SendGrid\Attachment as SendGridAttachment;
 use SendGrid\Personalization;
 use SendGrid\Response;
 
-class Sendgrid implements EmailSenderInterface
+class Sendgrid implements MailerInterface
 {
     private $apiKey;
     private $logger;

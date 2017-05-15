@@ -10,7 +10,7 @@ use Psr\Log\LoggerInterface;
 use Postmark\PostmarkClient;
 use Postmark\Models\PostmarkException;
 
-class Postmark implements EmailSenderInterface
+class Postmark implements MailerInterface
 {
     private $serverApiToken;
     private $logger;

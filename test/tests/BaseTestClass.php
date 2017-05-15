@@ -13,7 +13,7 @@ if (class_exists('\PHPUnit_Framework_TestCase') && stripos(phpversion(), '5') ==
             $this->setExpectedException($exception);
         }
     }
-} else if (class_exists('\PHPUnit\Framework\TestCase')) {
+} elseif (class_exists('\PHPUnit\Framework\TestCase')) {
     class BaseTestClass extends TestCase
     {
         public function expectException($exception)

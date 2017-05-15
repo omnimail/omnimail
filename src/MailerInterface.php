@@ -4,7 +4,7 @@ namespace Omnimail;
 
 use Psr\Log\LoggerInterface;
 
-interface EmailSenderInterface
+interface MailerInterface
 {
     public function send(EmailInterface $email);
 }

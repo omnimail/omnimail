@@ -2,8 +2,8 @@
 
 namespace Omnimail\Common;
 
-use Omnimail\EmailSenderInterface;
+use Omnimail\MailerInterface;
 
-abstract class AbstractMailer implements EmailSenderInterface
+abstract class AbstractMailer implements MailerInterface
 {
 }

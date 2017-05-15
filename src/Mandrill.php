@@ -7,7 +7,7 @@ use Omnimail\Exception\Exception;
 use Omnimail\Exception\InvalidRequestException;
 use Psr\Log\LoggerInterface;
 
-class Mandrill implements EmailSenderInterface
+class Mandrill implements MailerInterface
 {
     private $apiKey;
     private $ipPool;

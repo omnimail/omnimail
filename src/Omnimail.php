@@ -28,7 +28,7 @@ use Omnimail\Common\Factory;
  * @method static string register(string $className)
  * @method static array find()
  * @method static array getSupportedMailers()
- * @method static EmailSenderInterface create(string $class, array $parameters = [])
+ * @method static MailerInterface create(string $class, array $parameters = [])
  */
 class Omnimail
 {

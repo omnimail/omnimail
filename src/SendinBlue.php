@@ -7,7 +7,7 @@ use Omnimail\Exception\InvalidRequestException;
 use Psr\Log\LoggerInterface;
 use Sendinblue\Mailin;
 
-class SendinBlue implements EmailSenderInterface
+class SendinBlue implements MailerInterface
 {
     private $accessKey;
     private $logger;
