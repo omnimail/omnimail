@@ -20,7 +20,7 @@ class Mailing
 
     protected $htmlBody;
 
-    protected $htmlText;
+    protected $textBody;
 
     protected $scheduledTimestamp;
 
@@ -79,7 +79,7 @@ class Mailing
 
     public function getTextBody()
     {
-        return (string)$this->getTextBody();
+        return (string)$this->textBody();
     }
 
     public function getNumberSent()

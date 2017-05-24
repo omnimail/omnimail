@@ -8,31 +8,26 @@ use Omnimail\Common\Requests\RequestInterface;
 abstract class AbstractMailer implements MailerInterface
 {
     /**
-     * Are we in developer mode.
+     * Guzzle client, overridable with mock object in tests.
      *
-     * If so interactions will not be sent to the external provider.
-     *
-     * Some providers may also support test mode, where a test instance
-     * of the external api is used.
-     *
-     * @var bool
+     * @var \GuzzleHttp\Client
      */
-    protected $developerMode;
+    protected $client;
 
     /**
-     * @return bool
+     * @return \GuzzleHttp\Client
      */
-    public function isDeveloperMode()
+    public function getClient()
     {
-        return $this->developerMode;
+        return $this->client;
     }
 
     /**
-     * @param bool $developerMode
+     * @param \GuzzleHttp\Client $client
      */
-    public function setDeveloperMode($developerMode)
+    public function setClient($client)
     {
-        $this->developerMode = $developerMode;
+        $this->client = $client;
     }
 
     /**

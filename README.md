@@ -413,7 +413,7 @@ There are 2 functions currently described for the Mass mailings interface `getMa
 
 __getMailings__
 
-```
+```php
     $mailer = Omnimail::create('Silverpop')->getMailings();
     $mailer->setUserName($userName);
     $mailer->setPassword($password);
@@ -460,7 +460,7 @@ __getMailings__
 
 __getMailings__
 
-```
+```php
     $mailer = Omnimail::create('Silverpop')->getRecipients();
     $mailer->setUserName($userName);
     $mailer->setPassword($password);
