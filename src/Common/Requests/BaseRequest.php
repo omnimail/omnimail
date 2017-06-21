@@ -8,6 +8,7 @@
 
 namespace Omnimail\Common\Requests;
 
+use Omnimail\Common\Credentials;
 use Omnimail\Common\Helper;
 
 abstract class BaseRequest implements RequestInterface
@@ -35,18 +36,9 @@ abstract class BaseRequest implements RequestInterface
     protected $endPoint;
 
     /**
-     * User name
-     *
-     * @var string
+     * @var Credentials
      */
-    protected $username;
-
-    /**
-     * Password
-     *
-     * @var string
-     */
-    protected $password;
+    protected $credentials;
 
     /**
      * @return string
@@ -97,39 +89,15 @@ abstract class BaseRequest implements RequestInterface
     }
 
     /**
-     * @return string
+     * BaseRequest constructor.
+     *
+     * @param array $parameters
+     *   Any parameters that match credentials fields or properties on the class
+     *   will be retained. Others are discarded.
      */
-    public function getUsername()
-    {
-        return $this->userName;
-    }
-
-    /**
-     * @param string $userName
-     */
-    public function setUsername($userName)
-    {
-        $this->userName = $userName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param string $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    }
-
     public function __construct($parameters)
     {
-        Helper::initialize($this, array_merge($this->getDefaultParameters(), $parameters));
+        $parameters = array_merge($this->getDefaultParameters(), $parameters);
+        Helper::initialize($this, $parameters);
     }
 }

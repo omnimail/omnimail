@@ -414,13 +414,14 @@ There are 2 functions currently described for the Mass mailings interface `getMa
 __getMailings__
 
 ```php
-    $mailer = Omnimail::create('Silverpop')->getMailings();
-    $mailer->setUserName($userName);
-    $mailer->setPassword($password);
+    $mailer = Omnimail::create('Silverpop', array('UserName' => $userName, 'password' => $password))->getMailings();
     $mailer->setStartTimeStamp(strtotime('7 days ago'));
     $mailer->setEndTimeStamp(strtotime('now'));
-    // Instead of using set methods an array can be passed into create -ie 
-    // Omnimail::create('Silverpop', array('UserName' => $userName...);
+    // Instead of using set methods a Credentials object can be passed in ie.
+    // Omnimail::create('Silverpop', array('credentials' => new Credentials(array('username' => $userName...)));
+    // The advantage of using the Credentials object is that the object will not disclose
+    // the credentials when var_dump or similar is called, helping to make the code
+    // more secure.
 
     $mailings = $mailer->getResponse();
     for ($i = 0; $i < 15; $i++) {
