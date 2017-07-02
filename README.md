@@ -414,7 +414,7 @@ There are 2 functions currently described for the Mass mailings interface `getMa
 __getMailings__
 
 ```php
-    $mailer = Omnimail::create('Silverpop', array('UserName' => $userName, 'password' => $password))->getMailings();
+    $mailer = Omnimail::create('Silverpop', array('credentials' => new Credentials(array('username' => $userName...)))->getMailings();
     $mailer->setStartTimeStamp(strtotime('7 days ago'));
     $mailer->setEndTimeStamp(strtotime('now'));
     // Instead of using set methods a Credentials object can be passed in ie.
