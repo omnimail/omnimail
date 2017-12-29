@@ -50,7 +50,7 @@ class SendinBlue implements MailerInterface
             'to' => $this->mapEmails($email->getTos()),
             'cc' => $this->mapEmails($email->getCcs()),
             'bcc' => $this->mapEmails($email->getBccs()),
-            'from' => $this->mapEmail($email->getFrom()),
+            'from' => array_values($email->getFrom()),
             'replyto' => $this->mapEmails($email->getReplyTos()),
             'subject' => $email->getSubject(),
             'text' => $email->getTextBody(),
