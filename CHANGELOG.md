@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.3.1 (2018-01-05)
+
+ - Fixed issue with SendinBlue
+ - Updated Sendgrid mailer
+
 ## 0.3.0 (2017-05-15)
 
  - Added factory methods to create mailer
