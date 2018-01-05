@@ -56,16 +56,21 @@ class Sendgrid implements MailerInterface
             $content = new Content("text/plain", $email->getTextBody());
         }
 
-        $mail = new Mail();
-        $mail->setFrom($this->mapEmail($email->getFrom()));
-        $mail->setSubject($email->getSubject());
-        $mail->addContent($content);
+        $from = $this->mapEmail($email->getFrom());
 
         $personalization = new Personalization();
 
+        $firstTo = true;
+        $to = null;
         foreach ($email->getTos() as $recipient) {
-            $personalization->addTo($this->mapEmail($recipient));
+            if ($firstTo) {
+                $to = $this->mapEmail($recipient);
+            } else {
+                $personalization->addTo($this->mapEmail($recipient));
+            }
         }
+
+        $mail = new Mail($from, $email->getSubject(), $to, $content);
 
         if ($email->getReplyTos()) {
             foreach ($email->getReplyTos() as $recipient) {
