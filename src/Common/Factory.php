@@ -94,6 +94,9 @@ class Factory
         }
 
         $instance = new $class();
+        if (method_exists($instance, 'getCredentialFields') && !isset($parameters['credentials'])) {
+            $parameters['credentials'] = new Credentials(array_intersect_key($parameters, $instance->getCredentialFields()));
+        }
         Helper::initialize($instance, $parameters);
         return $instance;
     }

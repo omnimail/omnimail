@@ -33,10 +33,11 @@
    - [Text Body](#email-text-body)
    - [HTML Body](#email-html-body)
    - [Attachments](#email-attachments)
-5. [Factory](#factory)
-6. [Exceptions](#exceptions)
-7. [Logging](#logging)
-8. [License](#license-section)
+5. [Mass Mailings](#mass-mailings)
+6. [Factory](#factory)
+7. [Exceptions](#exceptions)
+8. [Logging](#logging)
+9. [License](#license-section)
 
 <a name="requirements"></a>
 ## Requirements
@@ -401,6 +402,89 @@ mailer:
 use Omnimail\Omnimail;
 
 $mailer = Omnimail::create(Omnimail::AMAZONSES, ['accessKey' => $accessKey, 'secretKey' => $secretKey]);
+```
+
+<a name="mass-mailings"></a>
+## Mass Mailings
+
+The mass mailing component is for interacting with mass mailing providers. Currently the code focusses on data retrieval, but in future it should also define creating and sending mass mailings.
+
+There are 2 functions currently described for the Mass mailings interface `getMailings` and `getRecipients`.
+
+__getMailings__
+
+```php
+    $mailer = Omnimail::create('Silverpop', array('credentials' => new Credentials(array('username' => $userName...)))->getMailings();
+    $mailer->setStartTimeStamp(strtotime('7 days ago'));
+    $mailer->setEndTimeStamp(strtotime('now'));
+    // Instead of using set methods a Credentials object can be passed in ie.
+    // Omnimail::create('Silverpop', array('credentials' => new Credentials(array('username' => $userName...)));
+    // The advantage of using the Credentials object is that the object will not disclose
+    // the credentials when var_dump or similar is called, helping to make the code
+    // more secure.
+
+    $mailings = $mailer->getResponse();
+    for ($i = 0; $i < 15; $i++) {
+      if (!$mailings->isCompleted()) {
+        sleep(15);
+      }
+      else {
+        foreach (\Omnimail\Responses\MailingsResponse $mailings as \Omnimail\Responses\Mailing $mailing) {
+
+           $detail => array(
+             'subject' => $mailing→getSubject(),
+             'external_identifier' => $mailing->getMailingIdentifier(),
+             'name' => $mailing->getName(),
+             'scheduled_date' => $mailing->getScheduledDate(),
+             'start_date' => $mailing->getSendStartDate(),
+             'number_sent' => $mailing->getNumberSent(),
+             'body_html' => $mailing->getHtmlBody(),
+             'body_text' => $mailing→getTextBody(),
+             // Note that in the case of Silverpop these statistics are not retrieved by the
+             // same api call. This is invisible to the calling function, and unless
+             // stats are requested they are not retrieved.
+             'number_bounced' => $mailing->getNumberBounces(),
+             'number_opened_total' => $mailing->getNumberOpens(),
+             'number_opened_unique' => $mailing->getNumberUniqueOpens(),
+             'number_unsubscribed' => $mailing->getNumberUnsubscribes(),
+             'number_suppressed' => $mailing->getNumberSuppressedByProvider(),
+             // 'forwarded'
+             'number_blocked' => $mailing->getNumberBlocked(),
+             // 'clicked_total' => $stats['NumGrossClick'],
+             'number_abuse_complaints' => $mailing->getNumberAbuseReports(),
+            );
+          }
+      }
+    }
+
+```    
+
+__getMailings__
+
+```php
+    $mailer = Omnimail::create('Silverpop')->getRecipients();
+    $mailer->setUserName($userName);
+    $mailer->setPassword($password);
+    $mailer->setStartTimeStamp(strtotime('7 days ago'));
+    $mailer->setEndTimeStamp(strtotime('now'));
+    $mailer->setMailingIdentifier(123);
+
+    $recipients = $mailer->getResponse();
+    if (!$recipients->isCompleted()) {
+      // sleep or exit & retry later.
+    }
+
+    foreach (\Omnimail\Responses\RecipientsResponse $recipients as \Omnimail\Responses\Recipient $$recipient) {
+
+     $detail => array(
+       'external_identifier' => $mailing->getMailingIdentifier(),
+       'email' =>  $mailing->getEmail(),
+       'provider_contact_id' => $mailing->getContactIdentifier(),
+       'contact_id' => $mailing->GetContactReference(),
+        // Const ACTION_SENT = ‘Sent’, ACTION_OPENED = ‘Open’, ...
+       'action' => $mailing->getRecipientAction(),
+       'timestamp' => getRecipientActionTimestamp(),
+     );
 ```
 
 <a name="exceptions"></a>
