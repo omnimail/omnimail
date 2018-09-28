@@ -64,7 +64,7 @@ class Mandrill implements MailerInterface
             $from = $email->getFrom();
 
             $message = [
-                'subject' => 'example subject',
+                'subject' => $email->getSubject(),
                 'from_email' => $from['email'],
                 'to' => $this->mapEmails($email->getTos())
             ];
@@ -107,6 +107,7 @@ class Mandrill implements MailerInterface
             }
 
             $result = $this->mandrill->messages->send($message, false, $this->ipPool);
+            $result = current($result);
             if ($result && $result['status'] &&
                 ($result['status'] === 'sent' || $result['status'] === 'queued' || $result['status'] === 'scheduled')
             ) {
