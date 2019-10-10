@@ -23,6 +23,7 @@
    - [Postmark](#postmark)
    - [Sendgrid](#sendgrid)
    - [SendinBlue](#sendinblue)
+   - [SMTP](#smtp)
 4. [Email](#email)
    - [To](#email-to)
    - [From](#email-from)
@@ -245,6 +246,34 @@ use Omnimail\Email;
 use Omnimail\SendinBlue;
 
 $mailer = new SendinBlue($accessKey);
+
+$email = (new Email())
+    ->addTo('example@email.com')
+    ->setFrom('example@email.com')
+    ->setSubject('Hello, world!')
+    ->setTextBody('Hello World! How are you?');
+
+$mailer->send($email);
+```
+
+<a name="smtp"></a>
+### SMTP
+
+#### Installation
+
+To use the SMTP mailer class, you will need to install the `phpmailer/phpmailer` library using composer.
+
+```
+composer require phpmailer/phpmailer
+```
+
+#### Usage
+
+```php
+use Omnimail\Email;
+use ShahariaAzam\SMTPMailer\SMTPMailer;
+
+$mailer = new SMTPMailer("SMTP HOSTNAME", "SMTP USERNAME", "SMTP PASSWORD");
 
 $email = (new Email())
     ->addTo('example@email.com')
