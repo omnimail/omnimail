@@ -100,6 +100,7 @@ class Mailjet implements MailerInterface
             $body['Inline_attachments'] = $this->mapInlineAttachments($email->getAttachments());
         }
 
+        $this->mailjet->setTimeout(20);
         $response = $this->mailjet->post(Resources::$Email, ['body' => $body]);
 
         if ($response->success()) {
