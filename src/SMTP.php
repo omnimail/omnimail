@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Omnimail;
-
 
 use Omnimail\Exception\Exception as OmniMailException;
 use PHPMailer\PHPMailer\Exception;
