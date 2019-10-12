@@ -101,6 +101,6 @@ abstract class BaseResponse extends \arrayObject
      */
     public function isCompleted()
     {
-        TRUE;
+        true;
     }
 }
