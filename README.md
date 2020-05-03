@@ -300,9 +300,9 @@ composer require phpmailer/phpmailer
 
 ```php
 use Omnimail\Email;
-use ShahariaAzam\SMTPMailer\SMTPMailer;
+use Omnimail\Gmail;
 
-$mailer = new Gmail("SMTP HOSTNAME", "SMTP USERNAME", "SMTP PASSWORD");
+$mailer = new Gmail("you@gmail.com", "password", []);
 
 $email = (new Email())
     ->addTo('example@email.com')

@@ -42,6 +42,7 @@ class SMTP implements MailerInterface
 
         $mailer->Port = !isset($options['port']) ? 587 : intval($options['port']);
         $this->processor = $mailer;
+        $this->processor->SMTPDebug = 2;
     }
 
     /**
@@ -109,6 +110,18 @@ class SMTP implements MailerInterface
 
         if (!empty($email->getTextBody()) && empty($email->getHtmlBody())) {
             $this->processor->Body = $email->getTextBody();
+        }
+
+        if (!empty($email->getAttachments())) {
+            foreach ($email->getAttachments() as $attachment) {
+                if (!empty($attachment->getPath())) {
+                    $this->processor->addAttachment($attachment->getPath(), $attachment->getName(),
+                        PHPMailer::ENCODING_BASE64, $attachment->getMimeType());
+                } elseif (!empty($attachment->getContent())) {
+                    $this->processor->addStringAttachment($attachment->getContent(), $attachment->getName(),
+                        PHPMailer::ENCODING_BASE64, $attachment->getMimeType());
+                }
+            }
         }
 
         try {
