@@ -67,7 +67,7 @@ composer require omnimail/omnimail
 To use the AmazonSES mailer class, you will need to install the `daniel-zahariev/php-aws-ses` library using composer.
 
 ```
-composer require daniel-zahariev/php-aws-ses
+composer require "daniel-zahariev/php-aws-ses:^0.9.2"
 ```
 
 #### Usage
@@ -76,7 +76,7 @@ composer require daniel-zahariev/php-aws-ses
 use Omnimail\Email;
 use Omnimail\AmazonSES;
 
-$mailer = new AmazonSES($accessKey, $secretKey, $region, $verifyPeer, $verifyHost);
+$mailer = new AmazonSES($accessKey, $secretKey, $region, $verifyPeer, $verifyHost, $signatureVersion);
 
 $email = (new Email())
     ->addTo('example@email.com')
