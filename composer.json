@@ -34,7 +34,7 @@
         "psr/log" : "^1.0"
     },
     "require-dev" : {
-        "daniel-zahariev/php-aws-ses": "^0.9",
+        "daniel-zahariev/php-aws-ses": "^0.9.2",
         "mailgun/mailgun-php": "^2.4",
         "mailin-api/mailin-api-php": "^1.0",
         "mailjet/mailjet-apiv3-php": "^1.2",
