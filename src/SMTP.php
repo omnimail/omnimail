@@ -115,11 +115,19 @@ class SMTP implements MailerInterface
         if (!empty($email->getAttachments())) {
             foreach ($email->getAttachments() as $attachment) {
                 if (!empty($attachment->getPath())) {
-                    $this->processor->addAttachment($attachment->getPath(), $attachment->getName(),
-                        PHPMailer::ENCODING_BASE64, $attachment->getMimeType());
+                    $this->processor->addAttachment(
+                        $attachment->getPath(),
+                        $attachment->getName(),
+                        PHPMailer::ENCODING_BASE64,
+                        $attachment->getMimeType()
+                    );
                 } elseif (!empty($attachment->getContent())) {
-                    $this->processor->addStringAttachment($attachment->getContent(), $attachment->getName(),
-                        PHPMailer::ENCODING_BASE64, $attachment->getMimeType());
+                    $this->processor->addStringAttachment(
+                        $attachment->getContent(),
+                        $attachment->getName(),
+                        PHPMailer::ENCODING_BASE64,
+                        $attachment->getMimeType()
+                    );
                 }
             }
         }

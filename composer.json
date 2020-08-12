@@ -1,5 +1,6 @@
 {
     "name" : "omnimail/omnimail",
+    "version": "0.3.4",
     "type" : "library",
     "description" : "PHP Omnimail",
     "keywords" : [
