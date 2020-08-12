@@ -5,7 +5,6 @@
   <a href="https://styleci.io/repos/12901491"><img src="https://styleci.io/repos/12901491/shield" alt="StyleCI"></a>
   <a href="https://scrutinizer-ci.com/g/gabrielbull/omnimail/?branch=master"><img src="https://img.shields.io/scrutinizer/g/gabrielbull/omnimail.svg?style=flat-square" alt="Scrutinizer Code Quality"></a>
   <a href="https://scrutinizer-ci.com/g/gabrielbull/omnimail/?branch=master"><img src="https://img.shields.io/scrutinizer/coverage/g/gabrielbull/omnimail.svg?style=flat-square" alt="Code Coverage"></a>
-  <a href="https://codeclimate.com/github/gabrielbull/omnimail"><img src="https://img.shields.io/codeclimate/github/gabrielbull/omnimail.svg?style=flat-square" alt="Code Climate"></a>
   <a href="https://packagist.org/packages/omnimail/omnimail"><img src="https://img.shields.io/packagist/v/omnimail/omnimail.svg?style=flat-square" alt="Latest Stable Version"></a>
 </p>
 
