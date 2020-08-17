@@ -39,11 +39,6 @@ class Credentials implements CredentialsInterface
         $this->credentials = $credentials;
     }
 
-    public function __construct($credentials)
-    {
-        $this->credentials = $credentials;
-    }
-
     /**
      * Get a single credential parameter.
      *

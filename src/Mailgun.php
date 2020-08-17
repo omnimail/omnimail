@@ -20,6 +20,25 @@ class Mailgun implements MailerInterface
     protected $httpClient;
     protected $tmpfiles = [];
 
+    /**
+     * @param string $apiKey
+     * @param string $domain
+     * @param LoggerInterface|null $logger
+     * @param HttpClient $httpClient
+     */
+    public function __construct(
+        $apiKey = null,
+        $domain = null,
+        LoggerInterface $logger = null,
+        HttpClient $httpClient = null
+    ) {
+        $this->apiKey = $apiKey;
+        $this->domain = $domain;
+        $this->logger = $logger;
+        $this->httpClient = $httpClient;
+        $this->mailgun = new MailgunAPI($this->apiKey, $this->httpClient);
+    }
+
     public function getApiKey()
     {
         return $this->apiKey;
@@ -58,21 +77,6 @@ class Mailgun implements MailerInterface
 
     public function setHttpClient($httpClient)
     {
-        $this->httpClient = $httpClient;
-        $this->mailgun = new MailgunAPI($this->apiKey, $this->httpClient);
-    }
-
-    /**
-     * @param string $apiKey
-     * @param string $domain
-     * @param LoggerInterface|null $logger
-     * @param HttpClient $httpClient
-     */
-    public function __construct($apiKey = null, $domain = null, LoggerInterface $logger = null, HttpClient $httpClient = null)
-    {
-        $this->apiKey = $apiKey;
-        $this->domain = $domain;
-        $this->logger = $logger;
         $this->httpClient = $httpClient;
         $this->mailgun = new MailgunAPI($this->apiKey, $this->httpClient);
     }
@@ -160,16 +164,26 @@ class Mailgun implements MailerInterface
         }
     }
 
-    private function addTmpfile($file)
+    /**
+     * @param array $emails
+     * @return string
+     */
+    private function mapEmails(array $emails)
     {
-        $this->tmpfiles[] = $file;
+        $returnValue = '';
+        foreach ($emails as $email) {
+            $returnValue .= $this->mapEmail($email) . ', ';
+        }
+        return $returnValue ? substr($returnValue, 0, -2) : '';
     }
 
-    private function removeTmpfiles()
+    /**
+     * @param array $email
+     * @return string
+     */
+    private function mapEmail(array $email)
     {
-        foreach ($this->tmpfiles as $file) {
-            fclose($file);
-        }
+        return !empty($email['name']) ? "'{$email['name']}' <{$email['email']}>" : $email['email'];
     }
 
     /**
@@ -196,6 +210,11 @@ class Mailgun implements MailerInterface
         }
     }
 
+    private function addTmpfile($file)
+    {
+        $this->tmpfiles[] = $file;
+    }
+
     /**
      * @param AttachmentInterface[]|array|null $attachments
      * @param MessageBuilder $builder
@@ -220,25 +239,10 @@ class Mailgun implements MailerInterface
         }
     }
 
-    /**
-     * @param array $emails
-     * @return string
-     */
-    private function mapEmails(array $emails)
+    private function removeTmpfiles()
     {
-        $returnValue = '';
-        foreach ($emails as $email) {
-            $returnValue .= $this->mapEmail($email).', ';
+        foreach ($this->tmpfiles as $file) {
+            fclose($file);
         }
-        return $returnValue ? substr($returnValue, 0, -2) : '';
-    }
-
-    /**
-     * @param array $email
-     * @return string
-     */
-    private function mapEmail(array $email)
-    {
-        return !empty($email['name']) ? "'{$email['name']}' <{$email['email']}>" : $email['email'];
     }
 }

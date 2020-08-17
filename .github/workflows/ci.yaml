@@ -35,7 +35,7 @@ jobs:
 
       # PHP CS check
       - name: Run PHP Coding Standard Checking
-        run: ./vendor/bin/phpcs src/
+        run: ./vendor/bin/phpcs src/ -n
 
       # Unit Testing
       - name: Run PHPUnit tests
