@@ -5,3 +5,4 @@ vendor
 phpunit-coverage.xml
 build
 .phpcs-cache
+*cache

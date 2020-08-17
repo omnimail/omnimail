@@ -18,6 +18,12 @@
     <!-- Run against the PHPCompatibility ruleset -->
     <rule ref="PHPCompatibility"/>
 
+    <rule ref="PHPCompatibility.Extensions.RemovedExtensions">
+        <properties>
+            <property name="functionWhitelist" type="array" value="random_int"/>
+        </properties>
+    </rule>
+
     <file>src/</file>
     <file>test/</file>
 
