@@ -134,7 +134,7 @@ class AmazonSES extends AbstractMailer implements MailerInterface
      * @param bool $verifyHost
      * @param LoggerInterface|null $logger
      */
-    public function __construct($accessKey = null, $secretKey = null, $host = self::AWS_US_EAST_1, $verifyPeer = true, $verifyHost = true, LoggerInterface $logger = null, string $signatureVersion = SimpleEmailService::REQUEST_SIGNATURE_V4)
+    public function __construct($accessKey = null, $secretKey = null, $host = self::AWS_US_EAST_1, $verifyPeer = true, $verifyHost = true, LoggerInterface $logger = null, string $signatureVersion = 'v4')
     {
         $this->verifyPeer = $verifyPeer;
         $this->verifyHost = $verifyHost;
