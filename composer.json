@@ -43,7 +43,10 @@
         "phpunit/phpunit": "^5.7 || ^6.5",
         "sendgrid/sendgrid": "^6.0",
         "wildbit/postmark-php": "^2.5",
-        "phpmailer/phpmailer": "^6.1"
+        "phpmailer/phpmailer": "^6.1",
+        "squizlabs/php_codesniffer": "^3.5",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "friendsofphp/php-cs-fixer": "^2.16"
     },
     "autoload" : {
         "psr-4" : {
@@ -67,5 +70,10 @@
         "phpmailer/phpmailer" : "Required if you use the SMTP sending method"
     },
     "minimum-stability" : "dev",
-    "prefer-stable" : true
+    "prefer-stable" : true,
+    "config": {
+        "platform": {
+            "php": "7.2"
+        }
+    }
 }

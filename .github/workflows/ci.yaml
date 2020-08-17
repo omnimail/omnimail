@@ -1,0 +1,55 @@
+name: CI
+
+# When to trigger this workflow
+on: [push, pull_request]
+
+# Define all jobs
+jobs:
+  run:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ['7.2', '7.3', '7.4']
+    # Running on multiple OS and on multiple PHP version
+    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+    steps:
+      # Checkout latest commit
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup PHP
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          coverage: xdebug
+
+      # Install composer
+      - name: Install composer
+        run: curl --show-error --silent https://getcomposer.org/installer | php
+
+      # Install all dependencies
+      - name: Install composer dependencies
+        run: php composer.phar install
+
+      # PHP CS check
+      - name: Run PHP Coding Standard Checking
+        run: ./vendor/bin/phpcs --standard=psr2
+
+      - name: PHP Compatibility checking with PHP5.5
+        run: ./vendor/bin/phpcs --standard=PHPCompatibility --runtime-set testVersion 5.5
+
+      # PHP CS fixer check
+      - name: Run PHP Coding Standard Checking
+        run: ./vendor/bin/php-cs-fixer fix -v --dry-run --stop-on-violation --using-cache=no --path-mode=intersection
+
+      # Unit Testing
+      - name: Run PHPUnit tests
+        run: ./vendor/bin/phpunit --configuration ./phpunit.xml --bootstrap ./tests/bootstrap.php
+
+      # Coverage report upload to scrutinizer for code ratings
+      - name: Downloading scrutinizer ocular.phar
+        run: wget https://scrutinizer-ci.com/ocular.phar
+      - name: Uploading code coverage to scrutinize
+        run: php ocular.phar code-coverage:upload --format=php-clover ./build/coverage/log/coverage.xml
