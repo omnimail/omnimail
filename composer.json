@@ -71,9 +71,11 @@
     },
     "minimum-stability" : "dev",
     "prefer-stable" : true,
-    "config": {
-        "platform": {
-            "php": "7.2"
-        }
+    "scripts": {
+        "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
+        "post-update-cmd" : "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
+        "test-phpcs": "./vendor/bin/phpcs src/",
+        "fix-phpcs": "./vendor/bin/phpcbf src/",
+        "phpunit": "./vendor/bin/phpunit --configuration=phpunit.xml.dist"
     }
 }

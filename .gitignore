@@ -4,3 +4,4 @@ vendor
 .idea
 phpunit-coverage.xml
 build
+.phpcs-cache
