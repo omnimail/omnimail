@@ -1,4 +1,4 @@
-<p align="center"><img width="320"src="https://cdn.rawgit.com/omnimail/omnimail/master/omnimail-logo.svg"></p>
+<p align="center"><img width="320" src="https://raw.githubusercontent.com/omnimail/omnimail/development/omnimail-logo.svg"></p>
 
 <p align="center">
   <a href="https://travis-ci.org/omnimail/omnimail"><img src="https://img.shields.io/travis/omnimail/omnimail.svg?style=flat-square" alt="Build Status"></a>
@@ -6,6 +6,7 @@
   <a href="https://scrutinizer-ci.com/g/omnimail/omnimail/?branch=master"><img src="https://img.shields.io/scrutinizer/g/omnimail/omnimail.svg?style=flat-square" alt="Scrutinizer Code Quality"></a>
   <a href="https://scrutinizer-ci.com/g/omnimail/omnimail/?branch=master"><img src="https://img.shields.io/scrutinizer/coverage/g/omnimail/omnimail.svg?style=flat-square" alt="Code Coverage"></a>
   <a href="https://packagist.org/packages/omnimail/omnimail"><img src="https://img.shields.io/packagist/v/omnimail/omnimail.svg?style=flat-square" alt="Latest Stable Version"></a>
+  <a href="https://gitter.im/omnimail/omnimail"><img src="https://badges.gitter.im/omnimail/omnimail.svg" alt="Join the chat at https://gitter.im/omnimail/omnimail"></a>
 </p>
 
 ## Send email across all platforms using one interface.
@@ -66,7 +67,7 @@ composer require omnimail/omnimail
 To use the AmazonSES mailer class, you will need to install the `daniel-zahariev/php-aws-ses` library using composer.
 
 ```
-composer require daniel-zahariev/php-aws-ses
+composer require "daniel-zahariev/php-aws-ses:^0.9.2"
 ```
 
 #### Usage
@@ -75,7 +76,7 @@ composer require daniel-zahariev/php-aws-ses
 use Omnimail\Email;
 use Omnimail\AmazonSES;
 
-$mailer = new AmazonSES($accessKey, $secretKey, $region, $verifyPeer, $verifyHost);
+$mailer = new AmazonSES($accessKey, $secretKey, $region, $verifyPeer, $verifyHost, $signatureVersion);
 
 $email = (new Email())
     ->addTo('example@email.com')

@@ -3,3 +3,6 @@ phpunit.xml
 vendor
 .idea
 phpunit-coverage.xml
+build
+.phpcs-cache
+*cache

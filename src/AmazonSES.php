@@ -20,6 +20,7 @@ class AmazonSES extends AbstractMailer implements MailerInterface
     protected $logger;
     protected $verifyPeer;
     protected $verifyHost;
+    protected $signatureVersion;
 
     /**
      * @return null|string
@@ -118,14 +119,23 @@ class AmazonSES extends AbstractMailer implements MailerInterface
     }
 
     /**
+     * @param boolean $signatureVersion
+     */
+    public function setSignatureVersion($signatureVersion)
+    {
+        $this->signatureVersion = $signatureVersion;
+    }
+
+    /**
      * @param string $accessKey
      * @param string $secretKey
      * @param string $host
      * @param bool $verifyPeer
      * @param bool $verifyHost
      * @param LoggerInterface|null $logger
+     * @param string $signatureVersion
      */
-    public function __construct($accessKey = null, $secretKey = null, $host = self::AWS_US_EAST_1, $verifyPeer = true, $verifyHost = true, LoggerInterface $logger = null)
+    public function __construct($accessKey = null, $secretKey = null, $host = self::AWS_US_EAST_1, $verifyPeer = true, $verifyHost = true, LoggerInterface $logger = null, $signatureVersion = SimpleEmailService::REQUEST_SIGNATURE_V4)
     {
         $this->verifyPeer = $verifyPeer;
         $this->verifyHost = $verifyHost;
@@ -133,6 +143,7 @@ class AmazonSES extends AbstractMailer implements MailerInterface
         $this->secretKey = $secretKey;
         $this->host = $host;
         $this->logger = $logger;
+        $this->signatureVersion = $signatureVersion;
     }
 
     public function send(EmailInterface $email)
@@ -178,7 +189,7 @@ class AmazonSES extends AbstractMailer implements MailerInterface
             }
         }
 
-        $ses = new SimpleEmailService($this->accessKey, $this->secretKey, $this->host, false);
+        $ses = new SimpleEmailService($this->accessKey, $this->secretKey, $this->host, false, $this->signatureVersion);
         $ses->setVerifyPeer($this->verifyPeer);
         $ses->setVerifyHost($this->verifyHost);
         $response = $ses->sendEmail($m, false, false);
