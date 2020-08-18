@@ -23,6 +23,11 @@ class Credentials implements CredentialsInterface
 {
     private $credentials = array();
 
+    public function __construct($credentials)
+    {
+        $this->credentials = $credentials;
+    }
+
     /**
      * @return array
      */
@@ -35,11 +40,6 @@ class Credentials implements CredentialsInterface
      * @param array $credentials
      */
     public function setCredentials($credentials)
-    {
-        $this->credentials = $credentials;
-    }
-
-    public function __construct($credentials)
     {
         $this->credentials = $credentials;
     }

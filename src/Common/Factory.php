@@ -29,16 +29,6 @@ class Factory
     private $mailers = array();
 
     /**
-     * All available mailers
-     *
-     * @return array An array of mailer names
-     */
-    public function all()
-    {
-        return $this->mailers;
-    }
-
-    /**
      * Replace the list of available mailers
      *
      * @param array $mailers An array of mailer names
@@ -46,18 +36,6 @@ class Factory
     public function replace(array $mailers)
     {
         $this->mailers = $mailers;
-    }
-
-    /**
-     * Register a new mailer
-     *
-     * @param string $className Mailer name
-     */
-    public function register($className)
-    {
-        if (!in_array($className, $this->mailers)) {
-            $this->mailers[] = $className;
-        }
     }
 
     /**
@@ -80,10 +58,45 @@ class Factory
     }
 
     /**
+     * Get a list of supported mailers which may be available
+     * @return array
+     */
+    public function getSupportedMailers()
+    {
+        // todo: this would require to read a file and should be considered too slow, it would be
+        // better to detect the available classes instead (class_exists('...'))
+        //
+        //$package = json_decode(file_get_contents(__DIR__.'/../../../composer.json'), true);
+        //return $package['extra']['mailers'];
+    }
+
+    /**
+     * Register a new mailer
+     *
+     * @param string $className Mailer name
+     */
+    public function register($className)
+    {
+        if (!in_array($className, $this->mailers)) {
+            $this->mailers[] = $className;
+        }
+    }
+
+    /**
+     * All available mailers
+     *
+     * @return array An array of mailer names
+     */
+    public function all()
+    {
+        return $this->mailers;
+    }
+
+    /**
      * @param string $class
      * @param array $parameters
-     * @throws MailerNotFoundException
      * @return MailerInterface
+     * @throws MailerNotFoundException
      */
     public function create($class, array $parameters = [])
     {
@@ -95,22 +108,12 @@ class Factory
 
         $instance = new $class();
         if (method_exists($instance, 'getCredentialFields') && !isset($parameters['credentials'])) {
-            $parameters['credentials'] = new Credentials(array_intersect_key($parameters, $instance->getCredentialFields()));
+            $parameters['credentials'] = new Credentials(array_intersect_key(
+                $parameters,
+                $instance->getCredentialFields()
+            ));
         }
         Helper::initialize($instance, $parameters);
         return $instance;
-    }
-
-    /**
-     * Get a list of supported mailers which may be available
-     * @return array
-     */
-    public function getSupportedMailers()
-    {
-        // todo: this would require to read a file and should be considered too slow, it would be
-        // better to detect the available classes instead (class_exists('...'))
-        //
-        //$package = json_decode(file_get_contents(__DIR__.'/../../../composer.json'), true);
-        //return $package['extra']['mailers'];
     }
 }
