@@ -24,7 +24,7 @@
     "repositories": [
       {
         "type": "git",
-        "url":  "https://github.com/eileenmcnaughton/omnimail-swiftmailer.git"
+        "url":  "https://github.com/omnimail/omnimail.git"
       }
     ],
     "require" : {
