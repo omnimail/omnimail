@@ -17,6 +17,7 @@
     "license" : "MIT",
     "require" : {
         "php" : ">=5.6",
+        "ext-json": "*",
         "paragonie/random_compat": "^2.0",
         "php-http/httplug": "^1.1",
         "psr/log": "^1.1"

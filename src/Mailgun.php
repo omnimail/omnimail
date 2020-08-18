@@ -3,6 +3,7 @@
 namespace Omnimail;
 
 use Http\Client\HttpClient;
+use Mailgun\Messages\Exceptions\InvalidParameter;
 use Mailgun\Messages\MessageBuilder;
 use Omnimail\Exception\EmailDeliveryException;
 use Omnimail\Exception\Exception;
@@ -81,6 +82,13 @@ class Mailgun implements MailerInterface
         $this->mailgun = new MailgunAPI($this->apiKey, $this->httpClient);
     }
 
+    /**
+     * @param EmailInterface $email
+     * @throws EmailDeliveryException
+     * @throws Exception
+     * @throws InvalidRequestException
+     * @throws UnauthorizedException
+     */
     public function send(EmailInterface $email)
     {
         try {
@@ -208,6 +216,8 @@ class Mailgun implements MailerInterface
             }
             $builder->addAttachment($file, $attachment->getName());
         }
+
+        return null;
     }
 
     private function addTmpfile($file)
@@ -218,7 +228,8 @@ class Mailgun implements MailerInterface
     /**
      * @param AttachmentInterface[]|array|null $attachments
      * @param MessageBuilder $builder
-     * @return array|null
+     * @return void
+     * @throws InvalidParameter
      */
     private function mapInlineAttachments(array $attachments, MessageBuilder $builder)
     {

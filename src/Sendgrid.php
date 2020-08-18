@@ -47,6 +47,11 @@ class Sendgrid implements MailerInterface
         $this->logger = $logger;
     }
 
+    /**
+     * @param EmailInterface $email
+     * @throws InvalidRequestException
+     * @throws UnauthorizedException
+     */
     public function send(EmailInterface $email)
     {
         $content = null;
@@ -111,7 +116,6 @@ class Sendgrid implements MailerInterface
 
         $mail->addPersonalization($personalization);
         $sg = new \SendGrid($this->apiKey);
-        /** @var Response $response */
         $response = $sg->client->mail()->send()->post($mail);
 
         if ($response->statusCode() >= 200 && $response->statusCode() < 300) {

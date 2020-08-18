@@ -64,7 +64,7 @@ class SMTP implements MailerInterface
     /**
      * @param EmailInterface $email
      * @return bool
-     * @throws \Omnimail\Exception\Exception
+     * @throws OmniMailException
      * @throws Exception
      */
     public function send(EmailInterface $email)

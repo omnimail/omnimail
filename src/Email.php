@@ -86,7 +86,7 @@ class Email implements EmailInterface
     }
 
     /**
-     * @return string
+     * @return array
      */
     public function getFrom()
     {

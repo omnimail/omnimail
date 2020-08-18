@@ -42,6 +42,12 @@ class SendinBlue implements MailerInterface
         $this->logger = $logger;
     }
 
+    /**
+     * @param EmailInterface $email
+     * @throws Exception
+     * @throws InvalidRequestException
+     * @throws \Exception
+     */
     public function send(EmailInterface $email)
     {
         $mailin = new Mailin('https://api.sendinblue.com/v2.0', $this->accessKey);

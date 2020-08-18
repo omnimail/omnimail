@@ -2,6 +2,8 @@
 
 namespace Omnimail\Common;
 
+use Exception;
+
 /**
  * Helper class
  * Inspired by / copied from Omnipay library.
@@ -53,7 +55,7 @@ class Helper
      * Resolve a short Mailer name to a full namespaced Mailer class.
      * @param  string $className
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public static function getMailerClassName($className)
     {
@@ -66,7 +68,7 @@ class Helper
         if (!class_exists($fullyQualified)) {
             $fullyQualified = $fullyQualified . '\\Mailer';
             if (!class_exists($fullyQualified)) {
-                throw new \Exception("Class '${className}' not found");
+                throw new Exception("Class '${className}' not found");
             }
         }
 

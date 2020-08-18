@@ -2,6 +2,7 @@
 
 namespace Omnimail;
 
+use Mandrill_Error;
 use Omnimail\Exception\EmailDeliveryException;
 use Omnimail\Exception\Exception;
 use Omnimail\Exception\InvalidRequestException;
@@ -19,6 +20,10 @@ class Mandrill implements MailerInterface
         return $this->apiKey;
     }
 
+    /**
+     * @param $apiKey
+     * @throws Mandrill_Error
+     */
     public function setApiKey($apiKey)
     {
         $this->apiKey = $apiKey;
@@ -49,6 +54,7 @@ class Mandrill implements MailerInterface
      * @param string $apiKey
      * @param string $ipPool
      * @param LoggerInterface|null $logger
+     * @throws Mandrill_Error
      */
     public function __construct($apiKey = null, $ipPool = null, LoggerInterface $logger = null)
     {
@@ -58,6 +64,12 @@ class Mandrill implements MailerInterface
         $this->mandrill = new \Mandrill($apiKey);
     }
 
+    /**
+     * @param EmailInterface $email
+     * @throws EmailDeliveryException
+     * @throws Exception
+     * @throws InvalidRequestException
+     */
     public function send(EmailInterface $email)
     {
         try {
@@ -133,11 +145,6 @@ class Mandrill implements MailerInterface
                 $this->logger->info("Email error: '{$e->getMessage()}'", $email->toArray());
             }
             throw $e;
-        } catch (\Mandrill_Error $e) {
-            if ($this->logger) {
-                $this->logger->info("Email error: '{$e->getMessage()}'", $email->toArray());
-            }
-            throw new InvalidRequestException($e->getMessage(), 601, $e);
         }
     }
 

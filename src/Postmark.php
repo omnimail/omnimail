@@ -45,6 +45,13 @@ class Postmark implements MailerInterface
         $this->logger = $logger;
     }
 
+    /**
+     * @param EmailInterface $email
+     * @throws EmailDeliveryException
+     * @throws Exception
+     * @throws InvalidRequestException
+     * @throws UnauthorizedException
+     */
     public function send(EmailInterface $email)
     {
         try {

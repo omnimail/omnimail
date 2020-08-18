@@ -8,9 +8,10 @@
 
 namespace Omnimail\Common\Responses;
 
+use arrayObject;
 use Omnimail\Common\Helper;
 
-abstract class BaseResponse extends \arrayObject
+abstract class BaseResponse extends arrayObject
 {
 
     /**

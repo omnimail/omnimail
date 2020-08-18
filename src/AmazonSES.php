@@ -71,7 +71,7 @@ class AmazonSES extends AbstractMailer implements MailerInterface
     }
 
     /**
-     * @return null|\Psr\Log\LoggerInterface
+     * @return null|LoggerInterface
      */
     public function getLogger()
     {
@@ -79,7 +79,7 @@ class AmazonSES extends AbstractMailer implements MailerInterface
     }
 
     /**
-     * @param null|\Psr\Log\LoggerInterface $logger
+     * @param null|LoggerInterface $logger
      */
     public function setLogger($logger)
     {
@@ -135,8 +135,15 @@ class AmazonSES extends AbstractMailer implements MailerInterface
      * @param LoggerInterface|null $logger
      * @param string $signatureVersion
      */
-    public function __construct($accessKey = null, $secretKey = null, $host = self::AWS_US_EAST_1, $verifyPeer = true, $verifyHost = true, LoggerInterface $logger = null, $signatureVersion = SimpleEmailService::REQUEST_SIGNATURE_V4)
-    {
+    public function __construct(
+        $accessKey = null,
+        $secretKey = null,
+        $host = self::AWS_US_EAST_1,
+        $verifyPeer = true,
+        $verifyHost = true,
+        LoggerInterface $logger = null,
+        $signatureVersion = SimpleEmailService::REQUEST_SIGNATURE_V4
+    ) {
         $this->verifyPeer = $verifyPeer;
         $this->verifyHost = $verifyHost;
         $this->accessKey = $accessKey;
@@ -146,6 +153,10 @@ class AmazonSES extends AbstractMailer implements MailerInterface
         $this->signatureVersion = $signatureVersion;
     }
 
+    /**
+     * @param EmailInterface $email
+     * @throws Exception
+     */
     public function send(EmailInterface $email)
     {
         $m = new SimpleEmailServiceMessage();
@@ -216,7 +227,7 @@ class AmazonSES extends AbstractMailer implements MailerInterface
 
     /**
      * @param array $emails
-     * @return string
+     * @return array
      */
     private function mapEmails(array $emails)
     {

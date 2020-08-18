@@ -8,6 +8,8 @@
 
 namespace Omnimail\Common\Requests;
 
+use Omnimail\Common\Responses\BaseResponse;
+
 /**
  * Interface RequestInterface
  *
@@ -19,7 +21,7 @@ interface RequestInterface
     /**
      * Get a response object, based on the properties that have been set.
      *
-     * @return \Omnimail\Common\Responses\BaseResponse
+     * @return BaseResponse
      */
     public function getResponse();
 

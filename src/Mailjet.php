@@ -59,6 +59,10 @@ class Mailjet implements MailerInterface
         $this->mailjet = new Client($apikey, $apisecret);
     }
 
+    /**
+     * @param EmailInterface $email
+     * @throws InvalidRequestException
+     */
     public function send(EmailInterface $email)
     {
         $from = $email->getFrom();

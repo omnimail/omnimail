@@ -2,7 +2,6 @@
 
 namespace Omnimail\Tests;
 
-use Omnimail\Exception\Exception;
 use Omnimail\Email;
 use Omnimail\Mandrill;
 
@@ -10,7 +9,7 @@ class MandrillTest extends BaseTestClass
 {
     public function testErrorMessageIsThrownWithIncorrectDetails()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(\Mandrill_Invalid_Key::class);
 
         $apiKey = 'apikey';
 
