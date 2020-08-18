@@ -1,4 +1,4 @@
-<p align="center"><img width="320"src="https://cdn.rawgit.com/gabrielbull/omnimail/master/omnimail-logo.svg"></p>
+<p align="center"><img width="320" src="https://raw.githubusercontent.com/omnimail/omnimail/development/omnimail-logo.svg"></p>
 
 <p align="center">
   <a href="https://travis-ci.org/gabrielbull/omnimail"><img src="https://img.shields.io/travis/gabrielbull/omnimail.svg?style=flat-square" alt="Build Status"></a>
@@ -6,9 +6,8 @@
   <a href="https://scrutinizer-ci.com/g/gabrielbull/omnimail/?branch=master"><img src="https://img.shields.io/scrutinizer/g/gabrielbull/omnimail.svg?style=flat-square" alt="Scrutinizer Code Quality"></a>
   <a href="https://scrutinizer-ci.com/g/gabrielbull/omnimail/?branch=master"><img src="https://img.shields.io/scrutinizer/coverage/g/gabrielbull/omnimail.svg?style=flat-square" alt="Code Coverage"></a>
   <a href="https://packagist.org/packages/omnimail/omnimail"><img src="https://img.shields.io/packagist/v/omnimail/omnimail.svg?style=flat-square" alt="Latest Stable Version"></a>
+  <a href="https://gitter.im/omnimail/omnimail"><img src="https://badges.gitter.im/omnimail/omnimail.svg" alt="Join the chat at https://gitter.im/omnimail/omnimail"></a>
 </p>
-
-[![Join the chat at https://gitter.im/omnimail/omnimail](https://badges.gitter.im/omnimail/omnimail.svg)](https://gitter.im/omnimail/omnimail?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Send email across all platforms using one interface.
 
