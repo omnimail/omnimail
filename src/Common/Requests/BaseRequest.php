@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: emcnaughton
- * Date: 5/4/17
- * Time: 7:34 AM
- */
 
 namespace Omnimail\Common\Requests;
 

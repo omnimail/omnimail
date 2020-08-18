@@ -2,6 +2,8 @@
 
 namespace Omnimail\Utils;
 
+use Exception;
+
 class Token
 {
     /**
@@ -106,7 +108,7 @@ class Token
      * @param string $characters
      * @param int $length
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     private static function make($characters, $length)
     {
