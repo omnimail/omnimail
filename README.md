@@ -43,7 +43,7 @@
 <a name="requirements"></a>
 ## Requirements
 
-This library uses PHP 5.5+.
+This library uses PHP 5.6 and greater version.
 
 <a name="installation"></a>
 ## Installation
