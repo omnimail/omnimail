@@ -8,6 +8,8 @@
   <a href="https://packagist.org/packages/omnimail/omnimail"><img src="https://img.shields.io/packagist/v/omnimail/omnimail.svg?style=flat-square" alt="Latest Stable Version"></a>
 </p>
 
+[![Join the chat at https://gitter.im/omnimail/omnimail](https://badges.gitter.im/omnimail/omnimail.svg)](https://gitter.im/omnimail/omnimail?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Send email across all platforms using one interface.
 
 ### Table Of Content
