@@ -486,7 +486,7 @@ __getMailings__
         sleep(15);
       }
       else {
-        foreach (\Omnimail\Responses\MailingsResponse $mailings as \Omnimail\Responses\Mailing $mailing) {
+        foreach (\Omnimail\Common\Responses\BaseResponse $mailings as \Omnimail\Common\Responses\Mailing $mailing) {
 
            $detail => array(
              'subject' => $mailing→getSubject(),

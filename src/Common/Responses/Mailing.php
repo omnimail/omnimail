@@ -6,7 +6,7 @@
  * Time: 7:34 AM
  */
 
-namespace Omnimail\Responses;
+namespace Omnimail\Common\Responses;
 
 use Omnimail\Exception\InvalidRequestException;
 
