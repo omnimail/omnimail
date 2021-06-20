@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## 0.4.0 (2021-06-19)
+ - Fix psr-4 issue in Common\Responses\Mailing
+ - PHPMailer SMTPDebug should be disabled by default
+ - Code re-factoring and re-organized
+ - CI Improvement & Automation
+ - scrutinizer, travis and styleCI removed
+ - PHP Version bumped from 5.5 to 5.6
+
+## 0.3.5 / 0.3.5.1 (2020-08-17)
+ - Fixed AmazonSES error
+
+## 0.3.4 (2020-05-03)
+ - Attachment support added in SMTP provider
+
+## 0.3.3 (2019-10-12)
+ - SMTP & Gmail provider added
+
+## 0.3.2 (2018-09-28)
+ - Fix Mandrill class's subject and response problems
+
 ## 0.3.1 (2018-01-05)
 
  - Fixed issue with SendinBlue
