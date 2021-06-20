@@ -86,7 +86,8 @@ abstract class AbstractMailer implements MailerInterface
     protected function createRequest($class, array $parameters)
     {
         if (!isset($parameters['credentials'])) {
-            $parameters['credentials'] = new Credentials(array_intersect_key($this->getCredentialFields(), $parameters));
+            $creds = array_intersect_key($this->getCredentialFields(), $parameters);
+            $parameters['credentials'] = new Credentials($creds);
         }
         return new $class($parameters);
     }
