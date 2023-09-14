@@ -49,7 +49,6 @@
     "suggest" : {
         "daniel-zahariev/php-aws-ses" : "Required if you use the AmazonSES sending system",
         "mailgun/mailgun-php" : "Required if you use the Mailgun sending system",
-        "php-http/guzzle6-adapter" : "Required if you use the Mailgun sending system",
         "mailjet/mailjet-apiv3-php" : "Required if you use the Mailjet sending system",
         "wildbit/postmark-php" : "Required if you use the Postmark sending system",
         "sendgrid/sendgrid" : "Required if you use the Sendgrid sending system",
