@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['5.6', '7.2', '7.3', '7.4']
+        php-versions: ['7.3', '7.4']
     # Running on multiple OS and on multiple PHP version
     name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
     steps:
