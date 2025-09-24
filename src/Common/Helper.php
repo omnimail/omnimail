@@ -68,7 +68,7 @@ class Helper
         if (!class_exists($fullyQualified)) {
             $fullyQualified = $fullyQualified . '\\Mailer';
             if (!class_exists($fullyQualified)) {
-                throw new Exception("Class '${className}' not found");
+                throw new Exception("Class '{$className}' not found");
             }
         }
 
