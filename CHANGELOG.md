@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.4.1 (2025-09-24)
+ - PHP minimum version bumped to 7.3
+ - Fix obsolete string interpolation
+ - Allow more recent versions of psr/log in dependencies
+ - Run CI on PHP 8 versions
+
 ## 0.4.0 (2021-06-19)
  - Fix psr-4 issue in Common\Responses\Mailing
  - PHPMailer SMTPDebug should be disabled by default
