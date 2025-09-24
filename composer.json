@@ -27,7 +27,7 @@
         "mailin-api/mailin-api-php": "^1.0",
         "mailjet/mailjet-apiv3-php": "^1.2",
         "php-http/guzzle6-adapter": "^1.1",
-        "phpunit/phpunit": "^5.7",
+        "phpunit/phpunit": "^9.6",
         "sendgrid/sendgrid": "^6.0",
         "wildbit/postmark-php": "^2.5",
         "phpmailer/phpmailer": "^6.1",
