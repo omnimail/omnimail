@@ -23,7 +23,7 @@
     },
     "require-dev" : {
         "daniel-zahariev/php-aws-ses": "^0.9.2",
-        "mailgun/mailgun-php": "^2.4",
+        "mailgun/mailgun-php": "^3.6",
         "mailin-api/mailin-api-php": "^1.0",
         "mailjet/mailjet-apiv3-php": "^1.2",
         "php-http/guzzle6-adapter": "^1.1",
