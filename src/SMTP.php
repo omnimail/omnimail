@@ -39,6 +39,11 @@ class SMTP implements MailerInterface
         if (isset($options['timeout'])) {
             $mailer->Timeout = $options['timeout'];
         }
+        if (isset($options['headers'])) {
+            foreach ($options['headers'] as $header => $value) {
+                $mailer->AddCustomHeader("$header: $value");
+            }
+        }
 
         $mailer->Port = !isset($options['port']) ? 587 : intval($options['port']);
         $this->processor = $mailer;
