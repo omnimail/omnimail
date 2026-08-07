@@ -39,7 +39,7 @@ class Postmark implements MailerInterface
      * @param string $serverApiToken
      * @param LoggerInterface|null $logger
      */
-    public function __construct($serverApiToken = null, LoggerInterface $logger = null)
+    public function __construct($serverApiToken = null, ?LoggerInterface $logger = null)
     {
         $this->serverApiToken = $serverApiToken;
         $this->logger = $logger;
@@ -125,7 +125,7 @@ class Postmark implements MailerInterface
      * @param AttachmentInterface[] $attachments
      * @return array|null
      */
-    private function mapAttachments(array $attachments = null)
+    private function mapAttachments(?array $attachments = null)
     {
         if (null === $attachments || !is_array($attachments) || !count($attachments)) {
             return null;
