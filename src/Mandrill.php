@@ -56,7 +56,7 @@ class Mandrill implements MailerInterface
      * @param LoggerInterface|null $logger
      * @throws Mandrill_Error
      */
-    public function __construct($apiKey = null, $ipPool = null, LoggerInterface $logger = null)
+    public function __construct($apiKey = null, $ipPool = null, ?LoggerInterface $logger = null)
     {
         $this->apiKey = $apiKey;
         $this->ipPool = $ipPool;

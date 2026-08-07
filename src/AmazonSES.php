@@ -141,7 +141,7 @@ class AmazonSES extends AbstractMailer implements MailerInterface
         $host = self::AWS_US_EAST_1,
         $verifyPeer = true,
         $verifyHost = true,
-        LoggerInterface $logger = null,
+        ?LoggerInterface $logger = null,
         $signatureVersion = SimpleEmailService::REQUEST_SIGNATURE_V4
     ) {
         $this->verifyPeer = $verifyPeer;

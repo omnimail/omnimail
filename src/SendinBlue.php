@@ -36,7 +36,7 @@ class SendinBlue implements MailerInterface
      * @param string $accessKey
      * @param LoggerInterface|null $logger
      */
-    public function __construct($accessKey = null, LoggerInterface $logger = null)
+    public function __construct($accessKey = null, ?LoggerInterface $logger = null)
     {
         $this->accessKey = $accessKey;
         $this->logger = $logger;
@@ -94,7 +94,7 @@ class SendinBlue implements MailerInterface
      * @param AttachmentInterface[] $attachments
      * @return array|null
      */
-    private function mapAttachments(array $attachments = null)
+    private function mapAttachments(?array $attachments = null)
     {
         if (null === $attachments || !is_array($attachments) || !count($attachments)) {
             return null;
@@ -123,7 +123,7 @@ class SendinBlue implements MailerInterface
      * @param AttachmentInterface[] $attachments
      * @return array|null
      */
-    private function mapInlineImages(array $attachments = null)
+    private function mapInlineImages(?array $attachments = null)
     {
         if (null === $attachments || !is_array($attachments) || !count($attachments)) {
             return null;
@@ -152,7 +152,7 @@ class SendinBlue implements MailerInterface
      * @param array|null $emails
      * @return array|null
      */
-    private function mapEmails(array $emails = null)
+    private function mapEmails(?array $emails = null)
     {
         if (null === $emails || !is_array($emails) || !count($emails)) {
             return null;
