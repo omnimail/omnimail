@@ -32,8 +32,8 @@ class Mailgun implements MailerInterface
     public function __construct(
         $apiKey = null,
         $domain = null,
-        LoggerInterface $logger = null,
-        HttpClient $httpClient = null
+        ?LoggerInterface $logger = null,
+        ?HttpClient $httpClient = null
     ) {
         $this->apiKey = $apiKey;
         $this->domain = $domain;
