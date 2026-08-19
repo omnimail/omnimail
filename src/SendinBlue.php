@@ -65,7 +65,13 @@ class SendinBlue implements MailerInterface
             'inline_image' => $this->mapInlineImages($email->getAttachments())
         ];
 
-        $response = $mailin->send_email($data);
+        try {
+            $response = $mailin->send_email($data);
+        } catch (Exception $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode(), $e);
+        }
         if ($response && $response['code'] && $response['code'] === 'success') {
             if ($this->logger) {
                 $this->logger->info("Email sent: '{$email->getSubject()}'", $email->toArray());
