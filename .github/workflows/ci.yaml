@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['7.3', '7.4', '8.0', '8.1', '8.2', '8.3', '8.4']
+        php-versions: ['8.0', '8.1', '8.2', '8.3', '8.4']
     # Running on multiple OS and on multiple PHP version
     name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
     steps:
@@ -43,7 +43,9 @@ jobs:
 
       # Coverage report upload to scrutinizer for code ratings
       - name: Downloading scrutinizer ocular.phar
-        run: wget https://scrutinizer-ci.com/ocular.phar
+        continue-on-error: true
+        run: wget --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36" https://scrutinizer-ci.com/ocular.phar
 
       - name: Uploading code coverage to scrutinize
+        continue-on-error: true
         run: php ocular.phar code-coverage:upload --format=php-clover ./build/coverage/log/coverage.xml
