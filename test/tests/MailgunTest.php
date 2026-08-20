@@ -17,7 +17,7 @@ class MailgunTest extends BaseTestClass
         $domain = 'domain';
 
         $mock = new MockHandler([
-            new Response(200, [], '{
+            new Response(200, ['Content-Type' => 'application/json'], '{
               "message": "Queued. Thank you.",
               "id": "<20111114174239.25659.5817@samples.mailgun.org>"
             }'),
@@ -35,7 +35,7 @@ class MailgunTest extends BaseTestClass
 
         $sender->send($email);
 
-        $this->assertEquals('https://api.mailgun.net/v2/domain/messages', $mock->getLastRequest()->getUri());
+        $this->assertEquals('https://api.mailgun.net/v3/domain/messages', $mock->getLastRequest()->getUri());
         $this->assertEquals('POST', $mock->getLastRequest()->getMethod());
 
         $dataToCheck = [
@@ -48,7 +48,7 @@ class MailgunTest extends BaseTestClass
         $requestContent = $mock->getLastRequest()->getBody()->getContents();
 
         foreach ($dataToCheck as $data) {
-            $this->assertContains($data, $requestContent);
+            $this->assertStringContainsString($data, $requestContent);
         }
     }
 

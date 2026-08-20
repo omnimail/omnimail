@@ -16,7 +16,7 @@ if (class_exists('\PHPUnit_Framework_TestCase') && stripos(phpversion(), '5') ==
 } elseif (class_exists('\PHPUnit\Framework\TestCase')) {
     class BaseTestClass extends TestCase
     {
-        public function expectException($exception)
+        public function expectException($exception): void
         {
             if (is_callable('parent::expectException')) {
                 parent::expectException($exception);

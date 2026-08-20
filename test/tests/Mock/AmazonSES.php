@@ -18,8 +18,8 @@ class AmazonSES extends Base
         $accessKey,
         $secretKey,
         $host = self::AWS_US_EAST_1,
-        LoggerInterface $logger = null,
-        HandlerStack $handler = null
+        ?LoggerInterface $logger = null,
+        ?HandlerStack $handler = null
     ) {
         parent::__construct($accessKey, $secretKey, $host, $logger);
     }

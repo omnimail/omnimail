@@ -2,6 +2,7 @@
 
 namespace Omnimail;
 
+use Omnimail\Exception\Exception;
 use Omnimail\Exception\InvalidRequestException;
 use Omnimail\Exception\UnauthorizedException;
 use Psr\Log\LoggerInterface;
@@ -41,7 +42,7 @@ class Sendgrid implements MailerInterface
      * @param string $apiKey
      * @param LoggerInterface|null $logger
      */
-    public function __construct($apiKey = null, LoggerInterface $logger = null)
+    public function __construct($apiKey = null, ?LoggerInterface $logger = null)
     {
         $this->apiKey = $apiKey;
         $this->logger = $logger;
@@ -116,7 +117,13 @@ class Sendgrid implements MailerInterface
 
         $mail->addPersonalization($personalization);
         $sg = new \SendGrid($this->apiKey);
-        $response = $sg->client->mail()->send()->post($mail);
+        try {
+            $response = $sg->client->mail()->send()->post($mail);
+        } catch (Exception $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode(), $e);
+        }
 
         if ($response->statusCode() >= 200 && $response->statusCode() < 300) {
             if ($this->logger) {

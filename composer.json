@@ -16,24 +16,25 @@
     ],
     "license" : "MIT",
     "require" : {
-        "php" : ">=7.3",
+        "php" : ">=8.0",
         "ext-json": "*",
         "php-http/httplug": "^1.1|2.*",
         "psr/log": "^1.1 || ^2.0 || ^3.0"
     },
     "require-dev" : {
         "daniel-zahariev/php-aws-ses": "^0.9.2",
-        "mailgun/mailgun-php": "^2.4",
+        "mailgun/mailgun-php": "^3.0",
         "mailin-api/mailin-api-php": "^1.0",
         "mailjet/mailjet-apiv3-php": "^1.2",
-        "php-http/guzzle6-adapter": "^1.1",
-        "phpunit/phpunit": "^5.7",
+        "php-http/guzzle6-adapter": "*",
+        "phpunit/phpunit": "^9",
         "sendgrid/sendgrid": "^6.0",
         "wildbit/postmark-php": "^2.5",
         "phpmailer/phpmailer": "^6.1",
         "squizlabs/php_codesniffer": "^3.5",
         "phpcompatibility/php-compatibility": "^9.3",
-        "friendsofphp/php-cs-fixer": "^2.16"
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "http-interop/http-factory-guzzle": "^1.2"
     },
     "autoload" : {
         "psr-4" : {
@@ -62,5 +63,10 @@
         "test-phpcs": "./vendor/bin/phpcs src/",
         "fix-phpcs": "./vendor/bin/phpcbf src/",
         "phpunit": "./vendor/bin/phpunit --configuration=phpunit.xml.dist"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     }
 }

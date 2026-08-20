@@ -4,13 +4,15 @@ namespace Omnimail;
 
 use Http\Client\HttpClient;
 use Mailgun\Messages\Exceptions\InvalidParameter;
-use Mailgun\Messages\MessageBuilder;
+use Mailgun\Message\MessageBuilder;
 use Omnimail\Exception\EmailDeliveryException;
 use Omnimail\Exception\Exception;
 use Omnimail\Exception\InvalidRequestException;
 use Omnimail\Exception\UnauthorizedException;
 use Psr\Log\LoggerInterface;
 use Mailgun\Mailgun as MailgunAPI;
+use Mailgun\HttpClient\HttpClientConfigurator;
+use GuzzleHttp\Client;
 
 class Mailgun implements MailerInterface
 {
@@ -30,14 +32,36 @@ class Mailgun implements MailerInterface
     public function __construct(
         $apiKey = null,
         $domain = null,
-        LoggerInterface $logger = null,
-        HttpClient $httpClient = null
+        ?LoggerInterface $logger = null,
+        ?HttpClient $httpClient = null
     ) {
         $this->apiKey = $apiKey;
         $this->domain = $domain;
         $this->logger = $logger;
+        if (!$httpClient) {
+            $httpClient = new Client(['handler' => \GuzzleHttp\HandlerStack::create(new \GuzzleHttp\Handler\CurlHandler())]);
+        }
         $this->httpClient = $httpClient;
-        $this->mailgun = new MailgunAPI($this->apiKey, $this->httpClient);
+        $configurator = (new HttpClientConfigurator())->setApiKey((string) $this->apiKey);
+        if ($this->httpClient) {
+            $psr18Client = $this->httpClient instanceof \Psr\Http\Client\ClientInterface
+                ? $this->httpClient
+                : new class($this->httpClient) implements \Psr\Http\Client\ClientInterface {
+                    private $client;
+                    public function __construct($client)
+                    {
+                        $this->client = $client;
+                    }
+                    public function sendRequest(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
+                    {
+                        return method_exists($this->client, 'sendRequest')
+                            ? $this->client->sendRequest($request)
+                            : $this->client->send($request);
+                    }
+                };
+            $configurator->setHttpClient($psr18Client);
+        }
+        $this->mailgun = new MailgunAPI($configurator);
     }
 
     public function getApiKey()
@@ -92,7 +116,7 @@ class Mailgun implements MailerInterface
     public function send(EmailInterface $email)
     {
         try {
-            $builder = $this->mailgun->MessageBuilder();
+            $builder = new MessageBuilder();
 
             if ($email->getTos()) {
                 foreach ($email->getTos() as $recipient) {
@@ -135,24 +159,7 @@ class Mailgun implements MailerInterface
                 $this->mapInlineAttachments($email->getAttachments(), $builder);
             }
 
-            $result = $this->mailgun->post(
-                "{$this->domain}/messages",
-                $builder->getMessage(),
-                $builder->getFiles()
-            );
-
-            switch ($result->http_response_code) {
-                case 200:
-                    break;
-                case 400:
-                    throw new InvalidRequestException;
-                case 401:
-                    throw new UnauthorizedException;
-                case 402:
-                    throw new EmailDeliveryException;
-                default:
-                    throw new Exception('Unknown error', 603);
-            }
+            $this->mailgun->messages()->send($this->domain, $builder->getMessage());
 
             if ($this->logger) {
                 $this->logger->info("Email sent: '{$email->getSubject()}'", $email->toArray());

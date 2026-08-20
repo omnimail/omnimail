@@ -3,6 +3,7 @@
 namespace Omnimail;
 
 use Omnimail\Exception\InvalidRequestException;
+use Psr\Http\Client\ClientInterface;
 use Psr\Log\LoggerInterface;
 use Mailjet\Resources;
 use Mailjet\Client;
@@ -13,6 +14,7 @@ class Mailjet implements MailerInterface
     private $apisecret;
     private $logger;
     private $mailjet;
+    private $httpClient;
 
     public function getApiKey()
     {
@@ -22,7 +24,7 @@ class Mailjet implements MailerInterface
     public function setApiKey($apikey)
     {
         $this->apikey = $apikey;
-        $this->mailjet = new Client($apikey, $this->apisecret);
+        $this->mailjet = new Client($apikey, $this->apisecret, true, [], $this->httpClient);
     }
 
     public function getApiSecret()
@@ -33,7 +35,7 @@ class Mailjet implements MailerInterface
     public function setApiSecret($apisecret)
     {
         $this->apisecret = $apisecret;
-        $this->mailjet = new Client($this->apikey, $apisecret);
+        $this->mailjet = new Client($this->apikey, $apisecret, true, [], $this->httpClient);
     }
 
     public function getLogger()
@@ -50,13 +52,15 @@ class Mailjet implements MailerInterface
      * @param string $apikey
      * @param string $apisecret
      * @param LoggerInterface|null $logger
+     * @param ClientInterface|null $httpClient PSR-18 HTTP client (auto-discovered by Mailjet\Client if null)
      */
-    public function __construct($apikey = null, $apisecret = null, LoggerInterface $logger = null)
+    public function __construct($apikey = null, $apisecret = null, ?LoggerInterface $logger = null, ?ClientInterface $httpClient = null)
     {
         $this->apikey = $apikey;
         $this->apisecret = $apisecret;
         $this->logger = $logger;
-        $this->mailjet = new Client($apikey, $apisecret);
+        $this->httpClient = $httpClient;
+        $this->mailjet = new Client($apikey, $apisecret, true, [], $httpClient);
     }
 
     /**
@@ -104,7 +108,6 @@ class Mailjet implements MailerInterface
             $body['Inline_attachments'] = $this->mapInlineAttachments($email->getAttachments());
         }
 
-        $this->mailjet->setTimeout(20);
         $response = $this->mailjet->post(Resources::$Email, ['body' => $body]);
 
         if ($response->success()) {
