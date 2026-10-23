@@ -24,7 +24,7 @@ class Mailjet implements MailerInterface
     public function setApiKey($apikey)
     {
         $this->apikey = $apikey;
-        $this->mailjet = new Client($apikey, $this->apisecret, true, [], $this->httpClient);
+        $this->mailjet = null;
     }
 
     public function getApiSecret()
@@ -35,7 +35,7 @@ class Mailjet implements MailerInterface
     public function setApiSecret($apisecret)
     {
         $this->apisecret = $apisecret;
-        $this->mailjet = new Client($this->apikey, $apisecret, true, [], $this->httpClient);
+        $this->mailjet = null;
     }
 
     public function getLogger()
@@ -60,7 +60,21 @@ class Mailjet implements MailerInterface
         $this->apisecret = $apisecret;
         $this->logger = $logger;
         $this->httpClient = $httpClient;
-        $this->mailjet = new Client($apikey, $apisecret, true, [], $httpClient);
+    }
+
+    /**
+     * Mailjet\Client requires a string api key, so it is built on first use rather
+     * than in the constructor (the Factory constructs with no arguments and then
+     * calls the setters).
+     *
+     * @return Client
+     */
+    private function getMailjet()
+    {
+        if (!$this->mailjet) {
+            $this->mailjet = new Client((string) $this->apikey, $this->apisecret, true, [], $this->httpClient);
+        }
+        return $this->mailjet;
     }
 
     /**
@@ -108,7 +122,7 @@ class Mailjet implements MailerInterface
             $body['Inline_attachments'] = $this->mapInlineAttachments($email->getAttachments());
         }
 
-        $response = $this->mailjet->post(Resources::$Email, ['body' => $body]);
+        $response = $this->getMailjet()->post(Resources::$Email, ['body' => $body]);
 
         if ($response->success()) {
             if ($this->logger) {

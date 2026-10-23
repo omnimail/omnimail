@@ -91,12 +91,13 @@ $mailer->send($email);
 
 #### Installation
 
-To use the Mailgun mailer class, you will need to install the `mailgun/mailgun-php` library using composer. You do also 
-need to install a HTTP client that sends messages. You can use any client that provided the virtual package
-[php-http/client-implementation](https://packagist.org/providers/php-http/client-implementation)
+To use the Mailgun mailer class, you will need to install the `mailgun/mailgun-php` library (3.x) using composer. You do also 
+need to install a PSR-18 HTTP client and PSR-17 HTTP factories, which Mailgun will discover automatically. You can use any
+packages that provide [psr/http-client-implementation](https://packagist.org/providers/psr/http-client-implementation) and
+[psr/http-factory-implementation](https://packagist.org/providers/psr/http-factory-implementation). Guzzle 7 provides both:
 
 ```
-composer require mailgun/mailgun-php php-http/guzzle6-adapter
+composer require mailgun/mailgun-php guzzlehttp/guzzle
 ```
 
 #### Usage

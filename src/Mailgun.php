@@ -3,7 +3,6 @@
 namespace Omnimail;
 
 use Http\Client\HttpClient;
-use Mailgun\Messages\Exceptions\InvalidParameter;
 use Mailgun\Message\MessageBuilder;
 use Omnimail\Exception\EmailDeliveryException;
 use Omnimail\Exception\Exception;
@@ -12,7 +11,6 @@ use Omnimail\Exception\UnauthorizedException;
 use Psr\Log\LoggerInterface;
 use Mailgun\Mailgun as MailgunAPI;
 use Mailgun\HttpClient\HttpClientConfigurator;
-use GuzzleHttp\Client;
 
 class Mailgun implements MailerInterface
 {
@@ -21,27 +19,32 @@ class Mailgun implements MailerInterface
     protected $mailgun;
     protected $logger;
     protected $httpClient;
-    protected $tmpfiles = [];
 
     /**
      * @param string $apiKey
      * @param string $domain
      * @param LoggerInterface|null $logger
-     * @param HttpClient $httpClient
+     * @param HttpClient|\Psr\Http\Client\ClientInterface|null $httpClient
+     *   httplug or PSR-18 client. If null, Mailgun discovers an installed PSR-18 client.
      */
     public function __construct(
         $apiKey = null,
         $domain = null,
         ?LoggerInterface $logger = null,
-        ?HttpClient $httpClient = null
+        $httpClient = null
     ) {
         $this->apiKey = $apiKey;
         $this->domain = $domain;
         $this->logger = $logger;
-        if (!$httpClient) {
-            $httpClient = new Client(['handler' => \GuzzleHttp\HandlerStack::create(new \GuzzleHttp\Handler\CurlHandler())]);
-        }
         $this->httpClient = $httpClient;
+        $this->buildMailgun();
+    }
+
+    /**
+     * (Re)create the Mailgun API client from the current api key and http client.
+     */
+    private function buildMailgun()
+    {
         $configurator = (new HttpClientConfigurator())->setApiKey((string) $this->apiKey);
         if ($this->httpClient) {
             $psr18Client = $this->httpClient instanceof \Psr\Http\Client\ClientInterface
@@ -72,7 +75,7 @@ class Mailgun implements MailerInterface
     public function setApiKey($apiKey)
     {
         $this->apiKey = $apiKey;
-        $this->mailgun = new MailgunAPI($this->apiKey, $this->httpClient);
+        $this->buildMailgun();
     }
 
     public function getDomain()
@@ -103,7 +106,7 @@ class Mailgun implements MailerInterface
     public function setHttpClient($httpClient)
     {
         $this->httpClient = $httpClient;
-        $this->mailgun = new MailgunAPI($this->apiKey, $this->httpClient);
+        $this->buildMailgun();
     }
 
     /**
@@ -154,12 +157,12 @@ class Mailgun implements MailerInterface
                 $builder->setHtmlBody($email->getHtmlBody());
             }
 
+            $message = $builder->getMessage();
             if ($email->getAttachments()) {
-                $this->mapAttachments($email->getAttachments(), $builder);
-                $this->mapInlineAttachments($email->getAttachments(), $builder);
+                $message = $this->mapAttachments($email->getAttachments(), $message);
             }
 
-            $this->mailgun->messages()->send($this->domain, $builder->getMessage());
+            $this->mailgun->messages()->send($this->domain, $message);
 
             if ($this->logger) {
                 $this->logger->info("Email sent: '{$email->getSubject()}'", $email->toArray());
@@ -174,8 +177,6 @@ class Mailgun implements MailerInterface
                 $this->logger->error("Email error: '{$e->getMessage()}'", $email->toArray());
             }
             throw new Exception($e->getMessage(), $e->getCode(), $e);
-        } finally {
-            $this->removeTmpfiles();
         }
     }
 
@@ -202,65 +203,27 @@ class Mailgun implements MailerInterface
     }
 
     /**
-     * @param AttachmentInterface[]|array|null $attachments
-     * @param MessageBuilder $builder
-     * @return array|null
+     * Add attachments to the message array in the format Mailgun's
+     * Message::send() expects, using fileContent for in-memory attachments.
+     *
+     * @param AttachmentInterface[] $attachments
+     * @param array $message
+     * @return array
      */
-    private function mapAttachments(array $attachments, MessageBuilder $builder)
+    private function mapAttachments(array $attachments, array $message)
     {
         foreach ($attachments as $attachment) {
-            if ($attachment->getContentId()) {
-                continue;
-            }
+            // Mailgun uses the filename of an inline part as its Content-ID
+            $field = $attachment->getContentId() ? 'inline' : 'attachment';
+            $filename = $attachment->getContentId() ?: $attachment->getName();
 
             if ($attachment->getPath()) {
-                $file = $attachment->getPath();
+                $message[$field][] = ['filePath' => $attachment->getPath(), 'filename' => $filename];
             } elseif ($attachment->getContent()) {
-                $this->addTmpfile($file = tmpfile());
-                fwrite($file, $attachment->getContent());
-            } else {
-                continue;
+                $message[$field][] = ['fileContent' => $attachment->getContent(), 'filename' => $filename];
             }
-            $builder->addAttachment($file, $attachment->getName());
         }
 
-        return null;
-    }
-
-    private function addTmpfile($file)
-    {
-        $this->tmpfiles[] = $file;
-    }
-
-    /**
-     * @param AttachmentInterface[]|array|null $attachments
-     * @param MessageBuilder $builder
-     * @return void
-     * @throws InvalidParameter
-     */
-    private function mapInlineAttachments(array $attachments, MessageBuilder $builder)
-    {
-        foreach ($attachments as $attachment) {
-            if (!$attachment->getContentId()) {
-                continue;
-            }
-
-            if ($attachment->getPath()) {
-                $file = $attachment->getPath();
-            } elseif ($attachment->getContent()) {
-                $this->addTmpfile($file = tmpfile());
-                fwrite($file, $attachment->getContent());
-            } else {
-                continue;
-            }
-            $builder->addInlineImage($file, $attachment->getContentId());
-        }
-    }
-
-    private function removeTmpfiles()
-    {
-        foreach ($this->tmpfiles as $file) {
-            fclose($file);
-        }
+        return $message;
     }
 }

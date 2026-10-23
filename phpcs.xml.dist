@@ -12,8 +12,8 @@
 
     <rule ref="PSR2"/>
 
-    <!-- Check for cross-version support for PHP 8.0 and higher (matches composer.json's "php": ">=8.0"). -->
-    <config name="testVersion" value="8.0-"/>
+    <!-- Check for cross-version support for PHP 8.1 and higher (matches composer.json's "php": ">=8.1"). -->
+    <config name="testVersion" value="8.1-"/>
 
     <!-- Run against the PHPCompatibility ruleset -->
     <rule ref="PHPCompatibility"/>
