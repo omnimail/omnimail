@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## 0.5.0 (2026-10-25)
+ - PHP minimum version bumped to 8.1
+ - Mailgun mailer now requires `mailgun/mailgun-php` 3.x, plus a PSR-18 HTTP client and PSR-17 factories
+   (e.g. `guzzlehttp/guzzle` 7), which are discovered automatically if no client is passed
+ - Mailgun API errors are now thrown as `Omnimail\Exception\Exception` rather than
+   `InvalidRequestException` / `UnauthorizedException` / `EmailDeliveryException`
+ - Mailjet no longer sets a 20 second request timeout; configure it on the HTTP client instead
+ - Mailgun constructor accepts an httplug or PSR-18 HTTP client
+ - Mailjet constructor accepts an optional PSR-18 HTTP client (requires `mailjet/mailjet-apiv3-php` 1.6.7+)
+ - Fix `Omnimail::create()` and the `setApiKey()` / `setHttpClient()` setters for Mailgun
+ - Fix `Omnimail::create()` for Mailjet
+ - Fix Mailgun attachments created from content
+ - Fix Mailgun error on a second `send()` with attachments
+ - Sendgrid and SendinBlue errors are thrown as `Omnimail\Exception\Exception`
+ - PHP 8.4 compatibility: explicit nullable typed parameters
+ - Run CI on PHP 8.1 - 8.4
+
 ## 0.4.1 (2025-09-24)
  - PHP minimum version bumped to 7.3
  - Fix obsolete string interpolation

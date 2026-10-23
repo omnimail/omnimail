@@ -17,7 +17,7 @@ class Mailgun extends Base
      * @param LoggerInterface|null $logger
      * @param MockHandler|null $logger
      */
-    public function __construct($apiKey, $domain, LoggerInterface $logger = null, HandlerStack $handler = null)
+    public function __construct($apiKey, $domain, ?LoggerInterface $logger = null, ?HandlerStack $handler = null)
     {
         if (is_null($handler)) {
             $client = new AdapterClient();

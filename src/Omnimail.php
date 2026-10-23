@@ -59,7 +59,7 @@ class Omnimail
      * Set the Mailer factory
      * @param Factory $factory A Factory instance
      */
-    public static function setFactory(Factory $factory = null)
+    public static function setFactory(?Factory $factory = null)
     {
         static::$factory = $factory;
     }
